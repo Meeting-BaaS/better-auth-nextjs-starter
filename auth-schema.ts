@@ -6,6 +6,12 @@ export const users = pgTable("users", {
     email: text("email").notNull().unique(),
     emailVerified: boolean("email_verified").notNull(),
     image: text("image"),
+    phone: text("phone"),
+    companyName: text("company_name"),
+    companySize: text("company_size"),
+    usagePlanned: text("usage_planned"),
+    botsWebhook: text("bots_webhook"),
+    botsApiKey: text("bots_api_key"),
     createdAt: timestamp("created_at").notNull(),
     updatedAt: timestamp("updated_at").notNull()
 })

@@ -2,16 +2,34 @@
     "$schema": "https://turbo.build/schema.json",
     "tasks": {
         "build": {
-            "dependsOn": ["^build"],
-            "outputs": [".next/**", "!.next/cache/**"]
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                ".next/**",
+                "!.next/cache/**"
+            ]
         },
         "check-types": {
-            "dependsOn": ["^check-types"]
+            "dependsOn": [
+                "^check-types"
+            ]
         },
         "dev": {
             "persistent": true,
             "cache": false
         }
     },
-    "globalEnv": ["BETTER_AUTH_SECRET", "DATABASE_URL"]
+    "globalEnv": [
+        "APP_URL",
+        "AUTH_COOKIE_PREFIX",
+        "BETTER_AUTH_SECRET",
+        "DATABASE_URL",
+        "GOOGLE_ID",
+        "GOOGLE_SECRET",
+        "RESEND_KEY",
+        "RESEND_FROM",
+        "DOMAIN",
+        "TRUSTED_ORIGINS"
+    ]
 }

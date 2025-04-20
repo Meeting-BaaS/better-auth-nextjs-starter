@@ -1,92 +1,119 @@
-# Better Auth Next.js Starter (App Router)
+# Meeting BaaS Auth
 
-[Demo](https://nextjs.better-auth-starter.com)
+A modern authentication system built with Next.js, featuring secure user management, session handling, and email verification capabilities.
 
-- [Pages Router](https://github.com/daveyplate/better-auth-nextjs-pages-starter)
-- [TanStack Start](https://github.com/daveyplate/better-auth-tanstack-starter)
+## Features
 
-## Installation
+- 🔐 Secure authentication with session management
+- 📧 Email verification system
+- 👤 User profile management
+- 📱 Responsive design
+- 🚀 Built with Next.js 15 and Turbopack
+- 🎨 Modern UI with Tailwind CSS and Radix UI components
 
-First, create a PostgreSQL Database then configure your environment variables.
+## Tech Stack
 
-You can generate a `BETTER_AUTH_SECRET` [here](https://www.better-auth.com/docs/installation#set-environment-variables).
-
-```bash
-BETTER_AUTH_SECRET=""
-DATABASE_URL=""
-```
-
-Then generate your schema and perform migrations with drizzle-kit.
-
-```bash
-npx @better-auth/cli generate
-npx drizzle-kit generate
-npx drizzle-kit migrate
-```
-
-- Twitter: [@daveycodez](https://x.com/daveycodez)
-
-☕️ [Buy me a coffee](https://buymeacoffee.com/daveycodez)
-
-## Features:
-
-[Better Auth](https://better-auth.com)
-
-[Better Auth UI](https://better-auth-ui.com)
-
-[Better Auth TanStack](https://github.com/daveyplate/better-auth-tanstack)
-
-[TanStack Query](https://tanstack.com/query)
-
-[shadcn/ui](https://ui.shadcn.com)
-
-[TailwindCSS](https://tailwindcss.com)
-
-[Drizzle ORM](https://orm.drizzle.team)
-
-[PostgreSQL](https://postgresql.org)
-
-[Biome](https://biomejs.dev)
-
-[Next.js](https://nextjs.org)
-
-[Turborepo](https://turbo.build)
-
-## Next.js
-
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+- **Framework**: Next.js 15.3.1
+- **Language**: TypeScript
+- **Database**: PostgreSQL with Drizzle ORM
+- **Styling**: Tailwind CSS 4.1.3
+- **UI Components**: Radix UI
+- **Form Handling**: React Hook Form with Zod validation
+- **Email**: React Email with Resend
+- **Authentication**: Better Auth
+- **State Management**: React 19
+- **Package Manager**: pnpm
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js (LTS version)
+- pnpm 10.6.5 or later
+- PostgreSQL database
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone [repository-url]
+   cd meeting-baas-auth
+   ```
+
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+3. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+   Fill in the required environment variables in `.env`
+
+4. Run database migrations:
+   ```bash
+   pnpm run migrate
+   ```
+
+### Development
+
+Start the development server:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `pnpm dev`: Start development server with Turbopack
+- `pnpm build`: Build the application for production
+- `pnpm start`: Start the production server
+- `pnpm lint`: Run Biome linter
+- `pnpm check-types`: Check TypeScript types
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+├── app/              # Next.js app directory
+├── components/       # Reusable UI components
+├── database/        # Database configuration and migrations
+├── email-templates/ # Email templates
+├── lib/            # Utility functions and shared logic
+├── migrations/     # Database migration files
+├── public/         # Static assets
+├── server/         # Server-side code
+└── styles/         # Global styles
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Authentication Flow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The application uses a secure authentication system with the following features:
 
-## Deploy on Vercel
+- Session-based authentication
+- Email verification
+- Password-based and OAuth authentication
+- Secure cookie handling
+- CORS protection for API routes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Database Schema
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The application uses the following main tables:
+
+- `users`: User profiles and company information
+- `sessions`: Active user sessions
+- `accounts`: Authentication provider accounts
+- `verifications`: Email verification tokens
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

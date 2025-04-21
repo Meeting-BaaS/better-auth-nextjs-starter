@@ -53,7 +53,8 @@ A modern authentication system built with Next.js, featuring secure user managem
 
 4. Run database migrations:
    ```bash
-   pnpm run migrate
+   npx drizzle-kit generate
+   npx drizzle-kit migrate
    ```
 
 ### Development

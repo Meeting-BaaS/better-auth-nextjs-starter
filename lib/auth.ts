@@ -30,6 +30,14 @@ export const auth = betterAuth({
     }),
     user: {
         additionalFields: {
+            firstName: {
+                type: "string",
+                nullable: true
+            },
+            lastName: {
+                type: "string",
+                nullable: true
+            },
             phone: {
                 type: "string",
                 nullable: true
@@ -53,6 +61,23 @@ export const auth = betterAuth({
             botsApiKey: {
                 type: "string",
                 nullable: true
+            }
+        }
+    },
+    databaseHooks: {
+        user: {
+            create: {
+                before: async (user, context) => {
+                    // Fix: manually set image to null, otherwise microsoft log in fails for new users
+                    return {
+                        data: {
+                            ...user,
+                            image: null,
+                            firstName: user.name.split(" ")[0],
+                            lastName: user.name.split(" ")[1]
+                        }
+                    }
+                }
             }
         }
     },

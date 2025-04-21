@@ -28,13 +28,56 @@ export const auth = betterAuth({
         usePlural: true,
         schema
     }),
-    emailAndPassword: {
-        enabled: true
+    user: {
+        additionalFields: {
+            phone: {
+                type: "string",
+                nullable: true
+            },
+            companyName: {
+                type: "string",
+                nullable: true
+            },
+            companySize: {
+                type: "string",
+                nullable: true
+            },
+            usagePlanned: {
+                type: "string",
+                nullable: true
+            },
+            botsWebhook: {
+                type: "string",
+                nullable: true
+            },
+            botsApiKey: {
+                type: "string",
+                nullable: true
+            }
+        }
     },
     socialProviders: {
         google: {
             clientId: process.env.GOOGLE_ID as string,
             clientSecret: process.env.GOOGLE_SECRET as string
+        },
+        microsoft: {
+            clientId: process.env.MICROSOFT_ID as string,
+            clientSecret: process.env.MICROSOFT_SECRET as string,
+            tenantId: process.env.MICROSOFT_TENANT_ID as string,
+            requireSelectAccount: true
+        },
+        zoom: {
+            clientId: process.env.ZOOM_ID as string,
+            clientSecret: process.env.ZOOM_SECRET as string
+        },
+        github: {
+            clientId: process.env.GITHUB_ID as string,
+            clientSecret: process.env.GITHUB_SECRET as string
+        },
+        gitlab: {
+            clientId: process.env.GITLAB_ID as string,
+            clientSecret: process.env.GITLAB_SECRET as string
         }
     },
     plugins: [

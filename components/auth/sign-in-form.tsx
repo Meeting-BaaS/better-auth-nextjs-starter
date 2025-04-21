@@ -12,11 +12,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { motion } from "motion/react"
 import { MagicLinkSchema } from "@/lib/validators"
-import { GoogleLogo } from "@/components/icons/google"
 import type { MagicLink } from "@/lib/validators"
 import { itemVariant } from "./sign-in"
-
-const MotionButton = motion.create(Button)
+import { SocialButton } from "./social-button"
+import { keyProviders, otherProviders } from "./providers"
 
 export default function SignInForm({
     redirectTo,
@@ -31,9 +30,9 @@ export default function SignInForm({
 
     const [magicLinkLoading, setMagicLinkLoading] = useState(false)
     const [magicLinkSent, setMagicLinkSent] = useState(false)
-    const [googleLoading, setGoogleLoading] = useState(false)
+    const [socialLoading, setSocialLoading] = useState<string | undefined>(undefined)
     const [callbackError, setCallbackError] = useState(error)
-    const loading = magicLinkLoading || googleLoading
+    const loading = magicLinkLoading || Boolean(socialLoading)
     const callbackURL = redirectTo || "/signed-in"
 
     const onSubmit = async (values: MagicLink) => {
@@ -61,20 +60,22 @@ export default function SignInForm({
         )
     }
 
-    const onGoogleSignIn = async () => {
+    const onProviderSignIn = async (
+        provider: "google" | "microsoft" | "github" | "gitlab" | "zoom"
+    ) => {
         await signIn.social(
             {
-                provider: "google",
+                provider,
                 callbackURL
             },
             {
                 onRequest: (ctx) => {
                     setMagicLinkSent(false)
-                    setGoogleLoading(true)
+                    setSocialLoading(provider)
                     setCallbackError(undefined)
                 },
                 onResponse: (ctx) => {
-                    setGoogleLoading(false)
+                    setSocialLoading(undefined)
                 },
                 onError: (ctx) => {
                     toast.error(ctx.error.message)
@@ -138,25 +139,40 @@ export default function SignInForm({
                     <span className="w-full border-t" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">Or</span>
+                    <span className="bg-background px-2 text-muted-foreground">
+                        Or continue with
+                    </span>
                 </div>
             </motion.div>
-            <MotionButton
-                size="lg"
-                className="flex w-full flex-row items-center justify-center gap-2 shadow-sm"
-                variant="outline"
-                disabled={loading}
-                onClick={onGoogleSignIn}
-                variants={itemVariant}
-            >
-                {googleLoading ? (
-                    <Loader2 className="size-4 animate-spin" />
-                ) : (
-                    <GoogleLogo size={20} />
-                )}
-
-                <span className="font-medium text-muted-foreground">Continue with Google</span>
-            </MotionButton>
+            <div className="flex flex-col gap-2">
+                <motion.div variants={itemVariant} className="flex flex-col gap-2 md:flex-row">
+                    {keyProviders.map((provider) => (
+                        <SocialButton
+                            key={provider.name}
+                            name={provider.name}
+                            title={provider.title}
+                            logo={provider.logo}
+                            loading={loading}
+                            socialLoading={socialLoading}
+                            onClick={() => onProviderSignIn(provider.name)}
+                        />
+                    ))}
+                </motion.div>
+                <motion.div variants={itemVariant} className="flex flex-col gap-2 md:flex-row">
+                    {otherProviders.map((provider) => (
+                        <SocialButton
+                            key={provider.name}
+                            name={provider.name}
+                            title={provider.title}
+                            logo={provider.logo}
+                            loading={loading}
+                            socialLoading={socialLoading}
+                            mobileTitle
+                            onClick={() => onProviderSignIn(provider.name)}
+                        />
+                    ))}
+                </motion.div>
+            </div>
         </div>
     )
 }

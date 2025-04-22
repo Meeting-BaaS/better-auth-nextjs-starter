@@ -1,9 +1,10 @@
 import { Loader2 } from "lucide-react"
 import { Button } from "../ui/button"
 import { cn } from "@/lib/utils"
+import type { ProviderName } from "./providers"
 
 interface SocialButtonProps {
-    name: "google" | "microsoft" | "github" | "gitlab" | "zoom"
+    name: ProviderName
     title: string
     logo: React.ReactNode
     loading: boolean
@@ -18,13 +19,17 @@ export const SocialButton = ({
     loading,
     socialLoading,
     primary,
+    className,
     ...props
 }: React.ComponentProps<"button"> & SocialButtonProps) => {
     return (
         <Button
-            className="grow shadow-sm"
+            className={cn("grow cursor-pointer shadow-sm", className)}
             variant={primary ? "default" : "outline"}
             disabled={loading}
+            type="submit"
+            name="provider"
+            value={name}
             {...props}
         >
             {socialLoading === name ? (

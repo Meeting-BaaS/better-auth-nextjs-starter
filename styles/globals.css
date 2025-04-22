@@ -2,20 +2,6 @@
 @import "tw-animate-css";
 @config "../tailwind.config.ts";
 
-:root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --foreground-rgb: 255, 255, 255;
-        --background-start-rgb: 0, 0, 0;
-        --background-end-rgb: 0, 0, 0;
-    }
-}
-
 @layer utilities {
     .text-balance {
         text-wrap: balance;
@@ -24,8 +10,8 @@
 
 @layer base {
     :root {
-        --background: 168, 29%, 97%;
-        --foreground: 240, 6%, 25%;
+        --background: 168 29% 97%;
+        --foreground: 240 6% 25%;
         --card: 0 0% 100%;
         --card-foreground: 240 10% 3.9%;
         --popover: 0 0% 100%;
@@ -60,19 +46,23 @@
         --sidebar-accent-foreground: 240 5.9% 10%;
         --sidebar-border: 220 13% 91%;
         --sidebar-ring: 217.2 91.2% 59.8%;
+        --microsoft-grey: 0 0% 45%;
+        --github-green: 132 59% 33%;
+        --gitlab-orange: 20 97% 57%;
+        --zoom-blue: 213 100% 59%;
     }
 
     .dark {
-        --background: 0, 0%, 17%;
-        --foreground: 0, 0%, 100%;
-        --card: 0, 0%, 17%;
-        --card-foreground: 0, 0%, 100%;
-        --popover: 0, 0%, 17%;
-        --popover-foreground: 0, 0%, 100%;
+        --background: 0 0% 17%;
+        --foreground: 0 0% 100%;
+        --card: 0 0% 17%;
+        --card-foreground: 0 0% 100%;
+        --popover: 0 0% 17%;
+        --popover-foreground: 0 0% 100%;
         --primary: 176 100% 43%;
-        --primary-foreground: 213, 16%, 27%;
+        --primary-foreground: 213 16% 27%;
         --secondary: 240 4.8% 95.9%;
-        --secondary-foreground: 0, 0%, 100%;
+        --secondary-foreground: 0 0% 100%;
         --muted: 173 8% 22%;
         --muted-foreground: 0 0% 65%;
         --accent: 173 8% 22%;

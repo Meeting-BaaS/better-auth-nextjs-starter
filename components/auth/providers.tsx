@@ -4,11 +4,14 @@ import { GitHubLogo } from "../icons/github"
 import { GitLabLogo } from "../icons/gitlab"
 import { ZoomLogo } from "../icons/zoom"
 
+export type ProviderName = "google" | "microsoft" | "github" | "gitlab" | "zoom"
+
 interface Provider {
-    name: "google" | "microsoft" | "github" | "gitlab" | "zoom"
+    name: ProviderName
     title: string
     logo: React.ReactNode
     primary?: boolean
+    className?: string
 }
 
 export const providers: Provider[] = [
@@ -21,21 +24,25 @@ export const providers: Provider[] = [
     {
         name: "microsoft",
         title: "Microsoft",
-        logo: <MicrosoftLogo />
+        logo: <MicrosoftLogo />,
+        className: "hover:bg-microsoft-grey"
     },
     {
         name: "github",
         title: "GitHub",
-        logo: <GitHubLogo />
+        logo: <GitHubLogo />,
+        className: "hover:bg-github-green"
     },
     {
         name: "gitlab",
         title: "GitLab",
-        logo: <GitLabLogo />
+        logo: <GitLabLogo />,
+        className: "hover:bg-gitlab-orange"
     },
     {
         name: "zoom",
         title: "Zoom",
-        logo: <ZoomLogo />
+        logo: <ZoomLogo />,
+        className: "hover:bg-zoom-blue"
     }
 ]

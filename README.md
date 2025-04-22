@@ -32,23 +32,27 @@ A modern authentication system built with Next.js, featuring secure user managem
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone [repository-url]
    cd meeting-baas-auth
    ```
 
 2. Install dependencies:
+
    ```bash
    pnpm install
    ```
 
 3. Set up environment variables:
+
    ```bash
    cp .env.example .env
    ```
    Fill in the required environment variables in `.env`
 
 4. Run database migrations:
+
    ```bash
    npx drizzle-kit generate
    npx drizzle-kit migrate
@@ -57,6 +61,7 @@ A modern authentication system built with Next.js, featuring secure user managem
 ### Development
 
 Start the development server:
+
 ```bash
 pnpm dev
 ```
@@ -73,7 +78,7 @@ The application will be available at `http://localhost:3000`
 
 ## Project Structure
 
-```
+```text
 ├── app/              # Next.js app directory
 ├── components/       # Reusable UI components
 ├── database/        # Database configuration and migrations

@@ -111,11 +111,6 @@
         background-color: hsl(var(--accent));
         color: hsl(var(--foreground));
     }
-
-    .dark ::selection {
-        background-color: hsl(var(--accent));
-        color: hsl(var(--foreground));
-    }
 }
 
 @media (prefers-reduced-motion: no-preference) {

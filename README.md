@@ -5,7 +5,6 @@ A modern authentication system built with Next.js, featuring secure user managem
 ## Features
 
 - 🔐 Secure authentication with session management
-- 📧 Email verification system
 - 👤 User profile management
 - 📱 Responsive design
 - 🚀 Built with Next.js 15 and Turbopack
@@ -18,8 +17,6 @@ A modern authentication system built with Next.js, featuring secure user managem
 - **Database**: PostgreSQL with Drizzle ORM
 - **Styling**: Tailwind CSS 4.1.3
 - **UI Components**: Radix UI
-- **Form Handling**: React Hook Form with Zod validation
-- **Email**: React Email with Resend
 - **Authentication**: Better Auth
 - **State Management**: React 19
 - **Package Manager**: pnpm
@@ -80,11 +77,9 @@ The application will be available at `http://localhost:3000`
 ├── app/              # Next.js app directory
 ├── components/       # Reusable UI components
 ├── database/        # Database configuration and migrations
-├── email-templates/ # Email templates
 ├── lib/            # Utility functions and shared logic
 ├── migrations/     # Database migration files
 ├── public/         # Static assets
-├── server/         # Server-side code
 └── styles/         # Global styles
 ```
 
@@ -93,8 +88,7 @@ The application will be available at `http://localhost:3000`
 The application uses a secure authentication system with the following features:
 
 - Session-based authentication
-- Email verification
-- Password-based and OAuth authentication
+- OAuth authentication
 - Secure cookie handling
 - CORS protection for API routes
 
@@ -102,9 +96,9 @@ The application uses a secure authentication system with the following features:
 
 The application uses the following main tables:
 
-- `users`: User profiles and company information
+- `accounts`: User profiles and company information
 - `sessions`: Active user sessions
-- `accounts`: Authentication provider accounts
+- `provider_accounts`: Authentication provider accounts
 - `verifications`: Email verification tokens
 
 ## Contributing

@@ -7,8 +7,8 @@ export const sessions = pgTable(
         id: serial("id").primaryKey(),
         expiresAt: timestamp("expires_at").notNull(),
         token: text("token").notNull().unique(),
-        createdAt: timestamp("created_at").notNull(),
-        updatedAt: timestamp("updated_at").notNull(),
+        createdAt: timestamp("created_at").notNull().defaultNow(),
+        updatedAt: timestamp("updated_at").notNull().defaultNow(),
         ipAddress: text("ip_address"),
         userAgent: text("user_agent"),
         userId: integer("user_id")
@@ -36,8 +36,8 @@ export const accounts = pgTable(
         refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
         scope: text("scope"),
         password: text("password"),
-        createdAt: timestamp("created_at").notNull(),
-        updatedAt: timestamp("updated_at").notNull()
+        createdAt: timestamp("created_at").notNull().defaultNow(),
+        updatedAt: timestamp("updated_at").notNull().defaultNow()
     },
     (accounts) => ({
         userIdIdx: index("accounts_userid_idx").on(accounts.userId)
@@ -51,8 +51,8 @@ export const verifications = pgTable(
         identifier: text("identifier").notNull(),
         value: text("value").notNull(),
         expiresAt: timestamp("expires_at").notNull(),
-        createdAt: timestamp("created_at"),
-        updatedAt: timestamp("updated_at")
+        createdAt: timestamp("created_at").notNull().defaultNow(),
+        updatedAt: timestamp("updated_at").notNull().defaultNow()
     },
     (verifications) => ({
         identifierIdx: index("verifications_identifier_idx").on(verifications.identifier)

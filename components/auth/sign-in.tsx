@@ -65,7 +65,7 @@ export default function SignIn({
                         Welcome
                     </motion.h1>
                     <motion.p variants={itemVariant} className="text-muted-foreground text-sm">
-                        Enter your email below to continue
+                        Unlock all the features of Meeting Baas
                     </motion.p>
                     <SignInForm redirectTo={redirectTo} error={error} />
                 </div>

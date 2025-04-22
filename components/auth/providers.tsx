@@ -8,22 +8,21 @@ interface Provider {
     name: "google" | "microsoft" | "github" | "gitlab" | "zoom"
     title: string
     logo: React.ReactNode
+    primary?: boolean
 }
 
-export const keyProviders: Provider[] = [
+export const providers: Provider[] = [
     {
         name: "google",
         title: "Google",
-        logo: <GoogleLogo />
+        logo: <GoogleLogo />,
+        primary: true
     },
     {
         name: "microsoft",
         title: "Microsoft",
         logo: <MicrosoftLogo />
-    }
-]
-
-export const otherProviders: Provider[] = [
+    },
     {
         name: "github",
         title: "GitHub",

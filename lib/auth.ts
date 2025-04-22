@@ -1,10 +1,8 @@
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
-import { magicLink } from "better-auth/plugins"
 
 import { db } from "@/database/db"
 import * as schema from "@/database/schema"
-import { sendVerificationRequest } from "@/server/auth/magic-link"
 
 let cookieOptions = {}
 if (process.env.NODE_ENV === "production") {
@@ -30,13 +28,16 @@ export const auth = betterAuth({
     }),
     user: {
         additionalFields: {
-            firstName: {
+            firstname: {
                 type: "string",
                 nullable: true
             },
-            lastName: {
+            lastname: {
                 type: "string",
                 nullable: true
+            },
+            status: {
+                type: "number"
             },
             phone: {
                 type: "string",
@@ -72,9 +73,10 @@ export const auth = betterAuth({
                     return {
                         data: {
                             ...user,
+                            status: 4,
                             image: null,
-                            firstName: user.name.split(" ")[0],
-                            lastName: user.name.split(" ")[1]
+                            firstname: user.name.split(" ")[0],
+                            lastname: user.name.split(" ")[1]
                         }
                     }
                 }
@@ -105,14 +107,10 @@ export const auth = betterAuth({
             clientSecret: process.env.GITLAB_SECRET as string
         }
     },
-    plugins: [
-        magicLink({
-            sendMagicLink: async ({ email, url }) => {
-                return sendVerificationRequest({ email, url })
-            }
-        })
-    ],
     advanced: {
+        database: {
+            generateId: false
+        },
         cookiePrefix: process.env.AUTH_COOKIE_PREFIX,
         ...cookieOptions
     },

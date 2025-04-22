@@ -1,7 +1,6 @@
 import { Loader2 } from "lucide-react"
 import { Button } from "../ui/button"
 import { cn } from "@/lib/utils"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
 interface SocialButtonProps {
     name: "google" | "microsoft" | "github" | "gitlab" | "zoom"
@@ -9,7 +8,7 @@ interface SocialButtonProps {
     logo: React.ReactNode
     loading: boolean
     socialLoading: string | undefined
-    mobileTitle?: boolean
+    primary?: boolean
 }
 
 export const SocialButton = ({
@@ -18,14 +17,13 @@ export const SocialButton = ({
     logo,
     loading,
     socialLoading,
-    mobileTitle,
+    primary,
     ...props
 }: React.ComponentProps<"button"> & SocialButtonProps) => {
-    const button = (
+    return (
         <Button
             className="grow shadow-sm"
-            aria-label={mobileTitle ? title : undefined}
-            variant="outline"
+            variant={primary ? "default" : "outline"}
             disabled={loading}
             {...props}
         >
@@ -35,22 +33,7 @@ export const SocialButton = ({
                 logo
             )}
 
-            <span className={cn("font-medium text-muted-foreground", mobileTitle && "md:hidden")}>
-                {title}
-            </span>
+            <span className="font-medium">Continue with {title}</span>
         </Button>
     )
-
-    if (mobileTitle) {
-        return (
-            <Tooltip delayDuration={700}>
-                <TooltipTrigger asChild>{button}</TooltipTrigger>
-                <TooltipContent side="bottom">
-                    <p>{title}</p>
-                </TooltipContent>
-            </Tooltip>
-        )
-    }
-
-    return button
 }

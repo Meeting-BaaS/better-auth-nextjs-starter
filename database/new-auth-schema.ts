@@ -1,40 +1,17 @@
-import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core"
-
-export const users = pgTable(
-    "users",
-    {
-        id: text("id").primaryKey(),
-        name: text("name").notNull(),
-        firstName: text("firstname"),
-        lastName: text("lastname"),
-        email: text("email").notNull().unique(),
-        emailVerified: boolean("email_verified").notNull(),
-        image: text("image"),
-        createdAt: timestamp("created_at").notNull(),
-        updatedAt: timestamp("updated_at").notNull(),
-        phone: text("phone"),
-        companyName: text("company_name"),
-        companySize: text("company_size"),
-        usagePlanned: text("usage_planned"),
-        botsWebhook: text("bots_webhook"),
-        botsApiKey: text("bots_api_key")
-    },
-    (users) => ({
-        emailIdx: index("users_email_idx").on(users.email)
-    })
-)
+import { index, integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core"
+import { users } from "./accounts-schema"
 
 export const sessions = pgTable(
     "sessions",
     {
-        id: text("id").primaryKey(),
+        id: serial("id").primaryKey(),
         expiresAt: timestamp("expires_at").notNull(),
         token: text("token").notNull().unique(),
         createdAt: timestamp("created_at").notNull(),
         updatedAt: timestamp("updated_at").notNull(),
         ipAddress: text("ip_address"),
         userAgent: text("user_agent"),
-        userId: text("user_id")
+        userId: integer("user_id")
             .notNull()
             .references(() => users.id, { onDelete: "cascade" })
     },
@@ -44,12 +21,12 @@ export const sessions = pgTable(
 )
 
 export const accounts = pgTable(
-    "accounts",
+    "provider_accounts",
     {
-        id: text("id").primaryKey(),
+        id: serial("id").primaryKey(),
         accountId: text("account_id").notNull(),
         providerId: text("provider_id").notNull(),
-        userId: text("user_id")
+        userId: integer("user_id")
             .notNull()
             .references(() => users.id, { onDelete: "cascade" }),
         accessToken: text("access_token"),
@@ -70,7 +47,7 @@ export const accounts = pgTable(
 export const verifications = pgTable(
     "verifications",
     {
-        id: text("id").primaryKey(),
+        id: serial("id").primaryKey(),
         identifier: text("identifier").notNull(),
         value: text("value").notNull(),
         expiresAt: timestamp("expires_at").notNull(),

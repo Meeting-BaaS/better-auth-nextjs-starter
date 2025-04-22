@@ -1,8 +1,8 @@
 export type AbstractImage = {
-    url: string
-    author: {
-        name: string
-        url: string
+    readonly url: string
+    readonly author: {
+        readonly name: string
+        readonly url: string
     }
 }
 

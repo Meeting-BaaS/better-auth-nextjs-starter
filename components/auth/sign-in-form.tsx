@@ -104,6 +104,7 @@ export default function SignInForm({
                                         disabled={loading}
                                         placeholder="Email address"
                                         type="email"
+                                        autoFocus
                                         autoComplete="email"
                                     />
                                 </FormControl>

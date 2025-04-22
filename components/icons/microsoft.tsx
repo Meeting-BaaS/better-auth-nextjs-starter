@@ -1,6 +1,7 @@
 export const MicrosoftLogo = ({ ...props }: React.ComponentProps<"svg">) => {
     return (
         <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+            <title>Microsoft</title>
             <rect x="2" y="3" width="9" height="9" fill="#F25022" />
             <rect x="13" y="3" width="9" height="9" fill="#7FBA00" />
             <rect x="2" y="14" width="9" height="9" fill="#00A4EF" />

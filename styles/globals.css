@@ -71,6 +71,7 @@
         --popover-foreground: 0, 0%, 100%;
         --primary: 176 100% 43%;
         --primary-foreground: 213, 16%, 27%;
+        --secondary: 240 4.8% 95.9%;
         --secondary-foreground: 0, 0%, 100%;
         --muted: 173 8% 22%;
         --muted-foreground: 0 0% 65%;
@@ -136,7 +137,7 @@
 
 .skeleton {
     * {
-        pointer-events: none !important;
+        pointer-events: none;
     }
 
     *[class^="text-"] {

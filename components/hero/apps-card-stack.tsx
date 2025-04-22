@@ -76,7 +76,12 @@ export default function AppsCardStack() {
                             className="h-auto p-0 font-semibold text-primary"
                             asChild
                         >
-                            <a href="https://gladia.io" target="_blank" rel="noreferrer noopener">
+                            <a
+                                href="https://gladia.io"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                aria-label="Visit Gladia website (opens in new tab)"
+                            >
                                 Gladia
                             </a>
                         </Button>
@@ -90,7 +95,10 @@ export default function AppsCardStack() {
                         fill="none"
                         className="fill-primary"
                         xmlns="http://www.w3.org/2000/svg"
+                        role="img"
+                        aria-label="Transcript visualization"
                     >
+                        <title>Transcript visualisation</title>
                         <rect
                             x="0.00976562"
                             y="0.376953"

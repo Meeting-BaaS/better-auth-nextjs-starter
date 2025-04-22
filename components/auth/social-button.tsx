@@ -1,7 +1,7 @@
 import { Loader2 } from "lucide-react"
 import { Button } from "../ui/button"
 import { cn } from "@/lib/utils"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
 interface SocialButtonProps {
     name: "google" | "microsoft" | "github" | "gitlab" | "zoom"
@@ -22,8 +22,18 @@ export const SocialButton = ({
     ...props
 }: React.ComponentProps<"button"> & SocialButtonProps) => {
     const button = (
-        <Button className="grow shadow-sm" variant="outline" disabled={loading} {...props}>
-            {socialLoading === name ? <Loader2 className="size-4 animate-spin" /> : logo}
+        <Button
+            className="grow shadow-sm"
+            aria-label={mobileTitle ? title : undefined}
+            variant="outline"
+            disabled={loading}
+            {...props}
+        >
+            {socialLoading === name ? (
+                <Loader2 className="size-4 animate-spin" aria-hidden="false" />
+            ) : (
+                logo
+            )}
 
             <span className={cn("font-medium text-muted-foreground", mobileTitle && "md:hidden")}>
                 {title}
@@ -33,14 +43,12 @@ export const SocialButton = ({
 
     if (mobileTitle) {
         return (
-            <TooltipProvider>
-                <Tooltip delayDuration={700}>
-                    <TooltipTrigger asChild>{button}</TooltipTrigger>
-                    <TooltipContent side="bottom">
-                        <p>{title}</p>
-                    </TooltipContent>
-                </Tooltip>
-            </TooltipProvider>
+            <Tooltip delayDuration={700}>
+                <TooltipTrigger asChild>{button}</TooltipTrigger>
+                <TooltipContent side="bottom">
+                    <p>{title}</p>
+                </TooltipContent>
+            </Tooltip>
         )
     }
 

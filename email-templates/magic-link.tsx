@@ -14,11 +14,12 @@ import {
 
 interface MagicLinkEmailProps {
     url: string
+    expirationMinutes?: number
 }
 
 const baseUrl = process.env.APP_URL as string
 
-export const MagicLinkEmail = ({ url }: MagicLinkEmailProps) => (
+export const MagicLinkEmail = ({ url, expirationMinutes = 5 }: MagicLinkEmailProps) => (
     <Html>
         <Head />
         <Preview>Log in with this magic link.</Preview>
@@ -34,7 +35,7 @@ export const MagicLinkEmail = ({ url }: MagicLinkEmailProps) => (
                     </Text>
                     <Text style={paragraph}>
                         If you didn&apos;t request this, please ignore this email. The link will
-                        expire in 5 minutes.
+                        expire in {expirationMinutes} minutes.
                     </Text>
                 </Section>
                 <Text style={paragraph}>
@@ -44,6 +45,7 @@ export const MagicLinkEmail = ({ url }: MagicLinkEmailProps) => (
                 <Hr style={hr} />
                 <Img
                     src={`${baseUrl}/logo.png`}
+                    alt="Meeting Baas"
                     width={32}
                     height={32}
                     style={{

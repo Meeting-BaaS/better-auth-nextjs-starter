@@ -2,7 +2,10 @@ import { getSessionCookie } from "better-auth/cookies"
 import { type NextRequest, NextResponse } from "next/server"
 
 const authRoutes = ["/sign-in"]
-const allowedOrigins = process.env.TRUSTED_ORIGINS?.split(",") ?? []
+const allowedOrigins =
+    process.env.TRUSTED_ORIGINS?.split(",")
+        .map((o) => o.trim())
+        .filter(Boolean) ?? []
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl

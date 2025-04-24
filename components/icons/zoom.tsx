@@ -4,7 +4,7 @@ export const ZoomLogo = ({ className, ...props }: React.ComponentProps<"svg">) =
     return (
         <svg
             role="img"
-            className={cn("!h-9 !w-9 fill-foreground", className)}
+            className={cn("!h-9 !w-9 fill-inherit", className)}
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             {...props}

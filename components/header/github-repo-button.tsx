@@ -4,7 +4,7 @@ import { GitHubLogo } from "../icons/github"
 
 export const GitHubRepoButton = () => {
     return (
-        <Button variant="outline" className="px-2 py-1.5" asChild>
+        <Button variant="outline" className="fill-foreground px-2 py-1.5" asChild>
             <Link href="https://github.com/Meeting-Baas/better-auth-nextjs-starter" target="_blank">
                 <span className="flex items-center gap-2">
                     <GitHubLogo />

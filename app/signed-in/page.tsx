@@ -6,7 +6,7 @@ import Image from "next/image"
 
 export const metadata: Metadata = {
     title: "Login successful",
-    description: "Successfully logged in to Meeting Baas"
+    description: "Successfully logged in to Meeting BaaS"
 }
 
 export default async function HomePage() {
@@ -20,7 +20,7 @@ export default async function HomePage() {
         <div className="mx-auto flex min-h-svh flex-col items-center justify-center gap-4 px-4">
             <Image
                 src="/logo.svg"
-                alt="Meeting baas logo"
+                alt="Meeting baaS logo"
                 priority
                 width={50}
                 height={50}

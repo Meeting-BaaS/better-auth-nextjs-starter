@@ -24,12 +24,13 @@ export const SocialButton = ({
 }: React.ComponentProps<"button"> & SocialButtonProps) => {
     return (
         <Button
-            className={cn("grow cursor-pointer shadow-sm", className)}
+            className={cn("grow fill-foreground shadow-sm hover:fill-white", className)}
             variant={primary ? "default" : "outline"}
             disabled={loading}
             type="submit"
             name="provider"
             value={name}
+            aria-label={title}
             {...props}
         >
             {socialLoading === name ? (
@@ -38,7 +39,7 @@ export const SocialButton = ({
                 logo
             )}
 
-            <span className="font-medium">Continue with {title}</span>
+            {primary && <span className="font-medium">Continue with {title}</span>}
         </Button>
     )
 }

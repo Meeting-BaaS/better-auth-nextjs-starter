@@ -6,7 +6,7 @@ import * as motion from "motion/react-client"
 
 export const metadata: Metadata = {
     title: "Login",
-    description: "Login to Meeting Baas"
+    description: "Login to Meeting BaaS"
 }
 
 export default async function SignInPage({

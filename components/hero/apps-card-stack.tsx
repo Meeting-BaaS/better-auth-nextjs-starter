@@ -43,13 +43,13 @@ export default function AppsCardStack() {
                 <div className="flex flex-col items-center gap-3">
                     <motion.div
                         variants={cardItemVariant(0.6)}
-                        className="flex max-w-48 items-center gap-2 rounded-full bg-white px-3 py-2 font-medium text-primary-foreground text-sm opacity-50"
+                        className="flex max-w-48 items-center gap-2 rounded-full bg-foreground px-3 py-2 font-medium text-primary-foreground text-sm opacity-50"
                     >
                         <MessageSquare size={16} /> LLM Agnostic
                     </motion.div>
                     <motion.div
                         variants={cardItemVariant()}
-                        className="flex min-w-52 items-center justify-center gap-2 rounded-full bg-white px-3 py-2 font-medium text-primary-foreground text-sm"
+                        className="flex min-w-52 items-center justify-center gap-2 rounded-full bg-foreground px-3 py-2 font-medium text-primary-foreground text-sm"
                     >
                         <Check size={16} /> MeetingBaas integrated
                     </motion.div>

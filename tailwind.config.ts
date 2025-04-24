@@ -54,6 +54,7 @@ const config: Config = {
                 },
                 "baas-neutral-400": "hsl(var(--baas-neutral-400))",
                 "baas-neutral-500": "hsl(var(--baas-neutral-500))",
+                "baas-warning-500": "hsl(var(--baas-warning-500))",
                 "baas-black": "hsl(var(--baas-black))",
                 "microsoft-grey": "hsl(var(--microsoft-grey))",
                 "github-green": "hsl(var(--github-green))",

@@ -26,6 +26,7 @@
         --accent-foreground: 240 5.9% 10%;
         --baas-neutral-400: 0 0% 35%;
         --baas-neutral-500: 173 8% 22%;
+        --baas-warning-500: 60 100% 79%;
         --baas-black: 0 0% 14%;
         --destructive: 0 84.2% 60.2%;
         --destructive-foreground: 0 0% 98%;
@@ -67,8 +68,7 @@
         --muted-foreground: 0 0% 65%;
         --accent: 173 8% 22%;
         --accent-foreground: 0 0% 100%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
+        --destructive: 60 100% 79%;
         --border: 173 8% 22%;
         --input: 173 8% 22%;
         --ring: 197 100% 44%;

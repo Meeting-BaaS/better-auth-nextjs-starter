@@ -4,7 +4,7 @@ export const GitLabLogo = ({ className, ...props }: React.ComponentProps<"svg">)
     return (
         <svg
             role="img"
-            className={cn("fill-foreground", className)}
+            className={cn("fill-inherit", className)}
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             {...props}

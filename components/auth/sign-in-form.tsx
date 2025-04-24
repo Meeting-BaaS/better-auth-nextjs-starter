@@ -8,7 +8,7 @@ import { signIn } from "@/lib/auth-client"
 import { motion } from "motion/react"
 import { itemVariant } from "./sign-in"
 import { SocialButton } from "./social-button"
-import { providers } from "./providers"
+import { primaryProvider, providers } from "./providers"
 import type { ProviderName } from "./providers"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -94,7 +94,7 @@ export default function SignInForm({
                                             href="https://meetingbaas.com/terms-and-conditions"
                                             target="_blank"
                                         >
-                                            to the terms of use of Meeting Baas
+                                            to the terms of use of Meeting BaaS
                                         </Link>
                                     </Button>
                                 </FormLabel>
@@ -124,7 +124,7 @@ export default function SignInForm({
                                             href="https://meetingbaas.com/privacy"
                                             target="_blank"
                                         >
-                                            to the privacy policy of Meeting Baas
+                                            to the privacy policy of Meeting BaaS
                                         </Link>
                                     </Button>
                                 </FormLabel>
@@ -141,14 +141,21 @@ export default function SignInForm({
                     </Alert>
                 )}
                 <motion.div className="flex flex-col gap-3" variants={itemVariant}>
-                    {providers.map((provider) => (
-                        <SocialButton
-                            key={provider.name}
-                            {...provider}
-                            loading={loading}
-                            socialLoading={socialLoading}
-                        />
-                    ))}
+                    <SocialButton
+                        {...primaryProvider}
+                        loading={loading}
+                        socialLoading={socialLoading}
+                    />
+                    <div className="flex gap-2">
+                        {providers.map((provider) => (
+                            <SocialButton
+                                key={provider.name}
+                                {...provider}
+                                loading={loading}
+                                socialLoading={socialLoading}
+                            />
+                        ))}
+                    </div>
                 </motion.div>
             </form>
         </Form>

@@ -14,13 +14,14 @@ interface Provider {
     className?: string
 }
 
+export const primaryProvider: Provider = {
+    name: "google",
+    title: "Google",
+    logo: <GoogleLogo />,
+    primary: true
+}
+
 export const providers: Provider[] = [
-    {
-        name: "google",
-        title: "Google",
-        logo: <GoogleLogo />,
-        primary: true
-    },
     {
         name: "microsoft",
         title: "Microsoft",

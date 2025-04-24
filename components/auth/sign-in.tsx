@@ -50,8 +50,8 @@ export default function SignIn({
                         className="flex items-center justify-center gap-2"
                     >
                         <Image
-                            src="/logo-2.svg"
-                            alt="Meeting baas logo"
+                            src="/logo.svg"
+                            alt="Meeting baaS logo"
                             priority
                             width={30}
                             height={30}
@@ -65,7 +65,7 @@ export default function SignIn({
                         Welcome
                     </motion.h1>
                     <motion.p variants={itemVariant} className="text-muted-foreground text-sm">
-                        Unlock all the features of Meeting Baas
+                        Unlock all the features of Meeting BaaS
                     </motion.p>
                     <SignInForm redirectTo={redirectTo} error={error} />
                 </div>

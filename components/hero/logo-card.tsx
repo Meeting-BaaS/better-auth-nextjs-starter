@@ -16,7 +16,7 @@ export default function LogoCard() {
         >
             <MotionImage
                 src="/logo.svg"
-                alt="Meeting baas logo"
+                alt="Meeting baaS logo"
                 variants={cardItemVariant()}
                 priority
                 fill

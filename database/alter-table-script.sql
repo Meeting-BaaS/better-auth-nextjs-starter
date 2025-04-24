@@ -14,6 +14,6 @@ ADD CONSTRAINT accounts_email_unique UNIQUE (email);
 --Email verified is set to true, and updated_at column is set with created_at
 UPDATE accounts
 SET 
-    full_name = firstname || ' ' || lastname,
+    full_name = COALESCE(firstname, '') || ' ' || COALESCE(lastname, ''),
     email_verified = true,
     updated_at = created_at;

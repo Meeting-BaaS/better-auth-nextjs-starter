@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-    title: "Meeting Baas Authentication Single Sign On App",
-    description: "Sign in to the suite of applications from meeting baas"
+    title: "Meeting BaaS Authentication Single Sign On App",
+    description: "Sign in to the suite of applications from meeting baaS"
 }
 
 export const viewport: Viewport = {

@@ -12,7 +12,7 @@
     :root {
         --background: 168 29% 97%;
         --foreground: 240 6% 25%;
-        --card: 0 0% 100%;
+        --card: var(--background);
         --card-foreground: 240 10% 3.9%;
         --popover: 0 0% 100%;
         --popover-foreground: 240 10% 3.9%;
@@ -20,10 +20,10 @@
         --primary-foreground: 0 0% 98%;
         --secondary: 240 4.8% 95.9%;
         --secondary-foreground: 240 5.9% 10%;
-        --muted: 240 4.8% 95.9%;
+        --muted: var(--secondary);
         --muted-foreground: 240 3.8% 46.1%;
-        --accent: 240 4.8% 95.9%;
-        --accent-foreground: 240 5.9% 10%;
+        --accent: var(--secondary);
+        --accent-foreground: var(--secondary-foreground);
         --baas-neutral-400: 0 0% 35%;
         --baas-neutral-500: 173 8% 22%;
         --baas-warning-500: 60 100% 79%;
@@ -56,18 +56,18 @@
     .dark {
         --background: 0 0% 17%;
         --foreground: 0 0% 100%;
-        --card: 0 0% 17%;
-        --card-foreground: 0 0% 100%;
-        --popover: 0 0% 17%;
-        --popover-foreground: 0 0% 100%;
+        --card: var(--background);
+        --card-foreground: var(--foreground);
+        --popover: var(--background);
+        --popover-foreground: var(--foreground);
         --primary: 176 100% 43%;
         --primary-foreground: 213 16% 27%;
         --secondary: 240 4.8% 95.9%;
-        --secondary-foreground: 0 0% 100%;
+        --secondary-foreground: var(--foreground);
         --muted: 173 8% 22%;
         --muted-foreground: 0 0% 65%;
         --accent: 173 8% 22%;
-        --accent-foreground: 0 0% 100%;
+        --accent-foreground: var(--foreground);
         --destructive: 60 100% 79%;
         --border: 173 8% 22%;
         --input: 173 8% 22%;
@@ -117,5 +117,15 @@
         to {
             clip-path: inset(0 0 0 0);
         }
+    }
+}
+
+@media (pointer: coarse) {
+    .touch-invisible {
+        visibility: hidden;
+    }
+
+    .touch-visible {
+        visibility: visible;
     }
 }

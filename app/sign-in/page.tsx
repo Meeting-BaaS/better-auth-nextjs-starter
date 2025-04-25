@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
-import HeroSection from "@/components/hero/section"
 import SignIn from "@/components/auth/sign-in"
 import { GitHubRepoButton } from "@/components/header/github-repo-button"
 import * as motion from "motion/react-client"
+import HeroSection from "@/components/hero"
 
 export const metadata: Metadata = {
     title: "Login",

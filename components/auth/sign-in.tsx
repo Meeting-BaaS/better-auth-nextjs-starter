@@ -51,7 +51,7 @@ export default function SignIn({
                     >
                         <Image
                             src="/logo.svg"
-                            alt="Meeting baaS logo"
+                            alt="Meeting BaaS logo"
                             priority
                             width={30}
                             height={30}

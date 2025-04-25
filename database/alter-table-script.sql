@@ -5,9 +5,6 @@ ADD COLUMN image text,
 ADD COLUMN updated_at timestamp without time zone DEFAULT now() NOT NULL;
 
 ALTER TABLE accounts
-ALTER COLUMN password DROP NOT NULL;
-
-ALTER TABLE accounts
 ADD CONSTRAINT accounts_email_unique UNIQUE (email);
 
 --For existing data, need to update the new full name column by concatenating first name and last name

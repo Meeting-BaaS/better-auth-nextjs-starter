@@ -3,6 +3,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle"
 
 import { db } from "@/database/db"
 import * as schema from "@/database/schema"
+import { jwtHook } from "@/server/auth/jwt-hook"
 
 let cookieOptions = {}
 if (process.env.NODE_ENV === "production") {
@@ -62,6 +63,12 @@ export const auth = betterAuth({
             botsApiKey: {
                 type: "string",
                 nullable: true
+            },
+            password: {
+                type: "string",
+                defaultValue: "dummy-auth-password",
+                returned: false,
+                input: false
             }
         }
     },
@@ -107,6 +114,9 @@ export const auth = betterAuth({
             clientSecret: process.env.GITLAB_SECRET as string
         }
     },
+    hooks: {
+        after: jwtHook
+    },
     advanced: {
         database: {
             generateId: false
@@ -114,11 +124,5 @@ export const auth = betterAuth({
         cookiePrefix: process.env.AUTH_COOKIE_PREFIX,
         ...cookieOptions
     },
-    trustedOrigins: process.env.TRUSTED_ORIGINS?.split(",") || [],
-    session: {
-        cookieCache: {
-            enabled: true,
-            maxAge: 5 * 60
-        }
-    }
+    trustedOrigins: process.env.TRUSTED_ORIGINS?.split(",") || []
 })

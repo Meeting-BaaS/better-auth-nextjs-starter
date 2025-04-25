@@ -7,7 +7,7 @@ import Image from "next/image"
 
 const MotionImage = motion.create(Image)
 
-export default function FeaturesCardStack() {
+export const FeaturesCardStack = () => {
     return (
         <>
             <motion.div

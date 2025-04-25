@@ -35,7 +35,7 @@ export default function SignInForm({
     const [socialLoading, setSocialLoading] = useState<string | undefined>(undefined)
     const [callbackError, setCallbackError] = useState(error)
     const loading = Boolean(socialLoading)
-    const callbackURL = redirectTo || "/signed-in"
+    const callbackURL = redirectTo || "/home"
 
     const onProviderSignIn = async (provider: ProviderName) => {
         await signIn.social(
@@ -93,6 +93,7 @@ export default function SignInForm({
                                         <Link
                                             href="https://meetingbaas.com/terms-and-conditions"
                                             target="_blank"
+                                            rel="noopener noreferrer"
                                         >
                                             to the terms of use of Meeting BaaS
                                         </Link>
@@ -123,6 +124,7 @@ export default function SignInForm({
                                         <Link
                                             href="https://meetingbaas.com/privacy"
                                             target="_blank"
+                                            rel="noopener noreferrer"
                                         >
                                             to the privacy policy of Meeting BaaS
                                         </Link>

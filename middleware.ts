@@ -45,7 +45,7 @@ export async function middleware(request: NextRequest) {
         }
 
         if (isAuthRoute) {
-            return NextResponse.redirect(new URL("/signed-in", request.url))
+            return NextResponse.redirect(new URL("/home", request.url))
         }
     }
 

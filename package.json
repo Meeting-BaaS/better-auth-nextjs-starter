@@ -33,7 +33,7 @@
         "yup": "^1.6.1"
     },
     "devDependencies": {
-        "@better-auth/cli": "^1.2.5",
+        "@better-auth/cli": "^1.2.7",
         "@biomejs/biome": "1.9.4",
         "@tailwindcss/container-queries": "^0.1.1",
         "@tailwindcss/postcss": "^4.1.3",

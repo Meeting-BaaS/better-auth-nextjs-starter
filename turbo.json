@@ -24,6 +24,7 @@
         "APP_URL",
         "AUTH_COOKIE_PREFIX",
         "BETTER_AUTH_SECRET",
+        "USER_ENCODING_KEY",
         "DATABASE_URL",
         "GOOGLE_ID",
         "GOOGLE_SECRET",

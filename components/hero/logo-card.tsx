@@ -6,7 +6,7 @@ import Image from "next/image"
 
 const MotionImage = motion.create(Image)
 
-export default function LogoCard() {
+export const LogoCard = () => {
     return (
         <motion.div
             variants={cardContainerVariant("0%", 7)}
@@ -16,7 +16,7 @@ export default function LogoCard() {
         >
             <MotionImage
                 src="/logo.svg"
-                alt="Meeting baaS logo"
+                alt="Meeting BaaS logo"
                 variants={cardItemVariant()}
                 priority
                 fill

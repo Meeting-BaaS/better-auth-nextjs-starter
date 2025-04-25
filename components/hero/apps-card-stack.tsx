@@ -3,6 +3,7 @@
 import { Check, MessageSquare } from "lucide-react"
 import { motion } from "motion/react"
 import { Button } from "../ui/button"
+import Link from "next/link"
 
 const cubicEase = [0.65, 0, 0.35, 1]
 
@@ -31,7 +32,7 @@ export const cardItemVariant = (opacity = 1) => ({
     }
 })
 
-export default function AppsCardStack() {
+export const AppsCardStack = () => {
     return (
         <>
             <motion.div
@@ -51,7 +52,7 @@ export default function AppsCardStack() {
                         variants={cardItemVariant()}
                         className="flex min-w-52 items-center justify-center gap-2 rounded-full bg-foreground px-3 py-2 font-medium text-primary-foreground text-sm"
                     >
-                        <Check size={16} /> MeetingBaas integrated
+                        <Check size={16} /> Meeting BaaS integrated
                     </motion.div>
                 </div>
                 <motion.div variants={cardItemVariant()}>
@@ -76,14 +77,14 @@ export default function AppsCardStack() {
                             className="h-auto p-0 font-semibold text-primary"
                             asChild
                         >
-                            <a
+                            <Link
                                 href="https://gladia.io"
                                 target="_blank"
                                 rel="noreferrer noopener"
                                 aria-label="Visit Gladia website (opens in new tab)"
                             >
                                 Gladia
-                            </a>
+                            </Link>
                         </Button>
                     </div>
                 </motion.div>

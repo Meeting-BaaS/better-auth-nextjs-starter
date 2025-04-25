@@ -6,8 +6,8 @@ export const users = pgTable("accounts", {
     email: varchar("email").notNull().unique(),
     emailVerified: boolean("email_verified").notNull(),
     image: text("image"),
-    // Legacy columns password and status from existing meeting baaS authentication
-    password: varchar("password"),
+    // Legacy columns password and status from existing Meeting BaaS authentication
+    password: varchar("password").notNull(),
     status: integer("status").notNull(),
     createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
@@ -20,6 +20,6 @@ export const users = pgTable("accounts", {
     usagePlanned: varchar("usage_planned"),
     botsWebhookUrl: text("bots_webhook_url"),
     botsApiKey: text("bots_api_key"),
-    // Legacy column from existing meeting baaS authentication
+    // Legacy column from existing Meeting BaaS authentication
     secret: varchar("secret").notNull().default(sql`(gen_random_uuid())::text`)
 })

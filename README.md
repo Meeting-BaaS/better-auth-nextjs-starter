@@ -57,6 +57,8 @@ A modern authentication system built with Next.js, featuring secure user managem
    npx drizzle-kit generate
    npx drizzle-kit migrate
    ```
+   This repo extends the existing accounts table, and wouldn't create the accounts table.
+   When forking, please create an accounts table with the schema defined in accounts-schema.tsx. 
 
 ### Development
 

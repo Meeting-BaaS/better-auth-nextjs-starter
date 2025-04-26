@@ -2,12 +2,6 @@
 @import "tw-animate-css";
 @config "../tailwind.config.ts";
 
-@layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
-}
-
 @layer base {
     :root {
         --background: 168 29% 97%;

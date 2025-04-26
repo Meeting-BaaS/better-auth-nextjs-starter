@@ -1,6 +1,6 @@
 import type { CookieOptions } from "better-auth"
 import { createAuthMiddleware } from "better-auth/api"
-import crypto from "node:crypto"
+import jwt from "jsonwebtoken"
 
 const getCookieAttributes = (remove?: boolean) => {
     const isProd = process.env.NODE_ENV === "production"
@@ -27,16 +27,18 @@ const getCookieAttributes = (remove?: boolean) => {
     return attributes
 }
 
-const encodeUserId = (userId: string): string => {
-    const keyBase64 = process.env.USER_ENCODING_KEY as string
+const encodeUserId = (userId: number): string => {
+    const encodingKey = process.env.USER_ENCODING_KEY || ""
+    const secret = Buffer.from(encodingKey, "base64")
 
-    const secret = Buffer.from(keyBase64, "base64")
-    console.log(secret.toString())
-    const hmac = crypto.createHmac("sha512", secret)
-    hmac.update(userId)
-    const digest = hmac.digest("base64")
-    console.log(digest)
-    return encodeURIComponent(digest)
+    const payload = { id: userId }
+
+    const token = jwt.sign(payload, secret, {
+        algorithm: "HS512",
+        noTimestamp: true
+    })
+
+    return encodeURIComponent(token)
 }
 
 export const jwtHook = createAuthMiddleware(async (ctx) => {
@@ -44,7 +46,7 @@ export const jwtHook = createAuthMiddleware(async (ctx) => {
         const {
             user: { id }
         } = ctx.context.newSession
-        const encodedId = encodeUserId(String(id))
+        const encodedId = encodeUserId(Number(id))
         // Encoding logic here
         ctx.setCookie("jwt", encodedId, getCookieAttributes())
     } else if (ctx.path.startsWith("/sign-out")) {

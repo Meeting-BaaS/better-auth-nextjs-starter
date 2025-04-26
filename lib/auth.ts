@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "production") {
     cookieOptions = {
         crossSubDomainCookies: {
             enabled: true,
-            domain: process.env.DOMAIN as string
+            domain: process.env.DOMAIN || ".meetingbaas.com"
         },
         defaultCookieAttributes: {
             secure: true,

@@ -5,7 +5,7 @@ import { cva } from "class-variance-authority"
 import { Airplay, Moon, Sun } from "lucide-react"
 import { motion } from "motion/react"
 import { useTheme } from "next-themes"
-import { type HTMLAttributes, useLayoutEffect, useState } from "react"
+import { type HTMLAttributes, useEffect, useState } from "react"
 
 const themes = [
     {
@@ -48,7 +48,7 @@ export function ThemeToggle({ className, ...props }: HTMLAttributes<HTMLDivEleme
         className
     )
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         setMounted(true)
     }, [])
 
@@ -69,18 +69,21 @@ export function ThemeToggle({ className, ...props }: HTMLAttributes<HTMLDivEleme
     const value = mounted ? currentTheme : null
 
     return (
-        <div className={container} {...props}>
+        <div className={container} role="radiogroup" aria-label="Theme selection" {...props}>
             {themes.map(({ key, icon: Icon, label }) => {
                 const isActive = value === key
 
                 return (
-                    <button
-                        type="button"
-                        key={key}
-                        className={itemVariants({ active: isActive })}
-                        onClick={() => handleChangeTheme(key as Theme)}
-                        aria-label={label}
-                    >
+                    <label key={key} className={itemVariants({ active: isActive })}>
+                        <input
+                            type="radio"
+                            name="theme"
+                            value={key}
+                            checked={isActive}
+                            onChange={() => handleChangeTheme(key as Theme)}
+                            className="sr-only"
+                            aria-label={label}
+                        />
                         {isActive && (
                             <motion.div
                                 layoutId="activeTheme"
@@ -92,7 +95,7 @@ export function ThemeToggle({ className, ...props }: HTMLAttributes<HTMLDivEleme
                             />
                         )}
                         <Icon className="relative m-auto size-full" fill="currentColor" />
-                    </button>
+                    </label>
                 )
             })}
         </div>

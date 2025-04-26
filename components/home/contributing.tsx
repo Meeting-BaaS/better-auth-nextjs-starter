@@ -17,15 +17,18 @@ export const Contributing = () => {
         >
             <div className="flex items-center gap-2">
                 <h2 className="mb-4 font-semibold text-xl sm:text-2xl">Meeting BaaS</h2>
-                <Heart className="mb-4 size-7 fill-primary/30 text-primary transition-transform hover:scale-125" />
+                <Heart
+                    className="mb-4 size-7 fill-primary/30 text-primary transition-transform hover:scale-125"
+                    aria-label="Love"
+                />
                 <h2 className="mb-4 font-semibold text-xl sm:text-2xl">open-source</h2>
             </div>
-            <div className="flex flex-row items-center gap-2">
+            <nav className="flex flex-row items-center gap-2" aria-label="Contribution link">
                 <Button asChild>
                     <Link
-                        href="https://github.com/Meeting-Baas"
+                        href="https://github.com/Meeting-Baas" // Contribution link for all meeting baas repos
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noreferrer noopener"
                     >
                         <span className="flex items-center gap-2">
                             <ExternalLink />
@@ -33,7 +36,7 @@ export const Contributing = () => {
                         </span>
                     </Link>
                 </Button>
-            </div>
+            </nav>
         </motion.div>
     )
 }

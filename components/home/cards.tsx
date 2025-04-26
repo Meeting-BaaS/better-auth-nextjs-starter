@@ -21,42 +21,48 @@ export const Cards = () => {
                 delay: 0.25
             }}
         >
-            {appCards.map(({ icon: Icon, title, links, description }, index) => (
-                <Card key={index} className="group relative grow">
-                    <CardContent className="flex grow flex-col justify-between gap-2 pt-4">
-                        <div className="flex flex-col gap-2">
-                            <div className="flex items-center gap-2 font-semibold text-lg">
-                                <Icon className="size-5.5" /> {title}
+            {appCards?.length > 0 ? (
+                appCards.map(({ icon: Icon, title, links, description }, index) => (
+                    <Card key={index} className="group relative grow">
+                        <CardContent className="flex grow flex-col justify-between gap-2 pt-4">
+                            <div className="flex flex-col gap-2">
+                                <div className="flex items-center gap-2 font-semibold text-lg">
+                                    <Icon className="size-5.5" /> {title}
+                                </div>
+                                <div className="text-md text-neutral-500 leading-relaxed dark:text-neutral-400">
+                                    {description}
+                                </div>
+                                <ChevronDown className="pointer-touch-invisible absolute top-4 right-4 h-5 w-5 text-muted-foreground opacity-40 transition-transform group-hover:rotate-180" />
                             </div>
-                            <div className="text-md text-neutral-500 leading-relaxed dark:text-neutral-400">
-                                {description}
-                            </div>
-                            <ChevronDown className="touch-invisible absolute top-4 right-4 h-5 w-5 text-muted-foreground opacity-40 transition-transform group-hover:rotate-180" />
-                        </div>
-                        <div className="touch-visible invisible mt-2 flex flex-wrap gap-2 group-hover:visible">
-                            {links.map((link: AppLink) => (
-                                <Button
-                                    key={link.type}
-                                    variant="outline"
-                                    className="bg-transparent fill-foreground px-2 py-1.5"
-                                    asChild
-                                >
-                                    <Link
-                                        href={link.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                            <div className="pointer-touch-visible invisible mt-2 flex flex-wrap gap-2 group-hover:visible">
+                                {links.map((link: AppLink) => (
+                                    <Button
+                                        key={link.type}
+                                        variant="outline"
+                                        className="bg-transparent fill-foreground px-2 py-1.5"
+                                        asChild
                                     >
-                                        <span className="flex items-center gap-2">
-                                            {link.icon}
-                                            {link.type}
-                                        </span>
-                                    </Link>
-                                </Button>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            ))}
+                                        <Link
+                                            href={link.href}
+                                            target="_blank"
+                                            rel="noreferrer noopener"
+                                        >
+                                            <span className="flex items-center gap-2">
+                                                {link.icon}
+                                                {link.type}
+                                            </span>
+                                        </Link>
+                                    </Button>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))
+            ) : (
+                <p className="col-span-full text-center text-muted-foreground">
+                    No applications available
+                </p>
+            )}
             <Card className="group relative grow p-0">
                 <CardContent className="grid grow grid-cols-2 grid-rows-2 p-0">
                     {utilities.map(({ title, icon: Icon, href, className }) => (
@@ -69,7 +75,7 @@ export const Cards = () => {
                             )}
                             asChild
                         >
-                            <Link key={title} target="_blank" rel="noopener noreferrer" href={href}>
+                            <Link key={title} target="_blank" rel="noreferrer noopener" href={href}>
                                 <Icon className="size-5.5" />
                                 {title}
                             </Link>

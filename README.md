@@ -49,6 +49,7 @@ A modern authentication system built with Next.js, featuring secure user managem
    ```bash
    cp .env.example .env
    ```
+
    Fill in the required environment variables in `.env`
 
 4. Run database migrations:
@@ -57,8 +58,12 @@ A modern authentication system built with Next.js, featuring secure user managem
    npx drizzle-kit generate
    npx drizzle-kit migrate
    ```
-   This repo extends the existing accounts table, and wouldn't create the accounts table.
-   When forking, please create an accounts table with the schema defined in accounts-schema.tsx. 
+
+   This repo extends the existing accounts table but doesn't create it initially.
+  
+   When forking:
+   1. Create an accounts table with the schema defined in `database/accounts-schema.ts`
+   2. Run migrations to add related authentication tables 
 
 ### Development
 

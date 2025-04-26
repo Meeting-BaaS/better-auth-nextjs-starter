@@ -90,14 +90,15 @@ export const AppsCardStack = () => {
                 </motion.div>
                 <motion.div variants={cardItemVariant()}>
                     <svg
-                        width="181"
-                        height="39"
+                        width="12em"
+                        height="2.5em"
                         viewBox="0 0 181 39"
                         fill="none"
                         className="fill-primary"
                         xmlns="http://www.w3.org/2000/svg"
                         role="img"
                         aria-label="Transcript visualization"
+                        preserveAspectRatio="xMidYMid meet"
                     >
                         <title>Transcript visualisation</title>
                         <rect

@@ -54,6 +54,7 @@ export default function HeroSection() {
                             style={{
                                 backgroundImage: `url('${image.url}')`,
                                 backgroundSize: "300% 300%",
+                                // Position the background image to show the correct segment in a 3x3 grid
                                 backgroundPosition: `${col * 50}% ${row * 50}%`
                             }}
                         >

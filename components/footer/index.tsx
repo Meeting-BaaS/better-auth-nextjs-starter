@@ -34,7 +34,7 @@ export default function Footer() {
                         <Link
                             href="https://meetingbaas.com/privacy"
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel="noreferrer noopener"
                         >
                             Privacy Policy
                         </Link>

@@ -93,7 +93,7 @@ export default function SignInForm({
                                         <Link
                                             href="https://meetingbaas.com/terms-and-conditions"
                                             target="_blank"
-                                            rel="noopener noreferrer"
+                                            rel="noreferrer noopener"
                                         >
                                             to the terms of use of Meeting BaaS
                                         </Link>
@@ -124,7 +124,7 @@ export default function SignInForm({
                                         <Link
                                             href="https://meetingbaas.com/privacy"
                                             target="_blank"
-                                            rel="noopener noreferrer"
+                                            rel="noreferrer noopener"
                                         >
                                             to the privacy policy of Meeting BaaS
                                         </Link>

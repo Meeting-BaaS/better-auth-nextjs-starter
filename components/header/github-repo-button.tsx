@@ -8,7 +8,7 @@ export const GitHubRepoButton = () => {
             <Link
                 href="https://github.com/Meeting-Baas/better-auth-nextjs-starter"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer noopener"
             >
                 <span className="flex items-center gap-2">
                     <GitHubLogo />

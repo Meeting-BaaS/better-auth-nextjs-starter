@@ -42,9 +42,11 @@ export const UserAvatar = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button size="icon" className="h-8 w-8 rounded-full p-0">
+                <Button size="icon" className="h-8 w-8 rounded-full p-0" aria-label="User menu">
                     {loading ? (
-                        <Loader2 className="size-5 animate-spin" aria-hidden="false" />
+                        <Loader2 className="size-5 animate-spin" aria-hidden="false">
+                            <span className="sr-only">Loading</span>
+                        </Loader2>
                     ) : (
                         <User className="size-5" />
                     )}
@@ -63,7 +65,7 @@ export const UserAvatar = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <Link
-                        rel="noopener noreferrer"
+                        rel="noreferrer noopener"
                         href="https://meetingbaas.com"
                         target="_blank"
                         className="w-full cursor-pointer"

@@ -11,10 +11,14 @@ const getCookieAttributes = (remove?: boolean) => {
     }
 
     if (isProd) {
+        const domain = process.env.DOMAIN
+        if (!domain) {
+            throw new Error("DOMAIN environment variable is required in production")
+        }
         attributes = {
             ...attributes,
             sameSite: "None",
-            domain: process.env.DOMAIN as string,
+            domain,
             secure: true,
             partitioned: true
         }
@@ -47,7 +51,6 @@ export const jwtHook = createAuthMiddleware(async (ctx) => {
             user: { id }
         } = ctx.context.newSession
         const encodedId = encodeUserId(Number(id))
-        // Encoding logic here
         ctx.setCookie("jwt", encodedId, getCookieAttributes())
     } else if (ctx.path.startsWith("/sign-out")) {
         ctx.setCookie("jwt", "", getCookieAttributes(true))

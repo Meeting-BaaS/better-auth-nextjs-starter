@@ -5,6 +5,8 @@ export const MeetingBaaSLogo = ({ className, ...props }: React.ComponentProps<"s
             viewBox="0 0 706 189"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className="h-[30px] w-auto"
+            preserveAspectRatio="xMidYMid meet"
             {...props}
         >
             <title>Meeting BaaS</title>

@@ -7,6 +7,10 @@ const allowedOrigins =
         .map((o) => o.trim())
         .filter(Boolean) ?? []
 
+if (process.env.APP_URL) {
+    allowedOrigins.push(process.env.APP_URL)
+}
+
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
     const origin = request.headers.get("origin") || ""
@@ -19,17 +23,22 @@ export async function middleware(request: NextRequest) {
         request.method === "OPTIONS" ? new Response(null, { status: 204 }) : NextResponse.next()
 
     // Apply CORS headers if API route and origin allowed
-    if (isApiRoute && allowedOrigins.includes(origin)) {
-        response.headers.set("Access-Control-Allow-Origin", origin)
-        response.headers.set("Access-Control-Allow-Credentials", "true")
-        response.headers.set("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
-        response.headers.set(
-            "Access-Control-Allow-Headers",
-            "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-        )
+    if (isApiRoute) {
+        if (allowedOrigins.includes(origin)) {
+            response.headers.set("Access-Control-Allow-Origin", origin)
+            response.headers.set("Access-Control-Allow-Credentials", "true")
+            response.headers.set("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+            response.headers.set(
+                "Access-Control-Allow-Headers",
+                "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+            )
 
-        if (request.method === "OPTIONS") {
-            return response // end CORS preflight early
+            if (request.method === "OPTIONS") {
+                return response // end CORS preflight early
+            }
+        } else if (origin) {
+            // For security, explicitly reject unauthorized cross-origin requests
+            return new Response("Unauthorized origin", { status: 403 })
         }
     }
 

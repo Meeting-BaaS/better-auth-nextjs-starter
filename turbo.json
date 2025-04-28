@@ -38,6 +38,7 @@
         "GITLAB_ID",
         "GITLAB_SECRET",
         "DOMAIN",
-        "TRUSTED_ORIGINS"
+        "TRUSTED_ORIGINS",
+        "ENVIRONMENT"
     ]
 }

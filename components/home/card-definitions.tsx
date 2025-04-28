@@ -42,7 +42,7 @@ export const appCards: AppCard[] = [
             "Integrate seamlessly with Google Meet, Zoom, and Microsoft Teams using just one API. Automate recording, transcription, and summarisation.",
         links: [
             {
-                href: "https://docs.meetingbaas.com/docs/api",
+                href: `https://docs.${process.env.ENVIRONMENT}meetingbaas.com/docs/api`,
                 type: "Docs",
                 icon: <BookOpen />
             }
@@ -55,7 +55,7 @@ export const appCards: AppCard[] = [
             "Experience AI with Meeting BaaS. Chat directly in your browser to explore features or assist with meeting bots.",
         links: [
             {
-                href: "https://chat.meetingbaas.com/",
+                href: `https://chat.${process.env.ENVIRONMENT}meetingbaas.com/`,
                 type: "App",
                 icon: <ExternalLink />
             },

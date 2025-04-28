@@ -18,7 +18,6 @@ A modern authentication system built with Next.js, featuring secure user managem
 - **Styling**: Tailwind CSS 4.1.3
 - **UI Components**: Radix UI
 - **Authentication**: Better Auth
-- **State Management**: React 19
 - **Package Manager**: pnpm
 
 ## Getting Started

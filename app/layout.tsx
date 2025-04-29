@@ -8,7 +8,8 @@ import { Providers } from "./providers"
 
 const sofiaSans = Sofia_Sans({
     subsets: ["latin"],
-    display: "swap"
+    display: "swap",
+    weight: ["400", "500", "600", "700"]
 })
 
 export const metadata: Metadata = {

@@ -10,7 +10,7 @@ export const Heading = () => {
                     ease: "easeInOut",
                     duration: 0.25
                 }}
-                className="scroll-m-20 font-bold text-3xl tracking-tight md:text-4xl lg:text-5xl"
+                className="scroll-m-20 text-center font-bold text-3xl tracking-tight md:text-left md:text-4xl lg:text-5xl"
             >
                 Our AI-Powered Meeting BaaS Toolkit
             </motion.h1>

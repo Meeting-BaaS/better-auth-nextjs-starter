@@ -11,7 +11,9 @@ export default function Footer() {
                         Built by{" "}
                         <Button variant="link" className="h-auto p-0 font-semibold" asChild>
                             <Link
-                                href="https://meetingbaas.com/"
+                                href={
+                                    process.env.MEETING_BAAS_HOMEPAGE || "https://meetingbaas.com/"
+                                }
                                 rel="noreferrer noopener"
                                 target="_blank"
                             >
@@ -23,7 +25,10 @@ export default function Footer() {
                 <div className="flex flex-wrap items-center gap-4 text-xs sm:justify-end">
                     <Button variant="link" className="h-auto p-0" asChild>
                         <Link
-                            href="https://meetingbaas.com/terms-and-conditions"
+                            href={
+                                process.env.NEXT_PUBLIC_TERMS_AND_CONDITIONS ||
+                                "https://meetingbaas.com/terms-and-conditions"
+                            }
                             rel="noreferrer noopener"
                             target="_blank"
                         >
@@ -32,7 +37,10 @@ export default function Footer() {
                     </Button>
                     <Button variant="link" className="h-auto p-0" asChild>
                         <Link
-                            href="https://meetingbaas.com/privacy"
+                            href={
+                                process.env.NEXT_PUBLIC_PRIVACY_POLICY ||
+                                "https://meetingbaas.com/privacy"
+                            }
                             target="_blank"
                             rel="noreferrer noopener"
                         >

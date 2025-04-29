@@ -91,7 +91,10 @@ export default function SignInForm({
                                         className="h-auto p-0 text-inherit underline transition-none hover:text-primary"
                                     >
                                         <Link
-                                            href="https://meetingbaas.com/terms-and-conditions"
+                                            href={
+                                                process.env.NEXT_PUBLIC_TERMS_AND_CONDITIONS ||
+                                                "https://meetingbaas.com/terms-and-conditions"
+                                            }
                                             target="_blank"
                                             rel="noreferrer noopener"
                                         >
@@ -122,7 +125,10 @@ export default function SignInForm({
                                         className="h-auto p-0 text-inherit underline transition-none hover:text-primary"
                                     >
                                         <Link
-                                            href="https://meetingbaas.com/privacy"
+                                            href={
+                                                process.env.NEXT_PUBLIC_PRIVACY_POLICY ||
+                                                "https://meetingbaas.com/privacy"
+                                            }
                                             target="_blank"
                                             rel="noreferrer noopener"
                                         >

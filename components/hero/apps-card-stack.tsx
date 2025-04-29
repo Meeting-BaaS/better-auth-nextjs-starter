@@ -78,7 +78,7 @@ export const AppsCardStack = () => {
                             asChild
                         >
                             <Link
-                                href="https://gladia.io"
+                                href={process.env.NEXT_PUBLIC_GLADIA_URL || "https://gladia.io"}
                                 target="_blank"
                                 rel="noreferrer noopener"
                                 aria-label="Visit Gladia website (opens in new tab)"

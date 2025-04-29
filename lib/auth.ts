@@ -75,13 +75,11 @@ export const auth = betterAuth({
     databaseHooks: {
         user: {
             create: {
-                before: async (user, context) => {
-                    // Fix: manually set image to null, otherwise microsoft log in fails for new users
+                before: async (user, _context) => {
                     return {
                         data: {
                             ...user,
                             status: 4,
-                            image: null,
                             firstname: user.name.split(" ")[0],
                             lastname: user.name.split(" ")[1]
                         }

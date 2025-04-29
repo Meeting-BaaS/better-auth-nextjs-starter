@@ -19,9 +19,11 @@ export default async function HomePage() {
         redirect("/sign-in")
     }
 
+    const { user } = sessionData
+
     return (
         <>
-            <Header />
+            <Header user={user} />
             <Home />
             <Footer />
         </>

@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import { cva } from "class-variance-authority"
-import { Airplay, Moon, Sun } from "lucide-react"
+import { Moon, Sun } from "lucide-react"
 import { motion } from "motion/react"
 import { useTheme } from "next-themes"
 import { type HTMLAttributes, useEffect, useState } from "react"
@@ -17,27 +17,22 @@ const themes = [
         key: "dark",
         icon: Moon,
         label: "Dark theme"
-    },
-    {
-        key: "system",
-        icon: Airplay,
-        label: "System theme"
     }
 ]
 
 const itemVariants = cva(
-    "relative size-4.5 cursor-pointer rounded-full p-1 text-fd-muted-foreground",
+    "relative size-6.5 cursor-pointer rounded-full p-1.5 text-muted-foreground",
     {
         variants: {
             active: {
-                true: "text-fd-accent-foreground",
-                false: "text-fd-muted-foreground"
+                true: "bg-accent text-accent-foreground",
+                false: "text-muted-foreground"
             }
         }
     }
 )
 
-type Theme = "light" | "dark" | "system"
+type Theme = "light" | "dark"
 
 export function ThemeToggle({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     const { setTheme, theme: currentTheme, resolvedTheme } = useTheme()

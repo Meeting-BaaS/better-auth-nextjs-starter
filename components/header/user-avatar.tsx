@@ -1,6 +1,6 @@
 "use client"
 
-import { Loader2, User } from "lucide-react"
+import { Loader2, UserIcon } from "lucide-react"
 import { Button } from "../ui/button"
 import {
     DropdownMenu,
@@ -9,14 +9,23 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "../ui/dropdown-menu"
-import { ThemeToggle } from "./theme-toggle"
 import Link from "next/link"
 import { signOut } from "@/lib/auth-client"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import type { User } from "better-auth"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { ThemeToggle } from "./theme-toggle"
+import type { MenuOption } from "./menu-options"
 
-export const UserAvatar = () => {
+export const UserAvatar = ({
+    user,
+    menuOptions
+}: {
+    user: User
+    menuOptions: MenuOption[]
+}) => {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
 
@@ -42,19 +51,31 @@ export const UserAvatar = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button size="icon" className="h-8 w-8 rounded-full p-0" aria-label="User menu">
+                <Button
+                    size="icon"
+                    className="h-7 w-7 rounded-full border-0 bg-transparent p-0"
+                    aria-label="User menu"
+                >
                     {loading ? (
-                        <Loader2 className="size-5 animate-spin" aria-hidden="false">
+                        <Loader2
+                            className="size-4.5 animate-spin stroke-primary"
+                            aria-hidden="false"
+                        >
                             <span className="sr-only">Loading</span>
                         </Loader2>
                     ) : (
-                        <User className="size-5" />
+                        <Avatar className="border">
+                            <AvatarImage src={user.image ?? undefined} />
+                            <AvatarFallback className="bg-primary">
+                                <UserIcon className="size-4.5" />
+                            </AvatarFallback>
+                        </Avatar>
                     )}
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-48">
                 <DropdownMenuItem
-                    className="hover:!bg-background inline-flex w-full justify-between py-1"
+                    className="hover:!bg-popover inline-flex w-full justify-between py-1 md:hidden"
                     onSelect={(e: Event) => {
                         e.preventDefault()
                     }}
@@ -62,17 +83,23 @@ export const UserAvatar = () => {
                     <p>Theme</p>
                     <ThemeToggle />
                 </DropdownMenuItem>
+                <DropdownMenuSeparator className="md:hidden" />
+                {menuOptions.map((menuOption) => (
+                    <Fragment key={menuOption.title}>
+                        {menuOption.separator && <DropdownMenuSeparator />}
+                        <DropdownMenuItem key={menuOption.title} asChild>
+                            <Link
+                                rel="noreferrer noopener"
+                                href={menuOption.href}
+                                target="_blank"
+                                className="cursor-pointer"
+                            >
+                                {menuOption.title}
+                            </Link>
+                        </DropdownMenuItem>
+                    </Fragment>
+                ))}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                    <Link
-                        rel="noreferrer noopener"
-                        href="https://meetingbaas.com"
-                        target="_blank"
-                        className="w-full cursor-pointer"
-                    >
-                        Visit Meeting BaaS
-                    </Link>
-                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                     <button type="button" className="w-full cursor-pointer" onClick={onSignOut}>
                         Sign out

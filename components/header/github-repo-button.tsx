@@ -6,7 +6,10 @@ export const GitHubRepoButton = () => {
     return (
         <Button variant="outline" className="fill-foreground px-2 py-1.5" asChild>
             <Link
-                href="https://github.com/Meeting-Baas/better-auth-nextjs-starter"
+                href={
+                    process.env.NEXT_PUBLIC_AUTH_APP_GITHUB ||
+                    "https://github.com/Meeting-Baas/better-auth-nextjs-starter"
+                }
                 target="_blank"
                 rel="noreferrer noopener"
             >

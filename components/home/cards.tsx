@@ -32,7 +32,6 @@ export const Cards = () => {
                                 <div className="text-md text-neutral-500 leading-relaxed dark:text-neutral-400">
                                     {description}
                                 </div>
-                                <ChevronDown className="pointer-touch-invisible absolute top-4 right-4 h-5 w-5 text-muted-foreground opacity-40 transition-transform group-hover:rotate-180" />
                             </div>
                             <div className="pointer-touch-visible invisible mt-2 flex flex-wrap gap-2 group-hover:visible">
                                 {links.map((link: AppLink) => (

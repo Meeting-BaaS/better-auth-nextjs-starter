@@ -26,7 +26,7 @@ export const Contributing = () => {
             <nav className="flex flex-row items-center gap-2" aria-label="Contribution link">
                 <Button asChild>
                     <Link
-                        href="https://github.com/Meeting-Baas" // Contribution link for all meeting baas repos
+                        href={process.env.CONTRIBUTION_GITHUB || "https://github.com/Meeting-Baas"} // Contribution link for all meeting baas repos
                         target="_blank"
                         rel="noreferrer noopener"
                     >

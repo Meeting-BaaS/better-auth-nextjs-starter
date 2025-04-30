@@ -24,13 +24,14 @@ export async function middleware(request: NextRequest) {
 
     // Apply CORS headers if API route and origin allowed
     if (isApiRoute) {
-        if (allowedOrigins.includes(origin)) {
-            response.headers.set("Access-Control-Allow-Origin", origin)
+        // Autoriser toutes les origines en développement
+        if (process.env.NODE_ENV === "development" || allowedOrigins.includes(origin)) {
+            response.headers.set("Access-Control-Allow-Origin", origin || "*")
             response.headers.set("Access-Control-Allow-Credentials", "true")
             response.headers.set("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
             response.headers.set(
                 "Access-Control-Allow-Headers",
-                "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+                "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
             )
 
             if (request.method === "OPTIONS") {

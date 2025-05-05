@@ -1,35 +1,25 @@
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Sofia_Sans } from "next/font/google"
 
 import "@/styles/globals.css"
 
-import { Header } from "@/components/header"
 import type { ReactNode } from "react"
 import { Providers } from "./providers"
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"]
-})
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"]
+const sofiaSans = Sofia_Sans({
+    subsets: ["latin"],
+    display: "swap",
+    weight: ["400", "500", "600", "700"]
 })
 
 export const metadata: Metadata = {
-    title: "Better Auth Next.js Starter",
-    description: "Better Auth Next.js Starter with Postgres, Drizzle, shadcn/ui and Tanstack Query"
+    title: "Meeting BaaS Authentication Single Sign On App",
+    description: "Sign in to the suite of applications from Meeting BaaS"
 }
 
 export const viewport: Viewport = {
-    initialScale: 1,
-    viewportFit: "cover",
     width: "device-width",
-    themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "oklch(1 0 0)" },
-        { media: "(prefers-color-scheme: dark)", color: "oklch(0.145 0 0)" }
-    ]
+    initialScale: 1
 }
 
 export default function RootLayout({
@@ -39,14 +29,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <Providers>
-                    <div className="flex min-h-svh flex-col">
-                        <Header />
-
-                        {children}
-                    </div>
-                </Providers>
+            <head>
+                <link rel="preconnect" href="https://images.unsplash.com" />
+            </head>
+            <body className={`${sofiaSans.className} antialiased`}>
+                <Providers>{children}</Providers>
             </body>
         </html>
     )

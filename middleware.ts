@@ -1,7 +1,7 @@
 import { getSessionCookie } from "better-auth/cookies"
 import { type NextRequest, NextResponse } from "next/server"
 
-const authRoutes = ["/sign-in"]
+const authRoutes = ["/sign-in", "/sign-up"]
 const allowedOrigins =
     process.env.TRUSTED_ORIGINS?.split(",")
         .map((o) => o.trim())
@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
     const origin = request.headers.get("origin") || ""
 
     const isApiRoute = pathname.startsWith("/api/")
-    const isAuthRoute = authRoutes.includes(pathname)
+    const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route))
 
     // Create base response
     const response =
@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
             response.headers.set("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
             response.headers.set(
                 "Access-Control-Allow-Headers",
-                "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+                "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, Authorization2, x-spoke-api-key, x-meeting-baas-api-key"
             )
 
             if (request.method === "OPTIONS") {

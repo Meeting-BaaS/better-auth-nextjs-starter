@@ -5,7 +5,7 @@ import {
     LOGS_URL,
     SETTINGS_URL,
     USAGE_URL
-} from "../home/card-definitions"
+} from "@/lib/external-urls"
 
 export type MenuOption = {
     title: string

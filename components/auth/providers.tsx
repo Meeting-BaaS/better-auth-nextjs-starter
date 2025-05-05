@@ -1,8 +1,8 @@
 import { GoogleLogo } from "@/components/icons/google"
-import { MicrosoftLogo } from "../icons/microsoft"
-import { GitHubLogo } from "../icons/github"
-import { GitLabLogo } from "../icons/gitlab"
-import { ZoomLogo } from "../icons/zoom"
+import { MicrosoftLogo } from "@/components/icons/microsoft"
+import { GitHubLogo } from "@/components/icons/github"
+import { GitLabLogo } from "@/components/icons/gitlab"
+import { ZoomLogo } from "@/components/icons/zoom"
 
 export type ProviderName = "google" | "microsoft" | "github" | "gitlab" | "zoom"
 
@@ -18,6 +18,7 @@ export const primaryProvider: Provider = {
     name: "google",
     title: "Google",
     logo: <GoogleLogo />,
+    // Indicates this is the main/default authentication option
     primary: true
 }
 

@@ -18,6 +18,7 @@ import type { User } from "better-auth"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { ThemeToggle } from "./theme-toggle"
 import type { MenuOption } from "./menu-options"
+import { genericError } from "@/lib/errors"
 
 export const UserAvatar = ({
     user,
@@ -30,22 +31,27 @@ export const UserAvatar = ({
     const [loading, setLoading] = useState(false)
 
     const onSignOut = async () => {
-        await signOut({
-            fetchOptions: {
-                onRequest: () => {
-                    setLoading(true)
-                },
-                onResponse: () => {
-                    setLoading(false)
-                },
-                onSuccess: () => {
-                    router.push("/sign-in")
-                },
-                onError: (ctx) => {
-                    toast.error(ctx.error.message)
+        try {
+            await signOut({
+                fetchOptions: {
+                    onRequest: () => {
+                        setLoading(true)
+                    },
+                    onResponse: () => {
+                        setLoading(false)
+                    },
+                    onSuccess: () => {
+                        router.push("/sign-in")
+                    },
+                    onError: (ctx) => {
+                        toast.error(ctx.error.message)
+                    }
                 }
-            }
-        })
+            })
+        } catch (error) {
+            setLoading(false)
+            toast.error(genericError)
+        }
     }
 
     return (
@@ -59,12 +65,10 @@ export const UserAvatar = ({
                     {loading ? (
                         <Loader2
                             className="size-4.5 animate-spin stroke-primary"
-                            aria-hidden="false"
-                        >
-                            <span className="sr-only">Loading</span>
-                        </Loader2>
+                            aria-label="Loading"
+                        />
                     ) : (
-                        <Avatar className="border">
+                        <Avatar className="border" aria-label="user menu">
                             <AvatarImage src={user.image ?? undefined} />
                             <AvatarFallback className="bg-primary">
                                 <UserIcon className="size-4.5" />
@@ -87,9 +91,9 @@ export const UserAvatar = ({
                 {menuOptions.map((menuOption) => (
                     <Fragment key={menuOption.title}>
                         {menuOption.separator && <DropdownMenuSeparator />}
-                        <DropdownMenuItem key={menuOption.title} asChild>
+                        <DropdownMenuItem asChild>
                             <Link
-                                rel="noreferrer noopener"
+                                rel="noopener noreferrer"
                                 href={menuOption.href}
                                 target="_blank"
                                 className="cursor-pointer"

@@ -56,6 +56,7 @@ const config: Config = {
                 "baas-neutral-500": "hsl(var(--baas-neutral-500))",
                 "baas-warning-500": "hsl(var(--baas-warning-500))",
                 "baas-black": "hsl(var(--baas-black))",
+                // Brand colors for OAuth providers - use only for provider buttons or related UI elements
                 "microsoft-grey": "hsl(var(--microsoft-grey))",
                 "github-green": "hsl(var(--github-green))",
                 "gitlab-orange": "hsl(var(--gitlab-orange))",

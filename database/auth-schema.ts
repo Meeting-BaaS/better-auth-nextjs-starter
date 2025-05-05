@@ -21,6 +21,7 @@ export const sessions = pgTable(
     })
 )
 
+// Variable name 'accounts' is required by better-auth library, despite the table name being "provider_accounts"
 export const accounts = pgTable(
     "provider_accounts",
     {

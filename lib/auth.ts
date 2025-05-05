@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
+import { v4 as uuidv4 } from "uuid"
 
 import { db } from "@/database/db"
 import * as schema from "@/database/schema"
@@ -19,6 +20,12 @@ if (process.env.NODE_ENV === "production") {
             partitioned: true
         }
     }
+}
+
+const DISABLE_IMPLICIT_SIGN_UP = true
+
+if (!process.env.BETTER_AUTH_SECRET) {
+    throw new Error("BETTER_AUTH_SECRET is not configured in env")
 }
 
 export const auth = betterAuth({
@@ -66,7 +73,7 @@ export const auth = betterAuth({
             },
             password: {
                 type: "string",
-                defaultValue: "dummy-auth-password",
+                defaultValue: uuidv4,
                 returned: false,
                 input: false
             }
@@ -76,12 +83,13 @@ export const auth = betterAuth({
         user: {
             create: {
                 before: async (user, _context) => {
+                    const [first = null, ...rest] = user.name.trim().split(" ")
                     return {
                         data: {
                             ...user,
                             status: 4,
-                            firstname: user.name.split(" ")[0],
-                            lastname: user.name.split(" ")[1]
+                            firstname: first,
+                            lastname: rest.length ? rest.join(" ") : null
                         }
                     }
                 }
@@ -91,25 +99,30 @@ export const auth = betterAuth({
     socialProviders: {
         google: {
             clientId: process.env.GOOGLE_ID as string,
-            clientSecret: process.env.GOOGLE_SECRET as string
+            clientSecret: process.env.GOOGLE_SECRET as string,
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
         },
         microsoft: {
             clientId: process.env.MICROSOFT_ID as string,
             clientSecret: process.env.MICROSOFT_SECRET as string,
             tenantId: process.env.MICROSOFT_TENANT_ID as string,
-            requireSelectAccount: true
+            requireSelectAccount: true,
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
         },
         zoom: {
             clientId: process.env.ZOOM_ID as string,
-            clientSecret: process.env.ZOOM_SECRET as string
+            clientSecret: process.env.ZOOM_SECRET as string,
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
         },
         github: {
             clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB_SECRET as string
+            clientSecret: process.env.GITHUB_SECRET as string,
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
         },
         gitlab: {
             clientId: process.env.GITLAB_ID as string,
-            clientSecret: process.env.GITLAB_SECRET as string
+            clientSecret: process.env.GITLAB_SECRET as string,
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
         }
     },
     hooks: {

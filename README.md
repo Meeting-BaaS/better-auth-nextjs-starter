@@ -49,7 +49,7 @@ A modern authentication system built with Next.js, featuring secure user managem
    cp .env.example .env
    ```
 
-   Fill in the required environment variables in `.env`
+   Fill in the required environment variables in `.env`. Details about the expected values for each key is documented in .env.example
 
 4. Run database migrations:
 
@@ -62,7 +62,7 @@ A modern authentication system built with Next.js, featuring secure user managem
   
    When forking:
    1. Create an accounts table with the schema defined in `database/accounts-schema.ts`
-   2. Run migrations to add related authentication tables 
+   2. Run migrations to add related authentication tables
 
 ### Development
 
@@ -85,9 +85,9 @@ The application will be available at `http://localhost:3000`
 ## Project Structure
 
 ```text
-├── app/              # Next.js app directory
-├── components/       # Reusable UI components
-├── database/        # Database configuration and migrations
+├── app/            # Next.js app directory
+├── components/     # Reusable UI components
+├── database/       # Database configuration and migrations
 ├── lib/            # Utility functions and shared logic
 ├── migrations/     # Database migration files
 ├── public/         # Static assets

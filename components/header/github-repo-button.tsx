@@ -1,20 +1,14 @@
 import Link from "next/link"
 import { Button } from "../ui/button"
 import { GitHubLogo } from "../icons/github"
+import { AUTH_APP_GITHUB_URL } from "@/lib/external-urls"
 
 export const GitHubRepoButton = () => {
     return (
         <Button variant="outline" className="fill-foreground px-2 py-1.5" asChild>
-            <Link
-                href={
-                    process.env.NEXT_PUBLIC_AUTH_APP_GITHUB ||
-                    "https://github.com/Meeting-Baas/better-auth-nextjs-starter"
-                }
-                target="_blank"
-                rel="noreferrer noopener"
-            >
+            <Link href={AUTH_APP_GITHUB_URL} target="_blank" rel="noopener noreferrer">
                 <span className="flex items-center gap-2">
-                    <GitHubLogo />
+                    <GitHubLogo aria-hidden />
                     GitHub
                 </span>
             </Link>

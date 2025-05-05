@@ -6,11 +6,12 @@ import { Button } from "../ui/button"
 import Link from "next/link"
 import { GitHubLogo } from "../icons/github"
 import { menuOptions } from "./menu-options"
+import { AUTH_APP_GITHUB_URL } from "@/lib/external-urls"
 
 export default function Header({ user }: { user: User }) {
     return (
         <header className="sticky top-2 z-40 mx-auto box-content w-full max-w-container border-b bg-background/15 backdrop-blur-md lg:mt-2 lg:w-[calc(100%-4rem)] lg:rounded-2xl lg:border">
-            <nav className="flex h-14 w-full flex-row items-center justify-between px-4 lg:h-12">
+            <nav className="flex h-12 w-full flex-row items-center justify-between px-4">
                 <div className="flex items-center gap-2">
                     <Image
                         src="/logo.svg"
@@ -32,12 +33,9 @@ export default function Header({ user }: { user: User }) {
                             aria-label="Github repository"
                         >
                             <Link
-                                href={
-                                    process.env.NEXT_PUBLIC_AUTH_APP_GITHUB ||
-                                    "https://github.com/Meeting-Baas/better-auth-nextjs-starter"
-                                }
+                                href={AUTH_APP_GITHUB_URL}
                                 target="_blank"
-                                rel="noreferrer noopener"
+                                rel="noopener noreferrer"
                             >
                                 <GitHubLogo />
                             </Link>

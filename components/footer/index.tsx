@@ -1,5 +1,10 @@
 import Link from "next/link"
 import { Button } from "../ui/button"
+import {
+    MEETING_BAAS_HOMEPAGE_URL,
+    PRIVACY_POLICY_URL,
+    TERMS_AND_CONDITIONS_URL
+} from "@/lib/external-urls"
 
 export default function Footer() {
     return (
@@ -11,10 +16,8 @@ export default function Footer() {
                         Built by{" "}
                         <Button variant="link" className="h-auto p-0 font-semibold" asChild>
                             <Link
-                                href={
-                                    process.env.MEETING_BAAS_HOMEPAGE || "https://meetingbaas.com/"
-                                }
-                                rel="noreferrer noopener"
+                                href={MEETING_BAAS_HOMEPAGE_URL}
+                                rel="noopener noreferrer"
                                 target="_blank"
                             >
                                 Meeting BaaS
@@ -25,25 +28,15 @@ export default function Footer() {
                 <div className="flex flex-wrap items-center gap-4 text-xs sm:justify-end">
                     <Button variant="link" className="h-auto p-0" asChild>
                         <Link
-                            href={
-                                process.env.NEXT_PUBLIC_TERMS_AND_CONDITIONS ||
-                                "https://meetingbaas.com/terms-and-conditions"
-                            }
-                            rel="noreferrer noopener"
+                            href={TERMS_AND_CONDITIONS_URL}
+                            rel="noopener noreferrer"
                             target="_blank"
                         >
                             Terms & Conditions
                         </Link>
                     </Button>
                     <Button variant="link" className="h-auto p-0" asChild>
-                        <Link
-                            href={
-                                process.env.NEXT_PUBLIC_PRIVACY_POLICY ||
-                                "https://meetingbaas.com/privacy"
-                            }
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link href={PRIVACY_POLICY_URL} target="_blank" rel="noopener noreferrer">
                             Privacy Policy
                         </Link>
                     </Button>

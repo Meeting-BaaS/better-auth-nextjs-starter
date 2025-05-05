@@ -1,6 +1,8 @@
+BEGIN;
+
 ALTER TABLE accounts
 ADD COLUMN full_name text,
-ADD COLUMN email_verified boolean,
+ADD COLUMN email_verified boolean NOT NULL DEFAULT false,
 ADD COLUMN image text,
 ADD COLUMN updated_at timestamp without time zone DEFAULT now() NOT NULL;
 
@@ -14,3 +16,5 @@ SET
     full_name = COALESCE(firstname, '') || ' ' || COALESCE(lastname, ''),
     email_verified = true,
     updated_at = created_at;
+
+COMMIT;

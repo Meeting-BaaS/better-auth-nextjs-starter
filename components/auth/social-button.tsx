@@ -10,6 +10,7 @@ interface SocialButtonProps {
     loading: boolean
     socialLoading: string | undefined
     primary?: boolean
+    continueWithText?: string
 }
 
 export const SocialButton = ({
@@ -20,8 +21,10 @@ export const SocialButton = ({
     socialLoading,
     primary,
     className,
+    continueWithText,
     ...props
-}: React.ComponentProps<"button"> & SocialButtonProps) => {
+}: Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof SocialButtonProps> &
+    SocialButtonProps) => {
     return (
         <Button
             className={cn("grow fill-foreground shadow-sm hover:fill-white", className)}
@@ -34,12 +37,16 @@ export const SocialButton = ({
             {...props}
         >
             {socialLoading === name ? (
-                <Loader2 className="size-4 animate-spin" aria-hidden="false" />
+                <Loader2 className="size-4 animate-spin" aria-label="Loading" />
             ) : (
                 logo
             )}
 
-            {primary && <span className="font-medium">Continue with {title}</span>}
+            {primary && (
+                <span className="font-medium">
+                    {continueWithText || "Continue with"} {title}
+                </span>
+            )}
         </Button>
     )
 }

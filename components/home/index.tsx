@@ -1,25 +1,8 @@
+import { spotlightVariant } from "@/animations/background"
 import { Cards } from "./cards"
 import { Contributing } from "./contributing"
 import { Heading } from "./heading"
 import * as motion from "motion/react-client"
-
-const backgroundAnimation = {
-    x: [0, 3, 2, 4, 8],
-    y: [0, -2, 3, 3, 2],
-    scale: [1, 1.1, 1, 1.02, 1],
-    opacity: 0.7,
-    transition: {
-        opacity: {
-            delay: 0.5,
-            duration: 1.2,
-            ease: "easeIn"
-        },
-        duration: 6,
-        repeat: Number.POSITIVE_INFINITY,
-        repeatType: "reverse" as const,
-        ease: "easeInOut"
-    }
-}
 
 export default function Home() {
     return (
@@ -31,7 +14,8 @@ export default function Home() {
                         "radial-gradient(circle, rgba(0, 219, 205, 0.9) 10%, rgba(0, 219, 205, 0.8) 80%, transparent 100%)"
                 }}
                 initial={{ opacity: 0 }}
-                animate={backgroundAnimation}
+                animate={spotlightVariant}
+                aria-hidden="true"
             />
             <section>
                 <Heading />

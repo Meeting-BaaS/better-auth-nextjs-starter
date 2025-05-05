@@ -37,6 +37,11 @@ const encodeUserId = (userId: number): string => {
 
     const payload = { id: userId }
 
+    // This JWT is specifically for backward compatibility with legacy services
+    // and intentionally doesn't include an expiration time to match the original implementation.
+    // Empty string is allowed for USER_ENCODING_KEY, again to match the original implementation.
+    // Note: This cookie is NOT used for session validation in this application -
+    // the better-auth library manages session security with its own cookies.
     const token = jwt.sign(payload, secret, {
         algorithm: "HS512",
         noTimestamp: true

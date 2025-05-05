@@ -4,33 +4,8 @@ import { Check, MessageSquare } from "lucide-react"
 import { motion } from "motion/react"
 import { Button } from "../ui/button"
 import Link from "next/link"
-
-const cubicEase = [0.65, 0, 0.35, 1]
-
-export const cardContainerVariant = (visibleY: string, delay: number) => ({
-    hidden: { y: "100%" },
-    visible: {
-        y: visibleY,
-        transition: {
-            delay,
-            duration: 1.2,
-            ease: cubicEase,
-            when: "beforeChildren",
-            staggerChildren: 0.15
-        }
-    }
-})
-
-export const cardItemVariant = (opacity = 1) => ({
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity,
-        y: 0,
-        transition: {
-            duration: 0.75
-        }
-    }
-})
+import { GLADIA_URL } from "@/lib/external-urls"
+import { cardContainerVariant, cardItemVariant } from "@/animations/auth/auth-card-stacks"
 
 export const AppsCardStack = () => {
     return (
@@ -63,7 +38,7 @@ export const AppsCardStack = () => {
                 </motion.div>
             </motion.div>
             <motion.div
-                variants={cardContainerVariant("-100%", 6.5)}
+                variants={cardContainerVariant("-100%", 6.5)} // Delay intentionally longer to allow user to read the first card
                 initial="hidden"
                 animate="visible"
                 className="flex h-full w-full flex-col justify-between gap-3 rounded-2xl bg-baas-neutral-400 p-4 text-primary"
@@ -78,9 +53,9 @@ export const AppsCardStack = () => {
                             asChild
                         >
                             <Link
-                                href={process.env.NEXT_PUBLIC_GLADIA_URL || "https://gladia.io"}
+                                href={GLADIA_URL}
                                 target="_blank"
-                                rel="noreferrer noopener"
+                                rel="noopener noreferrer"
                                 aria-label="Visit Gladia website (opens in new tab)"
                             >
                                 Gladia

@@ -94,11 +94,7 @@
 }
 
 @media (pointer: coarse) {
-    .pointer-touch-invisible {
-        visibility: hidden;
-    }
-
-    .pointer-touch-visible {
-        visibility: visible;
+    .pointer-touch-opacity-100 {
+        opacity: 100%;
     }
 }

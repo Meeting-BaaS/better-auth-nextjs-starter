@@ -1,9 +1,9 @@
 "use client"
 
 import { motion } from "motion/react"
-import { cardContainerVariant, cardItemVariant } from "./apps-card-stack"
 import { Code } from "lucide-react"
 import Image from "next/image"
+import { cardContainerVariant, cardItemVariant } from "@/animations/auth/auth-card-stacks"
 
 const MotionImage = motion.create(Image)
 
@@ -30,7 +30,7 @@ export const FeaturesCardStack = () => {
                 </motion.div>
             </motion.div>
             <motion.div
-                variants={cardContainerVariant("-100%", 6)}
+                variants={cardContainerVariant("-100%", 6)} // Delay intentionally longer to allow user to read the first card
                 initial="hidden"
                 animate="visible"
                 className="flex h-full w-full flex-col justify-between gap-3 rounded-2xl bg-primary p-4 text-primary-foreground"

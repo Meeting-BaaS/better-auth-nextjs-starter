@@ -2,17 +2,13 @@ import { ExternalLink, Heart } from "lucide-react"
 import { Button } from "../ui/button"
 import Link from "next/link"
 import * as motion from "motion/react-client"
+import { CONTRIBUTION_GITHUB_URL } from "@/lib/external-urls"
+import { opacityVariant } from "@/animations/opacity"
 
 export const Contributing = () => {
     return (
         <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-                ease: "easeInOut",
-                delay: 0.5,
-                duration: 0.25
-            }}
+            {...opacityVariant(0.5)}
             className="mb-16 flex flex-col items-center px-4 text-center"
         >
             <div className="flex items-center gap-2">
@@ -26,9 +22,9 @@ export const Contributing = () => {
             <nav className="flex flex-row items-center gap-2" aria-label="Contribution link">
                 <Button asChild>
                     <Link
-                        href={process.env.CONTRIBUTION_GITHUB || "https://github.com/Meeting-Baas"} // Contribution link for all meeting baas repos
+                        href={CONTRIBUTION_GITHUB_URL} // Contribution link for all meeting baas repos
                         target="_blank"
-                        rel="noreferrer noopener"
+                        rel="noopener noreferrer"
                     >
                         <span className="flex items-center gap-2">
                             <ExternalLink />

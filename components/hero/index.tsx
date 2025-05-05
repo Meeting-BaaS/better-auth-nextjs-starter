@@ -3,6 +3,7 @@ import { AppsCardStack } from "@/components/hero/apps-card-stack"
 import { FeaturesCardStack } from "@/components/hero/features-card-stack"
 import { LogoCard } from "./logo-card"
 import * as motion from "motion/react-client"
+import { authHeroVariant } from "@/animations/auth/auth-hero"
 
 export default function HeroSection() {
     const image = abstractImages[Math.floor(Math.random() * abstractImages.length)]
@@ -19,7 +20,7 @@ export default function HeroSection() {
                         href={image.author.url}
                         className="underline underline-offset-4 "
                         target="_blank"
-                        rel="noreferrer noopener"
+                        rel="noopener noreferrer"
                     >
                         {image.author.name}
                     </a>
@@ -30,16 +31,7 @@ export default function HeroSection() {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: "-5%" }}
-            animate={{ opacity: 1, y: "0%" }}
-            transition={{
-                type: "spring",
-                ease: "easeIn",
-                stiffness: 80,
-                damping: 20,
-                duration: 1.5,
-                delay: 0.5
-            }}
+            {...authHeroVariant}
             className="relative col-span-3 hidden h-full overflow-hidden rounded-2xl lg:block"
         >
             <div className="absolute inset-1 grid grid-cols-3 grid-rows-3 gap-4 rounded-2xl bg-background p-4">
@@ -50,11 +42,14 @@ export default function HeroSection() {
                     return (
                         <div
                             key={index}
-                            className="relative overflow-hidden rounded-2xl bg-cover bg-transparent bg-no-repeat"
+                            className="relative overflow-hidden rounded-2xl bg-background bg-cover bg-no-repeat"
                             style={{
                                 backgroundImage: `url('${image.url}')`,
                                 backgroundSize: "300% 300%",
                                 // Position the background image to show the correct segment in a 3x3 grid
+                                // For a 3x3 grid, each cell shows 1/3 of the image width and height
+                                // col * 50% positions horizontally (0%, 50%, 100%)
+                                // row * 50% positions vertically (0%, 50%, 100%)
                                 backgroundPosition: `${col * 50}% ${row * 50}%`
                             }}
                         >

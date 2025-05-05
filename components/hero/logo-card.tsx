@@ -1,7 +1,7 @@
 "use client"
 
+import { cardContainerVariant, cardItemVariant } from "@/animations/auth/auth-card-stacks"
 import { motion } from "motion/react"
-import { cardContainerVariant, cardItemVariant } from "./apps-card-stack"
 import Image from "next/image"
 
 const MotionImage = motion.create(Image)

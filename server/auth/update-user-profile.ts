@@ -29,30 +29,34 @@ export const lower = (column: AnyPgColumn): SQL => {
  * @param image image
  */
 export const updateUserProfile = async (name: string, email: string, image?: string) => {
-    const [firstname, lastname] = splitName(name)
+    try {
+        const [firstname, lastname] = splitName(name)
 
-    // Fetch current user data
-    const user = await db
-        .select()
-        .from(users)
-        .where(eq(lower(users.email), email.toLowerCase()))
+        // Fetch current user data
+        const user = await db
+            .select()
+            .from(users)
+            .where(eq(lower(users.email), email.toLowerCase()))
 
-    // User doesn't exist. better-auth will handle user creation
-    if (!user.length) return
+        // User doesn't exist. better-auth will handle user creation
+        if (!user.length) return
 
-    // Check if any values have actually changed
-    const shouldUpdate = user[0].name !== name || (image && user[0].image !== image)
+        // Check if any values have actually changed
+        const shouldUpdate = user[0].name !== name || (image && user[0].image !== image)
 
-    if (!shouldUpdate) return
+        if (!shouldUpdate) return
 
-    await db
-        .update(users)
-        .set({
-            ...(image ? { image } : {}),
-            name,
-            firstname,
-            lastname,
-            updatedAt: new Date()
-        })
-        .where(eq(lower(users.email), email.toLowerCase()))
+        await db
+            .update(users)
+            .set({
+                ...(image ? { image } : {}),
+                name,
+                firstname,
+                lastname,
+                updatedAt: new Date()
+            })
+            .where(eq(lower(users.email), email.toLowerCase()))
+    } catch (error) {
+        console.error("Error updating user profile", error)
+    }
 }

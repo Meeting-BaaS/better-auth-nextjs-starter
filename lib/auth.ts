@@ -134,6 +134,7 @@ export const auth = betterAuth({
                     profile.email,
                     profile.pic_url
                 )
+                return profile
             }
         },
         github: {
@@ -142,6 +143,7 @@ export const auth = betterAuth({
             disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP,
             mapProfileToUser: async (profile) => {
                 await updateUserProfile(profile.name, profile.email, profile.avatar_url)
+                return profile
             }
         },
         gitlab: {
@@ -150,6 +152,7 @@ export const auth = betterAuth({
             disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP,
             mapProfileToUser: async (profile) => {
                 await updateUserProfile(profile.name, profile.email, profile.avatar_url)
+                return profile
             }
         }
     },

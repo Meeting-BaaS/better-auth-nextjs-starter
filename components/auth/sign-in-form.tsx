@@ -72,16 +72,18 @@ export default function SignInForm({
                         loading={loading}
                         socialLoading={socialLoading}
                     />
-                    <div className="flex gap-2">
-                        {providers.map((provider) => (
-                            <SocialButton
-                                key={provider.name}
-                                {...provider}
-                                loading={loading}
-                                socialLoading={socialLoading}
-                            />
-                        ))}
-                    </div>
+                    {providers.length > 0 && (
+                        <div className="flex gap-2">
+                            {providers.map((provider) => (
+                                <SocialButton
+                                    key={provider.name}
+                                    {...provider}
+                                    loading={loading}
+                                    socialLoading={socialLoading}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </motion.div>
             </form>
         </Form>

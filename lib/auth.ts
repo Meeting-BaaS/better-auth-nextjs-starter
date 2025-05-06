@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { db } from "@/database/db"
 import * as schema from "@/database/schema"
 import { jwtHook } from "@/server/auth/jwt-hook"
+import { splitName, updateUserProfile } from "@/server/auth/update-user-profile"
 
 let cookieOptions = {}
 if (process.env.NODE_ENV === "production") {
@@ -79,17 +80,23 @@ export const auth = betterAuth({
             }
         }
     },
+    account: {
+        accountLinking: {
+            enabled: true,
+            trustedProviders: ["google", "microsoft", "github", "gitlab", "zoom"]
+        }
+    },
     databaseHooks: {
         user: {
             create: {
                 before: async (user, _context) => {
-                    const [first = null, ...rest] = user.name.trim().split(" ")
+                    const [firstname, lastname] = splitName(user.name)
                     return {
                         data: {
                             ...user,
                             status: 4,
-                            firstname: first,
-                            lastname: rest.length ? rest.join(" ") : null
+                            firstname,
+                            lastname
                         }
                     }
                 }
@@ -100,29 +107,51 @@ export const auth = betterAuth({
         google: {
             clientId: process.env.GOOGLE_ID as string,
             clientSecret: process.env.GOOGLE_SECRET as string,
-            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP,
+            mapProfileToUser: async (profile) => {
+                await updateUserProfile(profile.name, profile.email, profile.picture)
+                return profile
+            }
         },
         microsoft: {
             clientId: process.env.MICROSOFT_ID as string,
             clientSecret: process.env.MICROSOFT_SECRET as string,
             tenantId: process.env.MICROSOFT_TENANT_ID as string,
             requireSelectAccount: true,
-            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP,
+            mapProfileToUser: async (profile) => {
+                console.log(profile)
+                await updateUserProfile(profile.name, profile.email, profile.picture)
+                return profile
+            }
         },
         zoom: {
             clientId: process.env.ZOOM_ID as string,
             clientSecret: process.env.ZOOM_SECRET as string,
-            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP,
+            mapProfileToUser: async (profile) => {
+                await updateUserProfile(
+                    `${profile.first_name} ${profile.last_name}`,
+                    profile.email,
+                    profile.pic_url
+                )
+            }
         },
         github: {
             clientId: process.env.GITHUB_ID as string,
             clientSecret: process.env.GITHUB_SECRET as string,
-            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP,
+            mapProfileToUser: async (profile) => {
+                await updateUserProfile(profile.name, profile.email, profile.avatar_url)
+            }
         },
         gitlab: {
             clientId: process.env.GITLAB_ID as string,
             clientSecret: process.env.GITLAB_SECRET as string,
-            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP
+            disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP,
+            mapProfileToUser: async (profile) => {
+                await updateUserProfile(profile.name, profile.email, profile.avatar_url)
+            }
         }
     },
     hooks: {

@@ -23,7 +23,7 @@ import {
     Video,
     Webhook
 } from "lucide-react"
-import { Discord } from "../icons/discord"
+import { DiscordLogo } from "../icons/discord"
 import { GitHubLogo } from "../icons/github"
 
 export type AppLink = {
@@ -83,14 +83,13 @@ export const appCards: AppCard[] = [
     },
     {
         title: "Logs Table",
-        description:
-            "View the logs of your meeting bots, and see the status of your meetings.",
+        description: "View the logs of your meeting bots, and see the status of your meetings.",
         links: [
             {
                 href: LOGS_URL,
                 type: "App",
                 icon: <ExternalLink />
-            },
+            }
         ],
         icon: <Logs className={cardIconClasses} />
     },
@@ -118,7 +117,7 @@ export const appCards: AppCard[] = [
                 icon: <ExternalLink />
             }
         ],
-        icon: <Discord />
+        icon: <DiscordLogo className={`${cardIconClasses} fill-foreground`} />
     },
     {
         title: "Transcript Seeker",
@@ -149,25 +148,21 @@ export const utilities: Utility[] = [
     {
         icon: <Settings className={utilityIconClasses} />,
         title: "Credentials",
-        href: CREDENTIALS_URL,
-        className: "border-r border-b rounded-tl-xl"
+        href: CREDENTIALS_URL
     },
     {
         icon: <ChartGantt className={utilityIconClasses} />,
         title: "Usage",
-        href: USAGE_URL,
-        className: "border-r rounded-bl-xl"
+        href: USAGE_URL
     },
     {
         icon: <ReceiptText className={utilityIconClasses} />,
         title: "Billing",
-        href: BILLING_URL,
-        className: "rounded-br-xl"
+        href: BILLING_URL
     },
     {
         icon: <GitHubLogo className={utilityIconClasses} />,
         title: "GitHub",
-        href: CONTRIBUTION_GITHUB_URL,
-        className: "border-b rounded-tr-xl"
+        href: CONTRIBUTION_GITHUB_URL
     }
 ]

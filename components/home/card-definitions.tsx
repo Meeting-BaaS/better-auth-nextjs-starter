@@ -1,7 +1,19 @@
 import {
+    AI_CHAT_GITHUB_URL,
+    AI_CHAT_URL,
+    BILLING_URL,
+    CONTRIBUTION_GITHUB_URL,
+    CREDENTIALS_URL,
+    DISCORD_URL,
+    LOGS_URL,
+    MEETING_BAAS_API_DOCS_URL,
+    TRANSCRIPT_SEEKER_APP_URL,
+    TRANSCRIPT_SEEKER_DOCS_URL,
+    TRANSCRIPT_SEEKER_GITHUB_URL,
+    USAGE_URL
+} from "@/lib/external-urls"
+import {
     BookOpen,
-    Bot,
-    Captions,
     ChartGantt,
     ExternalLink,
     Logs,
@@ -11,22 +23,8 @@ import {
     Video,
     Webhook
 } from "lucide-react"
+import { Discord } from "../icons/discord"
 import { GitHubLogo } from "../icons/github"
-import {
-    AI_CHAT_GITHUB_URL,
-    AI_CHAT_URL,
-    BILLING_URL,
-    LOGS_URL,
-    MEETING_BAAS_API_DOCS_URL,
-    REAL_TIME_TRANSCRIPTION_GITHUB_URL,
-    SETTINGS_URL,
-    SPEAKING_BOTS_DOCS_URL,
-    SPEAKING_BOTS_GITHUB_URL,
-    TRANSCRIPT_SEEKER_APP_URL,
-    TRANSCRIPT_SEEKER_DOCS_URL,
-    TRANSCRIPT_SEEKER_GITHUB_URL,
-    USAGE_URL
-} from "@/lib/external-urls"
 
 export type AppLink = {
     href: string
@@ -55,7 +53,7 @@ export const appCards: AppCard[] = [
     {
         title: "Meeting BaaS API",
         description:
-            "Integrate seamlessly with Google Meet, Zoom, and Microsoft Teams using just one API. Automate recording, transcription, and summarisation.",
+            "View our API docs and guides to learn how to use our API to record, transcribe, and summarise meetings.",
         links: [
             {
                 href: MEETING_BAAS_API_DOCS_URL,
@@ -68,7 +66,7 @@ export const appCards: AppCard[] = [
     {
         title: "AI Chat",
         description:
-            "Experience AI with Meeting BaaS. Chat directly in your browser to explore features or assist with meeting bots.",
+            "Use our AI Chat to directly use the API using natural language, code using our SDK, and debug past bots.",
         links: [
             {
                 href: AI_CHAT_URL,
@@ -84,35 +82,43 @@ export const appCards: AppCard[] = [
         icon: <MessageSquare className={cardIconClasses} />
     },
     {
-        title: "Real-time Transcription",
+        title: "Logs Table",
         description:
-            "Get real-time transcriptions during your meetings, with speaker identification and accurate text output.",
+            "View the logs of your meeting bots, and see the status of your meetings.",
         links: [
             {
-                href: REAL_TIME_TRANSCRIPTION_GITHUB_URL,
-                type: "GitHub",
-                icon: <GitHubLogo />
-            }
-        ],
-        icon: <Captions className={cardIconClasses} />
-    },
-    {
-        title: "Speaking Bot",
-        description:
-            "Send customized AI-powered agents to join meetings, speak, and interact with participants.",
-        links: [
-            {
-                href: SPEAKING_BOTS_DOCS_URL,
-                type: "Docs",
-                icon: <BookOpen />
+                href: LOGS_URL,
+                type: "App",
+                icon: <ExternalLink />
             },
+        ],
+        icon: <Logs className={cardIconClasses} />
+    },
+    // {
+    //     title: "Real-time Transcription",
+    //     description:
+    //         "Get real-time transcriptions during your meetings, with speaker identification and accurate text output.",
+    //     links: [
+    //         {
+    //             href: REAL_TIME_TRANSCRIPTION_GITHUB_URL,
+    //             type: "GitHub",
+    //             icon: <GitHubLogo />
+    //         }
+    //     ],
+    //     icon: <Captions className={cardIconClasses} />
+    // },
+    {
+        title: "Discord",
+        description:
+            "Join our Discord server to get help, share your ideas, and connect with other users.",
+        links: [
             {
-                href: SPEAKING_BOTS_GITHUB_URL,
-                type: "GitHub",
-                icon: <GitHubLogo />
+                href: DISCORD_URL,
+                type: "App",
+                icon: <ExternalLink />
             }
         ],
-        icon: <Bot className={cardIconClasses} />
+        icon: <Discord />
     },
     {
         title: "Transcript Seeker",
@@ -142,15 +148,9 @@ export const appCards: AppCard[] = [
 export const utilities: Utility[] = [
     {
         icon: <Settings className={utilityIconClasses} />,
-        title: "Settings",
-        href: SETTINGS_URL,
+        title: "Credentials",
+        href: CREDENTIALS_URL,
         className: "border-r border-b rounded-tl-xl"
-    },
-    {
-        icon: <Logs className={utilityIconClasses} />,
-        title: "Logs",
-        href: LOGS_URL,
-        className: "border-b rounded-tr-xl"
     },
     {
         icon: <ChartGantt className={utilityIconClasses} />,
@@ -163,5 +163,11 @@ export const utilities: Utility[] = [
         title: "Billing",
         href: BILLING_URL,
         className: "rounded-br-xl"
+    },
+    {
+        icon: <GitHubLogo className={utilityIconClasses} />,
+        title: "GitHub",
+        href: CONTRIBUTION_GITHUB_URL,
+        className: "border-b rounded-tr-xl"
     }
 ]

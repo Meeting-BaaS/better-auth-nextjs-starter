@@ -1,7 +1,7 @@
 import { opacityVariant } from "@/animations/opacity"
 import * as motion from "motion/react-client"
 
-export const Heading = ({ text = "Our AI-Powered Meeting BaaS Toolkit" }: { text?: string }) => {
+export const Heading = ({ text = "Meeting BaaS Developer Hub" }: { text?: string }) => {
     return (
         <div className="my-8 flex justify-center md:my-12 lg:my-20">
             <motion.h1

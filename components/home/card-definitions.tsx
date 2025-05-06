@@ -54,7 +54,7 @@ export const appCards: AppCard[] = [
     {
         title: "API Documentation",
         description:
-            "View our API docs and guides to learn how to use our API to record, transcribe, and summarise meetings.",
+            "Technical documentation for bot deployment, calendar sync, and real-time streaming. Includes latest updates and changelogs.",
         links: [
             {
                 href: MEETING_BAAS_API_DOCS_URL,
@@ -72,7 +72,7 @@ export const appCards: AppCard[] = [
     {
         title: "AI Chat",
         description:
-            "Chat with our API using natural language. Test your bots, debug issues, and try live streaming features",
+            "Chat with our API using natural language. Send bots, debug issues, and try all functionnalities from our MCP servers.",
         links: [
             {
                 href: AI_CHAT_URL,

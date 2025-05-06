@@ -35,8 +35,7 @@ export const TERMS_AND_CONDITIONS_URL =
 export const PRIVACY_POLICY_URL = NEXT_PUBLIC_PRIVACY_POLICY || "https://meetingbaas.com/privacy"
 
 // Settings URLs
-export const SETTINGS_URL =
-    SETTINGS_REDIRECTION_URL || `https://settings.${environment}meetingbaas.com`
+export const SETTINGS_URL = SETTINGS_REDIRECTION_URL || `https://${environment}meetingbaas.com`
 export const LOGS_URL = LOGS_REDIRECTION_URL || `${SETTINGS_URL}/logs`
 export const USAGE_URL = USAGE_REDIRECTION_URL || `${SETTINGS_URL}/usage`
 export const BILLING_URL = BILLING_REDIRECTION_URL || `${SETTINGS_URL}/billing`
@@ -53,6 +52,8 @@ export const MEETING_BAAS_API_DOCS_URL = MEETING_BAAS_API_DOCS || `${DOCS_URL}/d
 // AI Chat
 export const AI_CHAT_URL = AI_CHAT_APP || `https://chat.${environment}meetingbaas.com`
 export const AI_CHAT_GITHUB_URL = AI_CHAT_GITHUB || "https://github.com/Meeting-Baas/ai-chat"
+
+export const DISCORD_URL = "https://discord.com/invite/dsvFgDTr6c"
 
 // Real time transcription
 export const REAL_TIME_TRANSCRIPTION_GITHUB_URL =

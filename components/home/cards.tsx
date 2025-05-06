@@ -54,7 +54,7 @@ export const Cards = () => {
                 </p>
             )}
             <Card className="group relative grow p-0">
-                <CardContent className="grid grow grid-cols-2 grid-rows-2 p-0">
+                <CardContent className="card-grid grid grow grid-cols-2 grid-rows-2 p-0">
                     {utilities.map(({ title, icon, href, className }) => (
                         <Button
                             key={title}

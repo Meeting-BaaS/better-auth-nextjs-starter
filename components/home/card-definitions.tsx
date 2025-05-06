@@ -7,6 +7,7 @@ import {
     DISCORD_URL,
     LOGS_URL,
     MEETING_BAAS_API_DOCS_URL,
+    MEETING_BAAS_DOCS_GITHUB_URL,
     TRANSCRIPT_SEEKER_APP_URL,
     TRANSCRIPT_SEEKER_DOCS_URL,
     TRANSCRIPT_SEEKER_GITHUB_URL,
@@ -51,7 +52,7 @@ const utilityIconClasses = cardIconClasses
 
 export const appCards: AppCard[] = [
     {
-        title: "Meeting BaaS API",
+        title: "API Documentation",
         description:
             "View our API docs and guides to learn how to use our API to record, transcribe, and summarise meetings.",
         links: [
@@ -59,6 +60,11 @@ export const appCards: AppCard[] = [
                 href: MEETING_BAAS_API_DOCS_URL,
                 type: "Docs",
                 icon: <BookOpen />
+            },
+            {
+                href: MEETING_BAAS_DOCS_GITHUB_URL,
+                type: "GitHub",
+                icon: <GitHubLogo />
             }
         ],
         icon: <Webhook className={cardIconClasses} />
@@ -66,7 +72,7 @@ export const appCards: AppCard[] = [
     {
         title: "AI Chat",
         description:
-            "Use our AI Chat to directly use the API using natural language, code using our SDK, and debug past bots.",
+            "Chat with our API using natural language. Test your bots, debug issues, and try live streaming features",
         links: [
             {
                 href: AI_CHAT_URL,
@@ -83,7 +89,8 @@ export const appCards: AppCard[] = [
     },
     {
         title: "Logs Table",
-        description: "View the logs of your meeting bots, and see the status of your meetings.",
+        description:
+            "Track your meeting bots and view the status of your recordings.",
         links: [
             {
                 href: LOGS_URL,
@@ -109,7 +116,7 @@ export const appCards: AppCard[] = [
     {
         title: "Discord",
         description:
-            "Join our Discord server to get help, share your ideas, and connect with other users.",
+            "Join our server to get help, share ideas, and connect with other users.",
         links: [
             {
                 href: DISCORD_URL,
@@ -122,7 +129,7 @@ export const appCards: AppCard[] = [
     {
         title: "Transcript Seeker",
         description:
-            "Upload, transcribe, and chat with your meeting recordings. Powered by advanced transcription APIs and meeting bot technology.",
+            "Upload meetings to get transcripts and chat with your recordings using an open source interface.",
         links: [
             {
                 href: TRANSCRIPT_SEEKER_APP_URL,
@@ -147,8 +154,9 @@ export const appCards: AppCard[] = [
 export const utilities: Utility[] = [
     {
         icon: <Settings className={utilityIconClasses} />,
-        title: "Credentials",
-        href: CREDENTIALS_URL
+        title: "API Keys",
+        href: CREDENTIALS_URL,
+        className: "border-r border-b rounded-tl-xl"
     },
     {
         icon: <ChartGantt className={utilityIconClasses} />,

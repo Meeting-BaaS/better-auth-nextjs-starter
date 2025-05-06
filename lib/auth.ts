@@ -120,7 +120,6 @@ export const auth = betterAuth({
             requireSelectAccount: true,
             disableImplicitSignUp: DISABLE_IMPLICIT_SIGN_UP,
             mapProfileToUser: async (profile) => {
-                console.log(profile)
                 await updateUserProfile(profile.name, profile.email, profile.picture)
                 return profile
             }

@@ -6,6 +6,7 @@ import { db } from "@/database/db"
 import * as schema from "@/database/schema"
 import { jwtHook } from "@/server/auth/jwt-hook"
 import { splitName, updateUserProfile } from "@/server/auth/update-user-profile"
+import { generateBotsApiKey } from "@/server/auth/bots-api-key"
 
 let cookieOptions = {}
 if (process.env.NODE_ENV === "production") {
@@ -91,12 +92,14 @@ export const auth = betterAuth({
             create: {
                 before: async (user, _context) => {
                     const [firstname, lastname] = splitName(user.name)
+                    const botsApiKey = await generateBotsApiKey()
                     return {
                         data: {
                             ...user,
                             status: 4,
                             firstname,
-                            lastname
+                            lastname,
+                            botsApiKey
                         }
                     }
                 }

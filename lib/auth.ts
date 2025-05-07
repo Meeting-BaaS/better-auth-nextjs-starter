@@ -92,7 +92,13 @@ export const auth = betterAuth({
             create: {
                 before: async (user, _context) => {
                     const [firstname, lastname] = splitName(user.name)
-                    const botsApiKey = await generateBotsApiKey()
+                    let botsApiKey = null
+                    try {
+                        botsApiKey = await generateBotsApiKey()
+                    } catch (error) {
+                        console.error("Failed to generate bots API key:", error)
+                        // Continue with null botsApiKey - DB Constraint on this column would fail the user creation
+                    }
                     return {
                         data: {
                             ...user,

@@ -6,7 +6,7 @@ if (!secret) {
 
 /**
  * Generate a secure key from random integers, combined with secret and hashed
- * @returns generated bots api key
+ * @returns A 64-character hexadecimal string representing the SHA-256 hash
  */
 export const generateBotsApiKey = async () => {
     // Step 1: Generate random 32-byte hex string

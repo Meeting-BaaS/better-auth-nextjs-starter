@@ -1,33 +1,93 @@
-import { abstractImages } from "@/lib/images"
+import { authHeroVariant } from "@/animations/auth/auth-hero"
 import { AppsCardStack } from "@/components/hero/apps-card-stack"
 import { FeaturesCardStack } from "@/components/hero/features-card-stack"
-import { LogoCard } from "./logo-card"
+import { abstractImages } from "@/lib/images"
 import * as motion from "motion/react-client"
-import { authHeroVariant } from "@/animations/auth/auth-hero"
+import { useMemo } from "react"
+import { LogoCard } from "./logo-card"
 
 export default function HeroSection() {
     const image = abstractImages[Math.floor(Math.random() * abstractImages.length)]
 
-    const overlays: Record<number, React.ReactNode> = {
-        1: <FeaturesCardStack />,
-        4: <AppsCardStack />,
-        5: <LogoCard />,
-        8: (
-            <div className="absolute bottom-0 w-full rounded-b-2xl bg-accent/40 px-2 py-1 text-foreground text-sm backdrop-blur-xs">
-                <p>
-                    Credit:{" "}
-                    <a
-                        href={image.author.url}
-                        className="underline underline-offset-4 "
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {image.author.name}
-                    </a>
-                </p>
-            </div>
-        )
+    // Generate random positions for components
+    const componentConfig = useMemo(() => {
+        // Generate all available positions (0-8)
+        const availablePositions = Array.from({ length: 9 }, (_, i) => i);
+
+        // Credit always goes in bottom-right (position 8)
+        const creditPosition = 8;
+        // Remove position 8 from available positions
+        availablePositions.splice(availablePositions.indexOf(creditPosition), 1);
+
+        // Shuffle remaining positions
+        for (let i = availablePositions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [availablePositions[i], availablePositions[j]] = [availablePositions[j], availablePositions[i]];
+        }
+
+        // Take the first 3 positions for our components
+        return {
+            featuresPosition: availablePositions[0],
+            appsPosition: availablePositions[1],
+            logoPosition: availablePositions[2],
+            creditPosition
+        };
+    }, []);
+
+    // We'll create the overlays directly in the render function to allow the cards to cycle internally
+    const overlays: Record<number, React.ReactNode> = {};
+
+    // Randomly decide component order
+    const componentTypes = ["features", "apps", "logo"];
+    // Shuffle component types
+    for (let i = componentTypes.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [componentTypes[i], componentTypes[j]] = [componentTypes[j], componentTypes[i]];
     }
+
+    // Assign components to their positions based on shuffled order
+    componentTypes.forEach((type) => {
+        let position: number;
+        let component: React.ReactNode;
+
+        switch (type) {
+            case "features":
+                position = componentConfig.featuresPosition;
+                component = <FeaturesCardStack key="features" />;
+                break;
+            case "apps":
+                position = componentConfig.appsPosition;
+                component = <AppsCardStack key="apps" />;
+                break;
+            case "logo":
+                position = componentConfig.logoPosition;
+                component = <LogoCard key="logo" />;
+                break;
+            default:
+                return; // Skip if type is not recognized
+        }
+
+        if (position !== undefined) {
+            overlays[position] = component;
+        }
+    });
+
+    // Add credit at position 8
+    overlays[componentConfig.creditPosition] = (
+        <div className="absolute bottom-0 w-full rounded-b-2xl bg-accent/40 px-2 py-1 text-foreground text-sm backdrop-blur-xs">
+            <p>
+                Credit:{" "}
+                <a
+                    href={image.author.url}
+                    className="underline underline-offset-4 "
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {image.author.name}
+                </a>
+            </p>
+        </div>
+    );
 
     return (
         <motion.div

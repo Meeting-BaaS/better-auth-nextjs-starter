@@ -25,6 +25,7 @@
         "AUTH_COOKIE_PREFIX",
         "BETTER_AUTH_SECRET",
         "USER_ENCODING_KEY",
+        "BOTS_API_KEY_SECRET",
         "DATABASE_URL",
         "GOOGLE_ID",
         "GOOGLE_SECRET",

@@ -55,7 +55,7 @@ export const DOCS_URL = `https://docs.${environment}meetingbaas.com`;
 
 // Meeting BaaS API
 export const MEETING_BAAS_API_DOCS_URL =
-  MEETING_BAAS_API_DOCS || `${DOCS_URL}/docs/api`;
+  MEETING_BAAS_API_DOCS || `${DOCS_URL}/updates`;
 export const MEETING_BAAS_DOCS_GITHUB_URL =
   "https://github.com/Meeting-Baas/docs";
 

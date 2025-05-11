@@ -14,6 +14,7 @@ if (process.env.APP_URL) {
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
     const origin = request.headers.get("origin") || ""
+    console.log("Request origin", origin)
 
     const isApiRoute = pathname.startsWith("/api/")
     const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route))

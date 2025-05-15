@@ -40,6 +40,6 @@
         "GITLAB_SECRET",
         "DOMAIN",
         "TRUSTED_ORIGINS",
-        "ENVIRONMENT"
+        "NEXT_PUBLIC_ENVIRONMENT"
     ]
 }

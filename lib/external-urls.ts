@@ -1,9 +1,11 @@
-// For prod, the environment key is expected to be blank
+// For prod, the environment key is expected to be blank.
+// For non-prod environments, NEXT_PUBLIC_ENVIRONMENT should be set to a domain prefix
+// (e.g., "pre-prod-", "dev-") WITHOUT a trailing dot
 const environment = process.env.NEXT_PUBLIC_ENVIRONMENT || ""
 
 export const GLADIA_URL = "https://gladia.io"
 export const CONTRIBUTION_GITHUB_URL = "https://github.com/Meeting-Baas"
-export const MEETING_BAAS_HOMEPAGE_URL = "https://meetingbaas.com/"
+export const MEETING_BAAS_HOMEPAGE_URL = "https://meetingbaas.com"
 export const TERMS_AND_CONDITIONS_URL = "https://meetingbaas.com/terms-and-conditions"
 export const PRIVACY_POLICY_URL = "https://meetingbaas.com/privacy"
 
@@ -38,7 +40,7 @@ export const SPEAKING_BOTS_DOCS_URL = `${DOCS_URL}/docs/speaking-bots`
 export const SPEAKING_BOTS_GITHUB_URL = "https://github.com/Meeting-Baas/speaking-meeting-bot"
 
 // Transcript Seeker
-export const TRANSCRIPT_SEEKER_APP_URL = "https://app.transcriptseeker.com/"
+export const TRANSCRIPT_SEEKER_APP_URL = "https://app.transcriptseeker.com"
 export const TRANSCRIPT_SEEKER_DOCS_URL = `${DOCS_URL}/docs/transcript-seeker`
 export const TRANSCRIPT_SEEKER_GITHUB_URL = "https://github.com/Meeting-Baas/transcript-seeker"
 

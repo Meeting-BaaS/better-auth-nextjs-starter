@@ -1,77 +1,107 @@
 @import "tailwindcss";
-@config "../tailwind.config.ts";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-baas-neutral-400: var(--baas-neutral-400);
+  --color-baas-neutral-500: var(--baas-neutral-500);
+  --color-baas-warning-500: var(--baas-warning-500);
+  --color-baas-primary-700: var(--baas-primary-700);
+  --color-baas-black: var(--baas-black);
+  --color-microsoft-grey: var(--microsoft-grey);
+  --color-github-green: var(--github-green);
+  --color-gitlab-orange: var(--gitlab-orange);
+  --color-zoom-blue: var(--zoom-blue);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: oklch(0.98 0.0048 183.05);
+  --foreground: oklch(0.36 0.0131 285.72);
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground:  var(--foreground);
+  --primary: oklch(0.8 0.140647 186.3213);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.97 0.0013 286.38);
+  --secondary-foreground: oklch(0.21 0.0059 285.88);
+  --muted: var(--secondary);
+  --muted-foreground: var(--secondary-foreground);
+  --accent: var(--secondary);
+  --accent-foreground: var(--secondary-foreground);
+  --destructive: oklch(0.64 0.2465 18.31);
+  --border: oklch(0.92 0.004 286.32);
+  --input: var(--border);
+  --ring: var(--border);
+  /* Radius */
+  --radius: 0.5rem;
+  /* Meeting BaaS brand colors */
+  --baas-neutral-400: oklch(0.46 0 0);
+  --baas-neutral-500: oklch(0.35 0.0121 188.07);
+  --baas-warning-500: oklch(0.98 0.1298 108.58);
+  --baas-primary-700: oklch(0.53 0.0548 187.47);
+  --baas-black: oklch(0.26 0 0);
+  /* Brand Logo colors */
+  --microsoft-grey: oklch(0.55 0 0);
+  --github-green: oklch(0.55 0.147 146.41);
+  --gitlab-orange: oklch(0.7 0.1901 43.17);
+  --zoom-blue: oklch(0.65 0.1915 256.03);
+}
+
+.dark {
+  --background: oklch(0.29 0 0);
+  --foreground: oklch(1 0 0);
+  --popover: var(--baas-black);
+  --primary-foreground: oklch(0.38 0.0245 253.58);
+  --secondary: var(--baas-neutral-500);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--baas-neutral-500);
+  --muted-foreground: oklch(0.72 0 0);
+  --accent: var(--baas-neutral-500);
+  --accent-foreground: var(--foreground);
+  --destructive: var(--baas-warning-500);
+  --border: var(--baas-neutral-500);
+  --input: var(--baas-neutral-500);
+  --ring: oklch(0.67 0.143484 235.7191);
+}
 
 @layer base {
-    /* Global variables and dark mode inlines */
-    :root {
-        --background: 168 29% 97%;
-        --foreground: 240 6% 25%;
-        --card: var(--background);
-        --card-foreground: 240 10% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 240 10% 3.9%;
-        --primary: 176 100% 43%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 240 4.8% 95.9%;
-        --secondary-foreground: 240 5.9% 10%;
-        --muted: var(--secondary);
-        --muted-foreground: 240 3.8% 46.1%;
-        --accent: var(--secondary);
-        --accent-foreground: var(--secondary-foreground);
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 240 5.9% 90%;
-        --input: 240 5.9% 90%;
-        --ring: 240 10% 3.9%;
-        /* Radius */
-        --radius: 0.5rem;
-        /* Brand Logo colors */
-        --microsoft-grey: 0 0% 45%;
-        --github-green: 132 59% 33%;
-        --gitlab-orange: 20 97% 57%;
-        --zoom-blue: 213 100% 59%;
-        /* Meeting BaaS brand colors */
-        --baas-neutral-400: 0 0% 35%;
-        --baas-neutral-500: 173 8% 22%;
-        --baas-warning-500: 60 100% 79%;
-        --baas-black: 0 0% 14%;
-    }
+  /* Universal base styles */
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply !bg-background !text-foreground;
+  }
 
-    .dark {
-        --background: 0 0% 17%;
-        --foreground: 0 0% 100%;
-        --card: var(--background);
-        --card-foreground: var(--foreground);
-        --popover: var(--background);
-        --popover-foreground: var(--foreground);
-        --primary: 176 100% 43%;
-        --primary-foreground: 213 16% 27%;
-        --secondary: 240 4.8% 95.9%;
-        --secondary-foreground: var(--foreground);
-        --muted: 173 8% 22%;
-        --muted-foreground: 0 0% 65%;
-        --accent: 173 8% 22%;
-        --accent-foreground: var(--foreground);
-        --destructive: 60 100% 79%;
-        --border: 173 8% 22%;
-        --input: 173 8% 22%;
-        --ring: 197 100% 44%;
-    }
-
-    /* Universal reset and base styles */
-    * {
-        @apply border-border;
-    }
-
-    body {
-        @apply bg-background text-foreground;
-    }
-
-    /* Selection styling */
-    ::selection {
-        background-color: hsl(var(--accent));
-        color: hsl(var(--foreground));
-    }
+  /* Selection styling */
+  ::selection {
+    background-color: var(--accent);
+    color: var(--foreground);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

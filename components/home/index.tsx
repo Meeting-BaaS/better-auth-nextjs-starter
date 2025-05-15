@@ -1,7 +1,7 @@
 import { spotlightVariant } from "@/animations/background"
-import { Cards } from "./cards"
-import { Contributing } from "./contributing"
-import { Heading } from "./heading"
+import { Cards } from "@/components/home/cards"
+import { Contributing } from "@/components/home/contributing"
+import { Heading } from "@/components/home/heading"
 import * as motion from "motion/react-client"
 
 export default function Home() {

@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
-    title: "Login",
+    title: "Login | Meeting BaaS",
     description: "Login to Meeting BaaS"
 }
 

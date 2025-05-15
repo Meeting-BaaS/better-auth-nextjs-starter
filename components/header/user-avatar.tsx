@@ -1,31 +1,30 @@
 "use client"
 
 import { Loader2, UserIcon } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger
-} from "../ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import { signOut } from "@/lib/auth-client"
 import { Fragment, useState } from "react"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import type { User } from "better-auth"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
-import { ThemeToggle } from "./theme-toggle"
-import type { MenuOption } from "./menu-options"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { ThemeToggle } from "@/components/header/theme-toggle"
+import { menuOptions } from "@/components/header/menu-options"
 import { genericError } from "@/lib/errors"
 
 export const UserAvatar = ({
-    user,
-    menuOptions
+    user
 }: {
     user: User
-    menuOptions: MenuOption[]
 }) => {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
@@ -78,6 +77,10 @@ export const UserAvatar = ({
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-48">
+                <DropdownMenuLabel className="truncate text-muted-foreground first-letter:uppercase">
+                    {user.email}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem
                     className="hover:!bg-popover inline-flex w-full justify-between py-1 md:hidden"
                     onSelect={(e: Event) => {

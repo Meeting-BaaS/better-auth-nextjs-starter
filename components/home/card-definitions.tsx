@@ -24,8 +24,8 @@ import {
     Video,
     Webhook
 } from "lucide-react"
-import { DiscordLogo } from "../icons/discord"
-import { GitHubLogo } from "../icons/github"
+import { DiscordLogo } from "@/components/icons/discord"
+import { GitHubLogo } from "@/components/icons/github"
 
 export type AppLink = {
     href: string
@@ -89,8 +89,7 @@ export const appCards: AppCard[] = [
     },
     {
         title: "Logs Table",
-        description:
-            "Track your meeting bots and view the status of your recordings.",
+        description: "Track your meeting bots and view the status of your recordings.",
         links: [
             {
                 href: LOGS_URL,
@@ -115,8 +114,7 @@ export const appCards: AppCard[] = [
     // },
     {
         title: "Discord",
-        description:
-            "Join our server to get help, share ideas, and connect with other users.",
+        description: "Join our server to get help, share ideas, and connect with other users.",
         links: [
             {
                 href: DISCORD_URL,

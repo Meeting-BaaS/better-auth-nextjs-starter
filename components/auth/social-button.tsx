@@ -1,7 +1,7 @@
 import { Loader2 } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import type { ProviderName } from "./providers"
+import type { ProviderName } from "@/components/auth/providers"
 
 interface SocialButtonProps {
     name: ProviderName

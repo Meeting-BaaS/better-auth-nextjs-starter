@@ -1,5 +1,5 @@
 import { ExternalLink, Heart } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import * as motion from "motion/react-client"
 import { CONTRIBUTION_GITHUB_URL } from "@/lib/external-urls"

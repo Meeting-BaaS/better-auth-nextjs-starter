@@ -2,7 +2,7 @@
 
 import { Check, MessageSquare } from "lucide-react"
 import { motion } from "motion/react"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { GLADIA_URL } from "@/lib/external-urls"
 import { cardContainerVariant, cardItemVariant } from "@/animations/auth/auth-card-stacks"

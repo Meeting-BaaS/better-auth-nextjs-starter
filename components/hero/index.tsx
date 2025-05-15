@@ -1,7 +1,7 @@
 import { abstractImages } from "@/lib/images"
 import { AppsCardStack } from "@/components/hero/apps-card-stack"
 import { FeaturesCardStack } from "@/components/hero/features-card-stack"
-import { LogoCard } from "./logo-card"
+import { LogoCard } from "@/components/hero/logo-card"
 import * as motion from "motion/react-client"
 import { authHeroVariant } from "@/animations/auth/auth-hero"
 

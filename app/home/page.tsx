@@ -7,7 +7,7 @@ import Home from "@/components/home"
 import Footer from "@/components/footer"
 
 export const metadata: Metadata = {
-    title: "Meeting BaaS Authentication Dashboard",
+    title: "Developer Hub | Meeting BaaS",
     description:
         "Access Meeting BaaS tools, integrations, and utilities from one central dashboard."
 }
@@ -19,11 +19,9 @@ export default async function HomePage() {
         redirect("/sign-in")
     }
 
-    const { user } = sessionData
-
     return (
         <>
-            <Header user={user} />
+            <Header initialSession={sessionData} />
             <Home />
             <Footer />
         </>

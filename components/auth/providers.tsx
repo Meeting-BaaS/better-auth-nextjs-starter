@@ -29,7 +29,7 @@ export const providers: Provider[] = [
     //     title: "Microsoft",
     //     logo: <MicrosoftLogo />,
     //     className: "hover:bg-microsoft-grey"
-    // }
+    // },
     // {
     //     name: "github",
     //     title: "GitHub",

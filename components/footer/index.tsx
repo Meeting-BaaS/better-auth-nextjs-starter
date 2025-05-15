@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import {
     MEETING_BAAS_HOMEPAGE_URL,
     PRIVACY_POLICY_URL,
@@ -8,8 +8,8 @@ import {
 
 export default function Footer() {
     return (
-        <footer className="border-t p-4 text-secondary-foreground">
-            <div className="container mx-auto flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <footer className="border-t py-4 text-secondary-foreground">
+            <div className="mx-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between md:mx-8">
                 <div>
                     <p className="font-semibold text-sm">Authentication</p>
                     <p className="text-xs">

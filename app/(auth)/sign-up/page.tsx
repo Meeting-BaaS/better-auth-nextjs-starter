@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import SignUpForm from "@/components/auth/sign-up-form"
 
 export const metadata: Metadata = {
-    title: "Sign up",
+    title: "Sign up | Meeting BaaS",
     description: "Sign up to Meeting BaaS"
 }
 

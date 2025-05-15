@@ -4,7 +4,7 @@ import { Sofia_Sans } from "next/font/google"
 import "@/styles/globals.css"
 
 import type { ReactNode } from "react"
-import { Providers } from "./providers"
+import { Providers } from "@/app/providers"
 
 const sofiaSans = Sofia_Sans({
     subsets: ["latin"],

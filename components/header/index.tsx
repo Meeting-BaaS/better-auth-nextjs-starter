@@ -1,14 +1,26 @@
-import type { User } from "better-auth"
-import { UserAvatar } from "./user-avatar"
-import Image from "next/image"
-import { ThemeToggle } from "./theme-toggle"
-import { Button } from "../ui/button"
-import Link from "next/link"
-import { GitHubLogo } from "../icons/github"
-import { menuOptions } from "./menu-options"
-import { AUTH_APP_GITHUB_URL } from "@/lib/external-urls"
+"use client"
 
-export default function Header({ user }: { user: User }) {
+import { UserAvatar } from "@/components/header/user-avatar"
+import Image from "next/image"
+import { ThemeToggle } from "@/components/header/theme-toggle"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { GitHubLogo } from "@/components/icons/github"
+import { GITHUB_REPO_URL } from "@/lib/external-urls"
+import { useSession } from "@/hooks/use-session"
+import type { SessionObject } from "@/lib/types"
+
+export default function Header({ initialSession }: { initialSession: SessionObject }) {
+    const { session, error } = useSession(initialSession)
+
+    if (error || !session) {
+        const signInUrl = `${window.location.origin}/sign-in`
+        window.location.replace(signInUrl)
+        return null
+    }
+
+    const { user } = session
+
     return (
         <header className="sticky top-0 z-40 mx-auto box-content w-full max-w-container border-b bg-background/15 backdrop-blur-md lg:top-2 lg:mt-2 lg:w-[calc(100%-4rem)] lg:rounded-2xl lg:border">
             <nav className="flex h-12 w-full flex-row items-center justify-between px-4">
@@ -32,17 +44,13 @@ export default function Header({ user }: { user: User }) {
                             asChild
                             aria-label="Github repository"
                         >
-                            <Link
-                                href={AUTH_APP_GITHUB_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                            <Link href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer">
                                 <GitHubLogo />
                             </Link>
                         </Button>
                         <ThemeToggle className="hidden md:flex" />
                     </div>
-                    <UserAvatar user={user} menuOptions={menuOptions} />
+                    <UserAvatar user={user} />
                 </div>
             </nav>
         </header>

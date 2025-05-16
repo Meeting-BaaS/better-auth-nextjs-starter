@@ -1,0 +1,8 @@
+{
+  "name": "speaking-bots-mcp",
+  "description": "An MCP server that can send speaking bots inside meetings.",
+  "githubUrl": "https://github.com/Meeting-Baas/speaking-bots-mcp",
+  "envVars": [
+    { "label": "REDIS_URL", "value": "redis://localhost:6379", "sensitive": true }
+  ]
+} 

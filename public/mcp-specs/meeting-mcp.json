@@ -1,6 +1,7 @@
 {
   "name": "meeting-mcp",
-  "description": "Model Context Protocol server for AI assistants to create meeting bots, search transcripts, and manage meeting recordings.",
+  "displayName": "End User Meetings",
+  "description": "MVP. MCP server to search transcripts, manage meeting recordings, and more. Runs locally.",
   "githubUrl": "https://github.com/Meeting-Baas/meeting-mcp",
   "envVars": [
     { "label": "REDIS_URL", "value": "redis://localhost:6379", "sensitive": true },

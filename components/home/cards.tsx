@@ -9,7 +9,8 @@ import * as motion from "motion/react-client"
 import { homeCardsVariant } from "@/animations/home-cards"
 import { fetchMcpSpecs, type McpServerSpec } from "@/components/home/card-definitions"
 import { useState, useEffect } from "react"
-import { Eye, EyeOff, ExternalLink, Copy, Check } from "lucide-react"
+import { Eye, EyeOff, ExternalLink, Copy, Check, Globe } from "lucide-react"
+import { GitHubLogo } from "@/components/icons/github"
 
 function getConfigJson(server: McpServerSpec, reveal: boolean) {
     const env: Record<string, string> = {}
@@ -37,14 +38,25 @@ const McpCard = ({ server }: { server: McpServerSpec }) => {
     }
     return (
         <div className="group relative grow border border-border rounded-xl bg-card text-card-foreground shadow p-6 flex flex-col gap-4">
-            <div className="flex items-center gap-2 font-semibold text-lg mb-2">
-                {server.name}
-                <a href={server.githubUrl} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-500"><ExternalLink size={16} /></a>
+            <div className="flex flex-col gap-1 mb-2">
+                <div className="flex items-center gap-2 font-semibold text-lg">
+                    {server.displayName}
+                </div>
+                {server.serverUrl && (
+                    <a href={server.serverUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 font-semibold text-primary hover:underline text-sm">
+                        <Globe className="text-card-foreground" size={16} />
+                        <span>Server URL</span>
+                    </a>
+                )}
+                <a href={server.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 font-semibold text-primary hover:underline text-sm">
+                    <GitHubLogo className="size-4 text-card-foreground" />
+                    <span>GitHub</span>
+                </a>
             </div>
-            <div className="text-md text-muted-foreground leading-relaxed mb-2">
+            <div className="text-md text-muted-foreground leading-relaxed mb-2 min-h-[48px] max-h-[48px] overflow-hidden text-ellipsis line-clamp-2">
                 {server.description}
             </div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-2 justify-end">
                 <Button
                     variant="outline"
                     size="sm"
@@ -54,21 +66,20 @@ const McpCard = ({ server }: { server: McpServerSpec }) => {
                     {reveal ? <EyeOff size={16} /> : <Eye size={16} />}
                     {reveal ? "Hide sensitive values" : "Show sensitive values"}
                 </Button>
-            </div>
-            <div className="relative">
-                <pre className="overflow-x-auto rounded bg-card text-card-foreground border border-border p-4 text-sm font-mono leading-snug whitespace-pre-wrap min-h-[180px] selection:bg-accent selection:text-foreground">
-                    {configJson}
-                </pre>
                 <Button
                     variant="outline"
                     size="sm"
-                    className="absolute top-2 right-2"
                     onClick={handleCopy}
                     aria-label="Copy JSON config"
                 >
                     {copied ? <Check size={16} /> : <Copy size={16} />}
                     {copied ? "Copied" : "Copy"}
                 </Button>
+            </div>
+            <div className="relative">
+                <pre className="overflow-x-auto rounded bg-card text-card-foreground border border-border p-4 text-sm font-mono leading-snug whitespace-pre-wrap min-h-[180px] selection:bg-accent selection:text-foreground">
+                    {configJson}
+                </pre>
             </div>
         </div>
     )
@@ -88,11 +99,16 @@ export const Cards = () => {
         return (
             <div className="mx-auto max-w-6xl py-8">
                 <div className="flex items-center justify-between mb-8">
-                    <h2 className="text-3xl font-bold">MCP Servers</h2>
+                    <div>
+                        <h2 className="text-3xl font-bold">MCP Servers</h2>
+                        <p className="mt-2 text-muted-foreground text-base max-w-2xl">
+                            MCP servers let you connect Meeting BaaS to external tools and LLMs, such as <a href="https://docs.cursor.com/context/model-context-protocol" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">Cursor</a> or <a href="https://modelcontextprotocol.io/quickstart/user" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary">Claude</a>, using the <span className="font-semibold">Model Context Protocol</span>. All servers are open source, and most are available hosted within Meeting BaaS.
+                        </p>
+                    </div>
                     <Button
                         variant="default"
                         size="lg"
-                        className="font-bold shadow-lg px-8 py-3 text-lg bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-4 focus-visible:ring-primary/40"
+                        className="font-bold shadow-lg px-8 py-3 text-lg bg-primary text-primary-foreground hover:bg-primary/80 focus-visible:ring-4 focus-visible:ring-primary/40 border-2 border-primary"
                         onClick={() => setShowMcp(false)}
                     >
                         ← Back

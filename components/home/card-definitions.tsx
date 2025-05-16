@@ -188,17 +188,19 @@ export const utilities: Utility[] = [
 // MCP Servers data structure
 export type McpServerSpec = {
     name: string
+    displayName: string // user-facing name
     description: string
     githubUrl: string
+    serverUrl?: string // optional hosted server URL
     envVars: { label: string; value: string | null; sensitive?: boolean }[]
 }
 
 // List of MCP spec filenames (to be loaded from public/mcp-specs)
 export const mcpSpecFiles: string[] = [
-    "meeting-mcp.json",
-    "speaking-bots-mcp.json",
     "mcp-on-vercel.json",
-    "mcp-on-vercel-documentation.json"
+    "mcp-on-vercel-documentation.json",
+    "speaking-bots-mcp.json",
+    "meeting-mcp.json"
 ]
 
 // Example function to fetch all MCP specs (to be used in a client component)

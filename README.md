@@ -51,7 +51,7 @@ A modern authentication system built with Next.js, featuring secure user managem
    cp .env.example .env
    ```
 
-   Fill in the required environment variables in `.env`. Details about the expected values for each key is documented in .env.example
+   Fill in the required environment variables in `.env`. Details about the expected values for each key is documented in .env.example.
 
 4. Run database migrations:
 

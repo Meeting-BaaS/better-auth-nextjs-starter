@@ -1,7 +1,7 @@
 {
   "name": "mcp-on-vercel-documentation",
   "displayName": "BaaS API Documentation",
-  "description": "An MCP server to deliver context to the MeetingBaaS chat.",
+  "description": "An MCP server to deliver context to your code editor and the MeetingBaaS chat.",
   "githubUrl": "https://github.com/Meeting-Baas/mcp-on-vercel-documentation",
   "serverUrl": "https://mcp-documentation.meetingbaas.com/sse",
   "envVars": [

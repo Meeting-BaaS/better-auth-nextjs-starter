@@ -1,11 +1,11 @@
 "use client"
 
-import { Check, MessageSquare } from "lucide-react"
-import { motion } from "motion/react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { GLADIA_URL } from "@/lib/external-urls"
 import { cardContainerVariant, cardItemVariant } from "@/animations/auth/auth-card-stacks"
+import { Button } from "@/components/ui/button"
+import { GLADIA_URL } from "@/lib/external-urls"
+import { BarChart3, Check, MessageSquare } from "lucide-react"
+import { motion } from "motion/react"
+import Link from "next/link"
 
 export const AppsCardStack = () => {
     return (
@@ -119,6 +119,34 @@ export const AppsCardStack = () => {
                             rx="4.53017"
                         />
                     </svg>
+                </motion.div>
+            </motion.div>
+
+            <motion.div
+                variants={cardContainerVariant("-200%", 12)} // Even longer delay for the third card
+                initial="hidden"
+                animate="visible"
+                className="flex h-full w-full flex-col justify-between gap-3 rounded-2xl bg-background p-4"
+            >
+                <div className="flex flex-col items-center gap-3">
+                    <motion.div
+                        variants={cardItemVariant(0.6)}
+                        className="flex max-w-48 items-center gap-2 rounded-full bg-foreground px-3 py-2 font-medium text-primary-foreground text-sm opacity-50"
+                    >
+                        <BarChart3 size={16} /> Platform Metrics
+                    </motion.div>
+                    <motion.div
+                        variants={cardItemVariant()}
+                        className="flex min-w-52 items-center justify-center gap-2 rounded-full bg-foreground px-3 py-2 font-medium text-primary-foreground text-sm"
+                    >
+                        <Check size={16} /> Performance Analytics
+                    </motion.div>
+                </div>
+                <motion.div variants={cardItemVariant()}>
+                    <div className="font-medium text-xl">Bot Analytics</div>
+                    <div className="text-muted-foreground text-sm">
+                        Monitor bot performance across platforms
+                    </div>
                 </motion.div>
             </motion.div>
         </>

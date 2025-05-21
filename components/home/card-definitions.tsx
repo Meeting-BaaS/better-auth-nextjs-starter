@@ -1,7 +1,10 @@
+import { DiscordLogo } from "@/components/icons/discord"
+import { GitHubLogo } from "@/components/icons/github"
 import {
     AI_CHAT_GITHUB_URL,
     AI_CHAT_URL,
     BILLING_URL,
+    BOT_ANALYTICS_URL,
     CONTRIBUTION_GITHUB_URL,
     CREDENTIALS_URL,
     DISCORD_URL,
@@ -14,6 +17,7 @@ import {
     USAGE_URL
 } from "@/lib/external-urls"
 import {
+    BarChart3,
     BookOpen,
     ChartGantt,
     ExternalLink,
@@ -24,8 +28,6 @@ import {
     Video,
     Webhook
 } from "lucide-react"
-import { DiscordLogo } from "@/components/icons/discord"
-import { GitHubLogo } from "@/components/icons/github"
 
 export type AppLink = {
     href: string
@@ -99,6 +101,19 @@ export const appCards: AppCard[] = [
         ],
         icon: <Logs className={cardIconClasses} />
     },
+    {
+        title: "Bot Analytics",
+        description:
+            "Monitor usage, performance metrics, and duration trends for your meeting bots across platforms.",
+        links: [
+            {
+                href: BOT_ANALYTICS_URL,
+                type: "App",
+                icon: <ExternalLink />
+            }
+        ],
+        icon: <BarChart3 className={cardIconClasses} />
+    },
     // {
     //     title: "Real-time Transcription",
     //     description:
@@ -125,6 +140,18 @@ export const appCards: AppCard[] = [
         icon: <DiscordLogo className={`${cardIconClasses} fill-foreground`} />
     },
     {
+        title: "MCP Servers",
+        description: "Connect Meeting BaaS directly to your tools or AI agents through MCP servers.",
+        links: [
+            {
+                href: "#mcp-servers",
+                type: "App",
+                icon: <ExternalLink />
+            }
+        ],
+        icon: <Settings className={cardIconClasses} />
+    },
+    {
         title: "Transcript Seeker",
         description:
             "Upload meetings to get transcripts and chat with your recordings using an open source interface.",
@@ -146,18 +173,6 @@ export const appCards: AppCard[] = [
             }
         ],
         icon: <Video className={cardIconClasses} />
-    },
-    {
-        title: "MCP Servers",
-        description: "View available MCP servers. Connect Meeting BaaS directly to your tools or AI agents.",
-        links: [
-            {
-                href: "#mcp-servers",
-                type: "App",
-                icon: <ExternalLink />
-            }
-        ],
-        icon: <Settings className={cardIconClasses} />
     }
 ]
 

@@ -15,6 +15,8 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
     const origin = request.headers.get("origin") || ""
 
+    console.log("[Auth Middleware] Request origin:", origin)
+
     const isApiRoute = pathname.startsWith("/api/")
     const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route))
 
@@ -48,8 +50,11 @@ export async function middleware(request: NextRequest) {
             cookiePrefix: process.env.AUTH_COOKIE_PREFIX
         })
 
+        console.log("[Auth Middleware] Session cookie:", sessionCookie)
+
         if (!sessionCookie) {
             if (isAuthRoute) return response
+            console.warn("[Auth Middleware] No session cookie found, redirecting to sign-in")
             return NextResponse.redirect(new URL("/sign-in", request.url))
         }
 

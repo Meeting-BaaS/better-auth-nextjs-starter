@@ -29,7 +29,7 @@ export const APP_URL = createUrl("auth")
 export const SETTINGS_URL = `https://settings.${environment}${BASE_DOMAIN}`
 export const LOGS_URL = createUrl("logs")
 export const BOT_ANALYTICS_URL = createUrl("analytics")
-export const USAGE_URL = `${BOT_ANALYTICS_URL}/usage`
+export const USAGE_URL = `${BOT_ANALYTICS_URL}` // Usage is not yet implemented
 export const BILLING_URL = `${createUrl("pricing")}/billing`
 export const CREDENTIALS_URL = `${SETTINGS_URL}/credentials`
 

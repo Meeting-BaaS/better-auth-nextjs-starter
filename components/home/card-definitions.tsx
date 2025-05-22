@@ -1,7 +1,10 @@
+import { DiscordLogo } from "@/components/icons/discord"
+import { GitHubLogo } from "@/components/icons/github"
 import {
     AI_CHAT_GITHUB_URL,
     AI_CHAT_URL,
     BILLING_URL,
+    BOT_ANALYTICS_URL,
     CONTRIBUTION_GITHUB_URL,
     CREDENTIALS_URL,
     DISCORD_URL,
@@ -14,6 +17,7 @@ import {
     USAGE_URL
 } from "@/lib/external-urls"
 import {
+    BarChart3,
     BookOpen,
     ChartGantt,
     ExternalLink,
@@ -24,8 +28,6 @@ import {
     Video,
     Webhook
 } from "lucide-react"
-import { DiscordLogo } from "@/components/icons/discord"
-import { GitHubLogo } from "@/components/icons/github"
 
 export type AppLink = {
     href: string
@@ -99,6 +101,19 @@ export const appCards: AppCard[] = [
         ],
         icon: <Logs className={cardIconClasses} />
     },
+    {
+        title: "Bot Analytics",
+        description:
+            "Monitor usage, performance metrics, and duration trends for your meeting bots across platforms.",
+        links: [
+            {
+                href: BOT_ANALYTICS_URL,
+                type: "App",
+                icon: <ExternalLink />
+            }
+        ],
+        icon: <BarChart3 className={cardIconClasses} />
+    },
     // {
     //     title: "Real-time Transcription",
     //     description:
@@ -123,6 +138,18 @@ export const appCards: AppCard[] = [
             }
         ],
         icon: <DiscordLogo className={`${cardIconClasses} fill-foreground`} />
+    },
+    {
+        title: "MCP Servers",
+        description: "Connect Meeting BaaS directly to your tools or AI agents through MCP servers.",
+        links: [
+            {
+                href: "#mcp-servers",
+                type: "App",
+                icon: <ExternalLink />
+            }
+        ],
+        icon: <Settings className={cardIconClasses} />
     },
     {
         title: "Transcript Seeker",
@@ -172,3 +199,32 @@ export const utilities: Utility[] = [
         href: CONTRIBUTION_GITHUB_URL
     }
 ]
+
+// MCP Servers data structure
+export type McpServerSpec = {
+    name: string
+    displayName: string // user-facing name
+    description: string
+    githubUrl: string
+    serverUrl?: string // optional hosted server URL
+    envVars: { label: string; value: string | null; sensitive?: boolean }[]
+}
+
+// List of MCP spec filenames (to be loaded from public/mcp-specs)
+export const mcpSpecFiles: string[] = [
+    "mcp-on-vercel.json",
+    "mcp-on-vercel-documentation.json",
+    "speaking-bots-mcp.json",
+    "meeting-mcp.json"
+]
+
+// Example function to fetch all MCP specs (to be used in a client component)
+export async function fetchMcpSpecs(): Promise<McpServerSpec[]> {
+    return Promise.all(
+        mcpSpecFiles.map(async (filename) => {
+            const res = await fetch(`/mcp-specs/${filename}`)
+            if (!res.ok) return null
+            return res.json()
+        })
+    ).then((arr) => arr.filter(Boolean) as McpServerSpec[])
+}

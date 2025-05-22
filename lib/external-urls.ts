@@ -9,15 +9,32 @@ export const MEETING_BAAS_HOMEPAGE_URL = "https://meetingbaas.com"
 export const TERMS_AND_CONDITIONS_URL = "https://meetingbaas.com/terms-and-conditions"
 export const PRIVACY_POLICY_URL = "https://meetingbaas.com/privacy"
 
+// Define base domain
+const BASE_DOMAIN = process.env.NEXT_PUBLIC_BASE_DOMAIN || "meetingbaas.com"
+
+// Helper to construct environment-aware URLs
+const createUrl = (subdomain: string) => {
+    // If environment is set, apply it to the full domain (not between subdomain and domain)
+    if (environment) {
+        return `https://${subdomain}.${environment}${BASE_DOMAIN}`
+    }
+    // Otherwise, just use the subdomain directly
+    return `https://${subdomain}.${BASE_DOMAIN}`
+}
+
+// Main app URL
+export const APP_URL = createUrl("auth")
+
 // Settings URLs
-export const SETTINGS_URL = `https://${environment}meetingbaas.com`
-export const LOGS_URL = `https://logs.${environment}meetingbaas.com`
-export const USAGE_URL = `${SETTINGS_URL}/usage`
-export const BILLING_URL = `${SETTINGS_URL}/billing`
-export const CREDENTIALS_URL = `${SETTINGS_URL}/credentials`
+export const SETTINGS_URL = `https://${environment}${BASE_DOMAIN}`
+export const LOGS_URL = createUrl("logs")
+export const BOT_ANALYTICS_URL = createUrl("analytics")
+export const USAGE_URL = `${BOT_ANALYTICS_URL}/usage`
+export const BILLING_URL = createUrl("pricing") + "/billing"
+export const CREDENTIALS_URL = `legacy.${SETTINGS_URL}/credentials`
 
 // Docs URL
-export const DOCS_URL = `https://docs.${environment}meetingbaas.com`
+export const DOCS_URL = createUrl("docs")
 
 /* External App URLs */
 
@@ -26,7 +43,7 @@ export const MEETING_BAAS_API_DOCS_URL = `${DOCS_URL}/updates`
 export const MEETING_BAAS_DOCS_GITHUB_URL = "https://github.com/Meeting-Baas/docs"
 
 // AI Chat
-export const AI_CHAT_URL = `https://chat.${environment}meetingbaas.com`
+export const AI_CHAT_URL = createUrl("chat")
 export const AI_CHAT_GITHUB_URL = "https://github.com/Meeting-Baas/ai-chat"
 
 export const DISCORD_URL = "https://discord.com/invite/dsvFgDTr6c"

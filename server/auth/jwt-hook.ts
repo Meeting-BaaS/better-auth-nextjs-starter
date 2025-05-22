@@ -19,8 +19,7 @@ const getCookieAttributes = (remove?: boolean) => {
             ...attributes,
             sameSite: "Lax",
             domain,
-            secure: true,
-            partitioned: true
+            secure: true
         }
     }
 

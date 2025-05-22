@@ -18,8 +18,8 @@ if (process.env.NODE_ENV === "production") {
         defaultCookieAttributes: {
             secure: true,
             httpOnly: true,
-            sameSite: "lax"
-            // partitioned: true
+            sameSite: "lax",
+            partitioned: true
         }
     }
 }

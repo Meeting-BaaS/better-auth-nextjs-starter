@@ -1,6 +1,6 @@
 import { GoogleLogo } from "@/components/icons/google"
 // import { MicrosoftLogo } from "@/components/icons/microsoft"
-// import { GitHubLogo } from "@/components/icons/github"
+import { GitHubLogo } from "@/components/icons/github"
 // import { GitLabLogo } from "@/components/icons/gitlab"
 // import { ZoomLogo } from "@/components/icons/zoom"
 
@@ -30,12 +30,12 @@ export const providers: Provider[] = [
     //     logo: <MicrosoftLogo />,
     //     className: "hover:bg-microsoft-grey"
     // },
-    // {
-    //     name: "github",
-    //     title: "GitHub",
-    //     logo: <GitHubLogo />,
-    //     className: "hover:bg-github-green"
-    // },
+    {
+        name: "github",
+        title: "GitHub",
+        logo: <GitHubLogo />,
+        className: "hover:bg-github-green"
+    }
     // {
     //     name: "gitlab",
     //     title: "GitLab",

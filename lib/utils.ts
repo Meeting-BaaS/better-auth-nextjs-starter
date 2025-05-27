@@ -4,7 +4,7 @@ import type { McpServerSpec } from "@/lib/mcp-specs"
 import { AI_CHAT_URL } from "@/lib/external-urls"
 
 const newChatMessage =
-    "Hi, I have just signed up to Meeting BaaS and I'm looking for some help getting started."
+    "Hi, can you please send a bot to this meeting (provided a meeting link) or try other API calls?"
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))

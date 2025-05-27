@@ -2,18 +2,49 @@ import type { Tab } from "@/components/home/cards"
 import { appCards, utilities } from "@/components/home/card-definitions"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { cn, getNewChatUrl } from "@/lib/utils"
 import Link from "next/link"
 import type { AppLink } from "@/components/home/card-definitions"
 import { motion, useReducedMotion } from "motion/react"
 import { homeCardsVariants } from "@/animations/card-transitions"
+import { useState, useEffect, useRef } from "react"
+import { FirstSignupDialog } from "@/components/home/first-signup-dialog"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { MessageSquarePlus } from "lucide-react"
 
 interface AppCardsSectionProps {
     setCurrentTab: (tab: Tab) => void
     isInitialRender: boolean
+    isTokensSameAsFirstSignUp: boolean
 }
-export const AppCardsSection = ({ setCurrentTab, isInitialRender }: AppCardsSectionProps) => {
+
+export const AppCardsSection = ({
+    setCurrentTab,
+    isInitialRender,
+    isTokensSameAsFirstSignUp
+}: AppCardsSectionProps) => {
     const shouldReduceMotion = useReducedMotion()
+    const [showDialog, setShowDialog] = useState(isTokensSameAsFirstSignUp)
+    const [showTooltip, setShowTooltip] = useState(false)
+    const tooltipTimerRef = useRef<NodeJS.Timeout>(null)
+
+    const handleDialogOpenChange = (open: boolean) => {
+        setShowDialog(open)
+        if (!open) {
+            setShowTooltip(true)
+            tooltipTimerRef.current = setTimeout(() => {
+                setShowTooltip(false)
+            }, 5000)
+        }
+    }
+
+    useEffect(() => {
+        return () => {
+            if (tooltipTimerRef.current) {
+                clearTimeout(tooltipTimerRef.current)
+            }
+        }
+    }, [])
 
     const actionHandlers = {
         showMcpCards: () => setCurrentTab("mcp-cards")
@@ -44,6 +75,27 @@ export const AppCardsSection = ({ setCurrentTab, isInitialRender }: AppCardsSect
                 {cards?.length > 0 ? (
                     cards.map(({ icon, title, links, description, action }, index) => (
                         <Card key={index} className="group relative grow">
+                            {title === "AI Chat" && isTokensSameAsFirstSignUp && (
+                                <TooltipProvider>
+                                    <Tooltip open={showTooltip} onOpenChange={setShowTooltip}>
+                                        <TooltipTrigger asChild>
+                                            <Button
+                                                size="icon"
+                                                className="absolute top-4 right-4 rounded-full"
+                                                aria-label="Get started using AI Chat"
+                                                onClick={() =>
+                                                    window.open(getNewChatUrl(), "_blank")
+                                                }
+                                            >
+                                                <MessageSquarePlus />
+                                            </Button>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>I am here to help you get started.</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            )}
                             <CardContent className="flex grow flex-col justify-between gap-2 pt-4">
                                 <div className="flex flex-col gap-2">
                                     <div className="flex items-center gap-2 font-semibold text-lg">
@@ -116,6 +168,7 @@ export const AppCardsSection = ({ setCurrentTab, isInitialRender }: AppCardsSect
                     </CardContent>
                 </Card>
             </div>
+            <FirstSignupDialog open={showDialog} onOpenChange={handleDialogOpenChange} />
         </motion.div>
     )
 }

@@ -11,7 +11,11 @@ import Link from "next/link"
 
 export type Tab = "home-cards" | "mcp-cards"
 
-export const Cards = () => {
+interface CardsProps {
+    isTokensSameAsFirstSignUp: boolean
+}
+
+export const Cards = ({ isTokensSameAsFirstSignUp }: CardsProps) => {
     const [currentTab, setCurrentTab] = useState<Tab>("home-cards")
     const [isInitialRender, setIsInitialRender] = useState(true)
 
@@ -72,6 +76,7 @@ export const Cards = () => {
                     <AppCardsSection
                         setCurrentTab={handleTabChange}
                         isInitialRender={isInitialRender}
+                        isTokensSameAsFirstSignUp={isTokensSameAsFirstSignUp}
                     />
                 )
             case "mcp-cards":

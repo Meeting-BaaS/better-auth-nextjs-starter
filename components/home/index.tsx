@@ -3,7 +3,11 @@ import { Cards } from "@/components/home/cards"
 import { Contributing } from "@/components/home/contributing"
 import * as motion from "motion/react-client"
 
-export default function Home() {
+interface HomeProps {
+    isTokensSameAsFirstSignUp: boolean
+}
+
+export default function Home({ isTokensSameAsFirstSignUp }: HomeProps) {
     return (
         <main className="container mx-auto flex flex-col gap-20 px-6 lg:px-0">
             <motion.div
@@ -17,7 +21,7 @@ export default function Home() {
                 aria-hidden="true"
             />
             <section>
-                <Cards />
+                <Cards isTokensSameAsFirstSignUp={isTokensSameAsFirstSignUp} />
             </section>
             <section>
                 <Contributing />

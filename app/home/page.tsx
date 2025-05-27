@@ -13,6 +13,10 @@ export const metadata: Metadata = {
         "Access Meeting BaaS tools, integrations, and utilities from one central dashboard."
 }
 
+// When a user signs up, they get 8 tokens for free.
+const firstSignUpTokens =
+    (process.env.FIRST_SIGN_UP_TOKENS && Number(process.env.FIRST_SIGN_UP_TOKENS)) ?? 8
+
 export default async function HomePage() {
     const [requestHeaders, requestCookies] = await Promise.all([headers(), cookies()])
     const jwt = requestCookies.get("jwt")?.value || ""
@@ -25,10 +29,12 @@ export default async function HomePage() {
         redirect("/sign-in")
     }
 
+    const isTokensSameAsFirstSignUp = userTokens.available_tokens === firstSignUpTokens
+
     return (
         <>
             <Header initialSession={sessionData} />
-            <Home />
+            <Home isTokensSameAsFirstSignUp={isTokensSameAsFirstSignUp} />
             <Footer />
         </>
     )

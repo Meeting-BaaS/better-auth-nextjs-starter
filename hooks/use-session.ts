@@ -5,7 +5,7 @@ import { getSession } from "@/lib/auth-client"
 import type { SessionObject } from "@/lib/types"
 
 export function useSession(initialSession?: SessionObject) {
-    const { data: session, error } = useQuery<SessionObject | null>({
+    const { data: session, error } = useQuery<SessionObject>({
         queryKey: ["session"],
         queryFn: async () => {
             const { data: session, error } = await getSession()
@@ -14,7 +14,7 @@ export function useSession(initialSession?: SessionObject) {
                 // Error caught by the query client
                 throw error
             }
-            return session
+            return session as SessionObject
         },
         initialData: initialSession,
         staleTime: 0,

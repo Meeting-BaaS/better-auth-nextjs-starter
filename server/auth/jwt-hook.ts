@@ -7,7 +7,8 @@ const getCookieAttributes = (remove?: boolean) => {
     let attributes: CookieOptions = {
         httpOnly: true,
         sameSite: "Lax",
-        path: "/"
+        path: "/",
+        maxAge: 31536000 // The cookie is set to never expire (by setting it to 1 year. Explanation provided below)
     }
 
     if (isProd) {
@@ -56,6 +57,16 @@ export const jwtHook = createAuthMiddleware(async (ctx) => {
         } = ctx.context.newSession
         const encodedId = encodeUserId(Number(id))
         ctx.setCookie("jwt", encodedId, getCookieAttributes())
+    } else if (ctx.path.startsWith("/get-session") && ctx.context.session) {
+        const jwt = ctx.getCookie("jwt")
+        // if the jwt has been removed/expired, set it again for an active session
+        if (!jwt) {
+            const {
+                user: { id }
+            } = ctx.context.session
+            const encodedId = encodeUserId(Number(id))
+            ctx.setCookie("jwt", encodedId, getCookieAttributes())
+        }
     } else if (ctx.path.startsWith("/sign-out")) {
         ctx.setCookie("jwt", "", getCookieAttributes(true))
     }

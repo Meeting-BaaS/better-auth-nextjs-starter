@@ -40,6 +40,9 @@
         "GITLAB_SECRET",
         "DOMAIN",
         "TRUSTED_ORIGINS",
-        "NEXT_PUBLIC_ENVIRONMENT"
+        "NEXT_PUBLIC_ENVIRONMENT",
+        "NEXT_PUBLIC_BASE_DOMAIN",
+        "API_SERVER_BASEURL",
+        "FIRST_SIGN_UP_TOKENS"
     ]
 }

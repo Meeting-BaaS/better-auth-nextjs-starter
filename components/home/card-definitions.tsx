@@ -24,15 +24,19 @@ import {
     Logs,
     MessageSquare,
     ReceiptText,
+    Server,
     Settings,
     Video,
     Webhook
 } from "lucide-react"
 
+export type Tab = "home-cards" | "mcp-cards"
+
 export type AppLink = {
     href: string
     type: "Docs" | "App" | "GitHub"
     icon: React.ReactNode
+    tab?: Tab
 }
 
 export type AppCard = {
@@ -60,8 +64,8 @@ export const appCards: AppCard[] = [
         links: [
             {
                 href: MEETING_BAAS_API_DOCS_URL,
-                type: "Docs",
-                icon: <BookOpen />
+                type: "App",
+                icon: <ExternalLink />
             },
             {
                 href: MEETING_BAAS_DOCS_GITHUB_URL,
@@ -141,15 +145,17 @@ export const appCards: AppCard[] = [
     },
     {
         title: "MCP Servers",
-        description: "Connect Meeting BaaS directly to your tools or AI agents through MCP servers.",
+        description:
+            "Connect Meeting BaaS directly to your tools or AI agents through MCP servers.",
         links: [
             {
-                href: "#mcp-servers",
+                href: "",
                 type: "App",
-                icon: <ExternalLink />
+                icon: <ExternalLink />,
+                tab: "mcp-cards"
             }
         ],
-        icon: <Settings className={cardIconClasses} />
+        icon: <Server className={cardIconClasses} />
     },
     {
         title: "Transcript Seeker",
@@ -199,32 +205,3 @@ export const utilities: Utility[] = [
         href: CONTRIBUTION_GITHUB_URL
     }
 ]
-
-// MCP Servers data structure
-export type McpServerSpec = {
-    name: string
-    displayName: string // user-facing name
-    description: string
-    githubUrl: string
-    serverUrl?: string // optional hosted server URL
-    envVars: { label: string; value: string | null; sensitive?: boolean }[]
-}
-
-// List of MCP spec filenames (to be loaded from public/mcp-specs)
-export const mcpSpecFiles: string[] = [
-    "mcp-on-vercel.json",
-    "mcp-on-vercel-documentation.json",
-    "speaking-bots-mcp.json",
-    "meeting-mcp.json"
-]
-
-// Example function to fetch all MCP specs (to be used in a client component)
-export async function fetchMcpSpecs(): Promise<McpServerSpec[]> {
-    return Promise.all(
-        mcpSpecFiles.map(async (filename) => {
-            const res = await fetch(`/mcp-specs/${filename}`)
-            if (!res.ok) return null
-            return res.json()
-        })
-    ).then((arr) => arr.filter(Boolean) as McpServerSpec[])
-}

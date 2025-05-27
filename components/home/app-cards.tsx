@@ -74,75 +74,95 @@ export const AppCardsSection = ({
         >
             <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {cards?.length > 0 ? (
-                    cards.map(({ icon, title, links, description, action }, index) => (
-                        <Card key={index} className="group relative grow">
-                            {title === "AI Chat" && isTokensSameAsFirstSignUp && (
-                                <TooltipProvider>
-                                    <Tooltip open={showTooltip} onOpenChange={setShowTooltip}>
-                                        <TooltipTrigger asChild>
+                    cards.map(({ icon, title, links, description, action }, index) => {
+                        const appLink = links.find((link) => link.type === "App")
+
+                        const handleCardClick = appLink
+                            ? () => {
+                                  window.open(appLink.href, "_blank", "noopener,noreferrer")
+                              }
+                            : undefined
+                        return (
+                            <Card
+                                key={index}
+                                className={cn(
+                                    "group relative grow transition-colors",
+                                    appLink && "cursor-pointer hover:border-baas-primary-700"
+                                )}
+                                aria-label={`${title} card - click to open app`}
+                                onClick={handleCardClick}
+                            >
+                                {title === "AI Chat" && isTokensSameAsFirstSignUp && (
+                                    <TooltipProvider>
+                                        <Tooltip open={showTooltip} onOpenChange={setShowTooltip}>
+                                            <TooltipTrigger asChild>
+                                                <Button
+                                                    size="icon"
+                                                    className="absolute top-4 right-4 rounded-full"
+                                                    aria-label="Get started using AI Chat"
+                                                    onClick={() =>
+                                                        window.open(getNewChatUrl(), "_blank")
+                                                    }
+                                                >
+                                                    <MessageSquarePlus />
+                                                </Button>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>I am here to help you get started.</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                )}
+                                <CardContent className="flex grow flex-col justify-between gap-2 pt-4">
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex items-center gap-2 font-semibold text-lg">
+                                            {icon} {title}
+                                        </div>
+                                        <div className="text-md text-neutral-500 leading-relaxed dark:text-neutral-400">
+                                            {description}
+                                        </div>
+                                    </div>
+                                    <div className="pointer-touch-opacity-100 mt-2 flex flex-wrap gap-2 opacity-0 transition-opacity focus-within:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100">
+                                        {action && (
                                             <Button
-                                                size="icon"
-                                                className="absolute top-4 right-4 rounded-full"
-                                                aria-label="Get started using AI Chat"
-                                                onClick={() =>
-                                                    window.open(getNewChatUrl(), "_blank")
-                                                }
-                                            >
-                                                <MessageSquarePlus />
-                                            </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>I am here to help you get started.</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                            )}
-                            <CardContent className="flex grow flex-col justify-between gap-2 pt-4">
-                                <div className="flex flex-col gap-2">
-                                    <div className="flex items-center gap-2 font-semibold text-lg">
-                                        {icon} {title}
-                                    </div>
-                                    <div className="text-md text-neutral-500 leading-relaxed dark:text-neutral-400">
-                                        {description}
-                                    </div>
-                                </div>
-                                <div className="pointer-touch-opacity-100 mt-2 flex flex-wrap gap-2 opacity-0 transition-opacity focus-within:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100">
-                                    {action && (
-                                        <Button
-                                            variant="default"
-                                            className="bg-primary text-primary-foreground hover:bg-primary/90"
-                                            onClick={action.onClick}
-                                            size="sm"
-                                        >
-                                            <span className="flex items-center gap-2">
-                                                {action.icon}
-                                                {action.label}
-                                            </span>
-                                        </Button>
-                                    )}
-                                    {links.map((link: AppLink) => (
-                                        <Button
-                                            key={link.type}
-                                            variant="outline"
-                                            className="bg-transparent fill-foreground px-2 py-1.5"
-                                            asChild
-                                        >
-                                            <Link
-                                                href={link.href}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                                variant="default"
+                                                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                                                onClick={action.onClick}
+                                                size="sm"
                                             >
                                                 <span className="flex items-center gap-2">
-                                                    {link.icon}
-                                                    {link.type}
+                                                    {action.icon}
+                                                    {action.label}
                                                 </span>
-                                            </Link>
-                                        </Button>
-                                    ))}
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))
+                                            </Button>
+                                        )}
+                                        {links.map(
+                                            (link: AppLink) =>
+                                                link.type !== "App" && (
+                                                    <Button
+                                                        key={link.type}
+                                                        variant="outline"
+                                                        className="bg-transparent fill-foreground px-2 py-1.5"
+                                                        asChild
+                                                    >
+                                                        <Link
+                                                            href={link.href}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            <span className="flex items-center gap-2">
+                                                                {link.icon}
+                                                                {link.type}
+                                                            </span>
+                                                        </Link>
+                                                    </Button>
+                                                )
+                                        )}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        )
+                    })
                 ) : (
                     <p className="col-span-full text-center text-muted-foreground">
                         No applications available

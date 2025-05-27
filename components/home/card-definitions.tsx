@@ -70,8 +70,8 @@ export const appCards: AppCard[] = [
         links: [
             {
                 href: MEETING_BAAS_API_DOCS_URL,
-                type: "Docs",
-                icon: <BookOpen />
+                type: "App",
+                icon: <ExternalLink />
             },
             {
                 href: MEETING_BAAS_DOCS_GITHUB_URL,

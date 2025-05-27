@@ -30,6 +30,7 @@
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "react-hook-form": "^7.56.1",
+        "react-syntax-highlighter": "^15.6.1",
         "sonner": "^2.0.3",
         "uuid": "^11.1.0",
         "yup": "^1.6.1"
@@ -45,6 +46,7 @@
         "@types/pg": "^8.11.11",
         "@types/react": "^19.1.0",
         "@types/react-dom": "^19.1.2",
+        "@types/react-syntax-highlighter": "^15.5.13",
         "dotenv": "^16.4.7",
         "drizzle-kit": "^0.30.6",
         "esbuild": "^0.25.2",

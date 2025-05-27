@@ -1,7 +1,6 @@
 import { spotlightVariant } from "@/animations/background"
 import { Cards } from "@/components/home/cards"
 import { Contributing } from "@/components/home/contributing"
-import { Heading } from "@/components/home/heading"
 import * as motion from "motion/react-client"
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
                 aria-hidden="true"
             />
             <section>
-                <Heading />
                 <Cards />
             </section>
             <section>

@@ -85,9 +85,10 @@ export const AppCardsSection = ({
                                                     size="icon"
                                                     className="absolute top-4 right-4 rounded-full"
                                                     aria-label="Get started using AI Chat"
-                                                    onClick={() =>
+                                                    onClick={(e) => {
+                                                        e.stopPropagation()
                                                         window.open(getNewChatUrl(), "_blank")
-                                                    }
+                                                    }}
                                                 >
                                                     <MessageSquarePlus />
                                                 </Button>

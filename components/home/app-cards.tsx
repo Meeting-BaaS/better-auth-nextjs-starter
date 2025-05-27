@@ -24,7 +24,8 @@ export const AppCardsSection = ({
     isTokensSameAsFirstSignUp
 }: AppCardsSectionProps) => {
     const shouldReduceMotion = useReducedMotion()
-    const [showDialog, setShowDialog] = useState(isTokensSameAsFirstSignUp)
+    // only show the dialog on initial render if the user has no tokens
+    const [showDialog, setShowDialog] = useState(isInitialRender && isTokensSameAsFirstSignUp)
     const [showTooltip, setShowTooltip] = useState(false)
     const tooltipTimerRef = useRef<NodeJS.Timeout>(null)
 

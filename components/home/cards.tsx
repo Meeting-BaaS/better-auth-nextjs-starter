@@ -8,8 +8,7 @@ import { Heading } from "@/components/home/heading"
 import { homeCardsVariant } from "@/animations/home-cards"
 import { Button } from "../ui/button"
 import Link from "next/link"
-
-export type Tab = "home-cards" | "mcp-cards"
+import type { Tab } from "@/components/home/card-definitions"
 
 interface CardsProps {
     isTokensSameAsFirstSignUp: boolean

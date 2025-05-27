@@ -20,7 +20,6 @@ import {
     BarChart3,
     BookOpen,
     ChartGantt,
-    ChevronRight,
     ExternalLink,
     Logs,
     MessageSquare,
@@ -31,17 +30,13 @@ import {
     Webhook
 } from "lucide-react"
 
+export type Tab = "home-cards" | "mcp-cards"
+
 export type AppLink = {
     href: string
     type: "Docs" | "App" | "GitHub"
     icon: React.ReactNode
-}
-
-export type CardAction = {
-    actionFunction: "showMcpCards" // Add more actions here as needed
-    label: string
-    icon: React.ReactNode
-    onClick: () => void
+    tab?: Tab
 }
 
 export type AppCard = {
@@ -49,7 +44,6 @@ export type AppCard = {
     description: string
     links: AppLink[]
     icon: React.ReactNode
-    action?: CardAction
 }
 
 export type Utility = {
@@ -153,14 +147,15 @@ export const appCards: AppCard[] = [
         title: "MCP Servers",
         description:
             "Connect Meeting BaaS directly to your tools or AI agents through MCP servers.",
-        links: [],
-        icon: <Server className={cardIconClasses} />,
-        action: {
-            actionFunction: "showMcpCards",
-            label: "View MCP Servers",
-            icon: <ChevronRight />,
-            onClick: () => {} // This will be set by the Cards component
-        }
+        links: [
+            {
+                href: "",
+                type: "App",
+                icon: <ExternalLink />,
+                tab: "mcp-cards"
+            }
+        ],
+        icon: <Server className={cardIconClasses} />
     },
     {
         title: "Transcript Seeker",

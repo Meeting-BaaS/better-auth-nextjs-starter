@@ -1,4 +1,4 @@
-import type { Tab } from "@/components/home/cards"
+import type { Tab } from "@/components/home/card-definitions"
 import { appCards, utilities } from "@/components/home/card-definitions"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -47,23 +47,6 @@ export const AppCardsSection = ({
         }
     }, [])
 
-    const actionHandlers = {
-        showMcpCards: () => setCurrentTab("mcp-cards")
-    } as const
-
-    // Add action handlers to the respective cards
-    const cards = appCards.map((card) => {
-        if (!card.action) return card
-
-        return {
-            ...card,
-            action: {
-                ...card.action,
-                onClick: actionHandlers[card.action.actionFunction]
-            }
-        }
-    })
-
     return (
         <motion.div
             key="home-cards"
@@ -73,15 +56,17 @@ export const AppCardsSection = ({
             exit="exit"
         >
             <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {cards?.length > 0 ? (
-                    cards.map(({ icon, title, links, description, action }, index) => {
+                {appCards?.length > 0 ? (
+                    appCards.map(({ icon, title, links, description }, index) => {
                         const appLink = links.find((link) => link.type === "App")
-
-                        const handleCardClick = appLink
-                            ? () => {
-                                  window.open(appLink.href, "_blank", "noopener,noreferrer")
-                              }
-                            : undefined
+                        let handleCardClick = () => {}
+                        if (appLink) {
+                            handleCardClick =
+                                appLink.tab !== undefined
+                                    ? () => setCurrentTab(appLink.tab!)
+                                    : () =>
+                                          window.open(appLink.href, "_blank", "noopener,noreferrer")
+                        }
                         return (
                             <Card
                                 key={index}
@@ -113,7 +98,7 @@ export const AppCardsSection = ({
                                         </Tooltip>
                                     </TooltipProvider>
                                 )}
-                                <CardContent className="flex grow flex-col justify-between gap-2 pt-4">
+                                <CardContent className="flex min-h-44 grow flex-col justify-between gap-2 pt-4">
                                     <div className="flex flex-col gap-2">
                                         <div className="flex items-center gap-2 font-semibold text-lg">
                                             {icon} {title}
@@ -123,41 +108,29 @@ export const AppCardsSection = ({
                                         </div>
                                     </div>
                                     <div className="pointer-touch-opacity-100 mt-2 flex flex-wrap gap-2 opacity-0 transition-opacity focus-within:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100">
-                                        {action && (
+                                        {links.map((link: AppLink) => (
                                             <Button
-                                                variant="default"
-                                                className="bg-primary text-primary-foreground hover:bg-primary/90"
-                                                onClick={action.onClick}
-                                                size="sm"
+                                                key={link.type}
+                                                variant="outline"
+                                                className={cn(
+                                                    "bg-transparent fill-foreground px-2 py-1.5",
+                                                    link.type === "App" && "md:hidden"
+                                                )}
+                                                asChild
                                             >
-                                                <span className="flex items-center gap-2">
-                                                    {action.icon}
-                                                    {action.label}
-                                                </span>
+                                                <Link
+                                                    href={link.href}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
+                                                    <span className="flex items-center gap-2">
+                                                        {link.icon}
+                                                        {link.type}
+                                                    </span>
+                                                </Link>
                                             </Button>
-                                        )}
-                                        {links.map(
-                                            (link: AppLink) =>
-                                                link.type !== "App" && (
-                                                    <Button
-                                                        key={link.type}
-                                                        variant="outline"
-                                                        className="bg-transparent fill-foreground px-2 py-1.5"
-                                                        asChild
-                                                    >
-                                                        <Link
-                                                            href={link.href}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                        >
-                                                            <span className="flex items-center gap-2">
-                                                                {link.icon}
-                                                                {link.type}
-                                                            </span>
-                                                        </Link>
-                                                    </Button>
-                                                )
-                                        )}
+                                        ))}
                                     </div>
                                 </CardContent>
                             </Card>
@@ -175,7 +148,7 @@ export const AppCardsSection = ({
                                 key={title}
                                 variant="outline"
                                 className={cn(
-                                    "h-full min-h-26 w-full rounded-none border-0 bg-transparent fill-foreground p-3 text-lg",
+                                    "h-full min-h-28 w-full rounded-none border-0 bg-transparent fill-foreground p-3 text-lg",
                                     className
                                 )}
                                 asChild

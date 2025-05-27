@@ -7,7 +7,8 @@ const getCookieAttributes = (remove?: boolean) => {
     let attributes: CookieOptions = {
         httpOnly: true,
         sameSite: "Lax",
-        path: "/"
+        path: "/",
+        maxAge: 315360000 // The cookie is set to never expire (by setting it to a very large number. Explanation provided below)
     }
 
     if (isProd) {

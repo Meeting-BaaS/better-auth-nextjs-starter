@@ -16,17 +16,87 @@ interface McpCardProps {
     apiKey?: string
 }
 
+// Recursively inject envVars into localConfig where referenced by key
+function injectEnvVarsToLocalConfig(localConfig: any, envVars: any[] = [], apiKey: string | undefined) {
+    const config = JSON.parse(JSON.stringify(localConfig))
+    function inject(obj: any) {
+        if (typeof obj !== 'object' || obj === null) return
+        for (const key of Object.keys(obj)) {
+            // Always inject API key or placeholder for sensitive keys
+            if ((key === 'x-meeting-baas-api-key' || key === 'x-api-key')) {
+                obj[key] = apiKey || "YOUR_API_KEY_HERE"
+            }
+            // Always inject envVar value if present
+            const envVar = envVars.find((v) => v.label === key)
+            if (envVar && !(key === 'x-meeting-baas-api-key' || key === 'x-api-key')) {
+                obj[key] = envVar.value
+            }
+            inject(obj[key])
+        }
+    }
+    inject(config)
+    return config
+}
+
+// Recursively mask all sensitive values, including API key fields
+function maskSensitiveLocalConfig(localConfig: any, envVars: any[] = [], reveal: boolean = false, apiKey?: string) {
+    const config = JSON.parse(JSON.stringify(localConfig))
+    function mask(obj: any) {
+        if (typeof obj !== 'object' || obj === null) return
+        for (const key of Object.keys(obj)) {
+            // Always treat API key fields as sensitive
+            if ((key === 'x-meeting-baas-api-key' || key === 'x-api-key')) {
+                if (reveal) {
+                    obj[key] = apiKey || "YOUR_API_KEY_HERE"
+                } else {
+                    obj[key] = '********'
+                }
+            } else {
+                // Mask envVars if sensitive
+                const envVar = envVars.find((v) => v.label === key)
+                if (envVar && envVar.sensitive) {
+                    if (reveal) {
+                        obj[key] = envVar.value
+                    } else {
+                        obj[key] = '********'
+                    }
+                }
+            }
+            mask(obj[key])
+        }
+    }
+    mask(config)
+    return config
+}
+
 export const McpCard = ({ server, theme, apiKey }: McpCardProps) => {
-    const [reveal, setReveal] = useState(false)
+    // Merge 'Use my API key' and 'Show sensitive values' into one toggle
+    const [revealed, setRevealed] = useState(false)
     const [copied, setCopied] = useState(false)
-    const [injected, setInjected] = useState(false)
-    const configJson = getConfigJson(server, reveal, injected ? apiKey : undefined)
+
+    // For localConfig, inject envVars and mask sensitive values
+    let configJson: string
+    if (server.localConfig) {
+        let config = injectEnvVarsToLocalConfig(server.localConfig, server.envVars, revealed ? apiKey : undefined)
+        config = maskSensitiveLocalConfig(config, server.envVars, revealed, revealed ? apiKey : undefined)
+        configJson = JSON.stringify(config, null, 2)
+    } else {
+        // For envVars, inject API key if revealed, and mask sensitive values
+        configJson = getConfigJson(server, revealed, revealed ? apiKey : undefined)
+    }
 
     const handleCopy = async () => {
         try {
-            // Always copy the revealed version, regardless of current reveal state
-            const revealedConfig = getConfigJson(server, true, injected ? apiKey : undefined)
-            await navigator.clipboard.writeText(revealedConfig)
+            // Copy config as currently shown
+            let toCopy: string
+            if (server.localConfig) {
+                let config = injectEnvVarsToLocalConfig(server.localConfig, server.envVars, revealed ? apiKey : undefined)
+                config = maskSensitiveLocalConfig(config, server.envVars, revealed, revealed ? apiKey : undefined)
+                toCopy = JSON.stringify(config, null, 2)
+            } else {
+                toCopy = getConfigJson(server, revealed, revealed ? apiKey : undefined)
+            }
+            await navigator.clipboard.writeText(toCopy)
             setCopied(true)
             setTimeout(() => setCopied(false), 2000)
         } catch (e) {
@@ -35,7 +105,8 @@ export const McpCard = ({ server, theme, apiKey }: McpCardProps) => {
         }
     }
 
-    const serverNeedsApiKey = server.envVars.some((env) => env.label === "API_KEY")
+    // Show the merged button if there is a sensitive envVar or API key field
+    const hasSensitive = (server.envVars && server.envVars.some((env) => env.sensitive || env.label === 'x-meeting-baas-api-key' || env.label === 'x-api-key' || env.label === 'API_KEY')) || server.localConfig
 
     return (
         <Card className="group relative grow">
@@ -65,26 +136,18 @@ export const McpCard = ({ server, theme, apiKey }: McpCardProps) => {
                     </Button>
                 </div>
                 <div className="flex items-center justify-end gap-2">
-                    {serverNeedsApiKey && apiKey && (
+                    {/* Merged button for API key injection and reveal/hide sensitive values */}
+                    {hasSensitive && (
                         <Button
                             variant="outline"
                             size="sm"
                             className="px-3 py-1.5"
-                            onClick={() => setInjected((i) => !i)}
+                            onClick={() => setRevealed((r) => !r)}
                         >
-                            <Key className={injected ? "stroke-primary" : ""} />
-                            {injected ? "Remove API key" : "Use my API key"}
+                            <Key className={revealed ? "stroke-primary" : ""} />
+                            {revealed ? "Hide sensitive values" : "Show sensitive values"}
                         </Button>
                     )}
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="px-3 py-1.5"
-                        onClick={() => setReveal((r) => !r)}
-                    >
-                        {reveal ? <EyeOff /> : <Eye />}
-                        {reveal ? "Hide sensitive values" : "Show sensitive values"}
-                    </Button>
                 </div>
                 <div className="relative">
                     <Prism

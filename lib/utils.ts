@@ -12,11 +12,13 @@ export function cn(...inputs: ClassValue[]) {
 
 export function getConfigJson(server: McpServerSpec, reveal: boolean, apiKey?: string) {
     const env: Record<string, string> = {}
-    for (const envVar of server.envVars) {
-        if (envVar.label === "API_KEY" && apiKey) {
-            env[envVar.label] = apiKey
-        } else {
-            env[envVar.label] = envVar.sensitive && !reveal ? "********" : envVar.value || ""
+    if (server.envVars) {
+        for (const envVar of server.envVars) {
+            if ((envVar.label === "API_KEY" || envVar.label === "x-meeting-baas-api-key") && apiKey) {
+                env[envVar.label] = apiKey
+            } else {
+                env[envVar.label] = envVar.sensitive && !reveal ? "********" : envVar.value || ""
+            }
         }
     }
     return JSON.stringify(

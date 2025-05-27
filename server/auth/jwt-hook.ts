@@ -8,7 +8,7 @@ const getCookieAttributes = (remove?: boolean) => {
         httpOnly: true,
         sameSite: "Lax",
         path: "/",
-        maxAge: 315360000 // The cookie is set to never expire (by setting it to a very large number. Explanation provided below)
+        maxAge: 31536000 // The cookie is set to never expire (by setting it to 1 year. Explanation provided below)
     }
 
     if (isProd) {

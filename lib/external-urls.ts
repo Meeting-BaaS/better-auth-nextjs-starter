@@ -43,7 +43,7 @@ export const MEETING_BAAS_API_DOCS_URL = `${DOCS_URL}/updates`
 export const MEETING_BAAS_DOCS_GITHUB_URL = "https://github.com/Meeting-Baas/docs"
 
 // AI Chat
-export const AI_CHAT_URL = createUrl("chat")
+export const AI_CHAT_URL = process.env.AI_CHAT_APP_URL || createUrl("chat")
 export const AI_CHAT_GITHUB_URL = "https://github.com/Meeting-Baas/ai-chat"
 
 export const DISCORD_URL = "https://discord.com/invite/dsvFgDTr6c"

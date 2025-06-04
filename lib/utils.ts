@@ -14,7 +14,10 @@ export function getConfigJson(server: McpServerSpec, reveal: boolean, apiKey?: s
     const env: Record<string, string> = {}
     if (server.envVars) {
         for (const envVar of server.envVars) {
-            if ((envVar.label === "API_KEY" || envVar.label === "x-meeting-baas-api-key") && apiKey) {
+            if (
+                (envVar.label === "API_KEY" || envVar.label === "x-meeting-baas-api-key") &&
+                apiKey
+            ) {
                 env[envVar.label] = apiKey
             } else {
                 env[envVar.label] = envVar.sensitive && !reveal ? "********" : envVar.value || ""
@@ -33,8 +36,25 @@ export function getConfigJson(server: McpServerSpec, reveal: boolean, apiKey?: s
     )
 }
 
-export function getNewChatUrl() {
+export function getChatUrl(chatId: string | null) {
+    // If the chatId is provided, redirect to the chat.
+    if (chatId) {
+        return `${AI_CHAT_URL}/chat/${chatId}`
+    }
     const searchParams = new URLSearchParams()
     searchParams.set("new_chat_message", newChatMessage)
     return `${AI_CHAT_URL}?${searchParams.toString()}`
+}
+
+/**
+ * Generates a UUID
+ * A custom UUID function is used to keep the same UUID format as the AI Chat repository.
+ * @returns A UUID.
+ */
+export function generateUUID(): string {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0
+        const v = c === "x" ? r : (r & 0x3) | 0x8
+        return v.toString(16)
+    })
 }

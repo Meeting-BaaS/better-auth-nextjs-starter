@@ -18,7 +18,7 @@ A modern authentication system built with Next.js, featuring secure user managem
 - **Language**: TypeScript
 - **Database**: PostgreSQL with Drizzle ORM
 - **Styling**: Tailwind CSS 4.1.3
-- **UI Components**: Radix UI
+- **UI Components**: Shadcn (Radix UI)
 - **Authentication**: Better Auth
 - **Package Manager**: pnpm
 

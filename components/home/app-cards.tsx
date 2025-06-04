@@ -123,7 +123,7 @@ export const AppCardsSection = ({
                                                 )}
                                                 asChild
                                             >
-                                                {link.type === "App" && link.href ? (
+                                                {link.href ? (
                                                     <Link
                                                         href={link.href}
                                                         target="_blank"

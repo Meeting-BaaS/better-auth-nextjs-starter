@@ -11,6 +11,7 @@ import {
     LOGS_URL,
     MEETING_BAAS_API_DOCS_URL,
     MEETING_BAAS_DOCS_GITHUB_URL,
+    STATUS_URL,
     TRANSCRIPT_SEEKER_APP_URL,
     TRANSCRIPT_SEEKER_DOCS_URL,
     TRANSCRIPT_SEEKER_GITHUB_URL,
@@ -20,6 +21,7 @@ import {
     BarChart3,
     BookOpen,
     ChartGantt,
+    CircleCheck,
     ExternalLink,
     Logs,
     MessageSquare,
@@ -93,6 +95,18 @@ export const appCards: AppCard[] = [
             }
         ],
         icon: <MessageSquare className={cardIconClasses} />
+    },
+    {
+        title: "Status",
+        description: "View the performance of all meeting bots across the platform.",
+        links: [
+            {
+                href: STATUS_URL,
+                type: "App",
+                icon: <ExternalLink />
+            }
+        ],
+        icon: <CircleCheck className={cardIconClasses} />
     },
     {
         title: "Logs Table",

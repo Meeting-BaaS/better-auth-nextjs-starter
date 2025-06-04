@@ -14,16 +14,20 @@ export const mcpSpecs: McpServerSpec[] = [
         displayName: "BaaS API",
         description: "The BaaS API MCP, built with our official SDK.",
         githubUrl: "https://github.com/Meeting-Baas/mcp-on-vercel",
-        serverUrl: "https://mcp.meetingbaas.com",
+        serverUrl: "https://mcp.meetingbaas.com/sse",
         envVars: [
-            { label: "REDIS_URL", value: process.env.NEXT_PUBLIC_REDIS_URL_MCP || "", sensitive: true },
+            {
+                label: "REDIS_URL",
+                value: process.env.NEXT_PUBLIC_REDIS_URL_MCP || "",
+                sensitive: true
+            },
             { label: "x-meeting-baas-api-key", value: "", sensitive: true },
             { label: "BAAS_URL", value: "https://api.meetingbaas.com/sse", sensitive: false }
         ],
         localConfig: {
             mcpServers: {
                 BaaSAPI: {
-                    url: "https://mcp.meetingbaas.com",
+                    url: "https://mcp.meetingbaas.com/sse",
                     env: {
                         BAAS_URL: "https://api.meetingbaas.com",
                         REDIS_URL: process.env.NEXT_PUBLIC_REDIS_URL_MCP || "",
@@ -42,7 +46,11 @@ export const mcpSpecs: McpServerSpec[] = [
         serverUrl: "https://mcp-documentation.meetingbaas.com/sse",
         envVars: [
             { label: "BAAS_URL", value: "https://api.meetingbaas.com", sensitive: false },
-            { label: "REDIS_URL", value: process.env.NEXT_PUBLIC_REDIS_URL_MCP || "", sensitive: true },
+            {
+                label: "REDIS_URL",
+                value: process.env.NEXT_PUBLIC_REDIS_URL_MCP || "",
+                sensitive: true
+            },
             { label: "x-meeting-baas-api-key", value: "", sensitive: true }
         ],
         localConfig: {
@@ -65,7 +73,11 @@ export const mcpSpecs: McpServerSpec[] = [
         githubUrl: "https://github.com/Meeting-Baas/speaking-bots-mcp",
         serverUrl: "https://speaking-mcp.meetingbaas.com",
         envVars: [
-            { label: "REDIS_URL", value: process.env.NEXT_PUBLIC_REDIS_URL_MCP || "", sensitive: true },
+            {
+                label: "REDIS_URL",
+                value: process.env.NEXT_PUBLIC_REDIS_URL_MCP || "",
+                sensitive: true
+            },
             { label: "x-meeting-baas-api-key", value: "", sensitive: true },
             { label: "BAAS_URL", value: "https://api.meetingbaas.com", sensitive: false }
         ],
@@ -103,7 +115,8 @@ export const mcpSpecs: McpServerSpec[] = [
                     botConfig: {
                         name: "Meeting Tools",
                         image: "https://example.com/meeting-icon.png",
-                        entryMessage: "Hello! I'm your meeting assistant with access to meeting creation, scheduling, and recording tools."
+                        entryMessage:
+                            "Hello! I'm your meeting assistant with access to meeting creation, scheduling, and recording tools."
                     }
                 }
             }

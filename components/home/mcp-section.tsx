@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button"
 import { McpCard } from "@/components/home/mcp-card"
-import { Heading } from "@/components/home/heading"
-import Link from "next/link"
 import { ChevronLeft } from "lucide-react"
 import { mcpSpecs } from "@/lib/mcp-specs"
 import { useTheme } from "next-themes"

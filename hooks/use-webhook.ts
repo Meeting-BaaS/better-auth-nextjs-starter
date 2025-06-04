@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { getWebhookUrl } from "@/lib/api"
 import { toast } from "sonner"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 
 export function useWebhook() {
     const hasWebhookRef = useRef(false)
@@ -25,9 +25,11 @@ export function useWebhook() {
         hasWebhookRef.current = true
     }
 
-    if (isErrorWebhookUrl || isRefetchError) {
-        toast.error("Failed to fetch webhook url.")
-    }
+    useEffect(() => {
+        if (isErrorWebhookUrl || isRefetchError) {
+            toast.error("Failed to fetch webhook url.")
+        }
+    }, [isErrorWebhookUrl, isRefetchError])
 
     return {
         webhookUrl,

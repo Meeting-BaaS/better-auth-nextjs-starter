@@ -8,6 +8,11 @@ const pool = new Pool({
     connectionString: process.env.AI_CHAT_DB
 })
 
+// Graceful shutdown
+process.on("SIGINT", () => {
+    pool.end()
+})
+
 interface ChatInfo {
     count: number
     earliestChatId: string | null
@@ -23,9 +28,15 @@ interface ChatInfo {
  */
 export async function getChatInfo(userId: string): Promise<ChatInfo> {
     const query = `
+        WITH user_chats AS (
+            SELECT id, title, "createdAt"
+            FROM public."ai-chatbot_chat" 
+            WHERE "userId" = $1
+        )
         SELECT 
-            (SELECT COUNT(*) FROM public."ai-chatbot_chat" WHERE "userId" = $1) as count,
-            (SELECT id FROM public."ai-chatbot_chat" WHERE "userId" = $1 AND title ILIKE '%Getting Started%' ORDER BY "createdAt" ASC LIMIT 1) as id
+            COUNT(*) as count,
+            (SELECT id FROM user_chats WHERE title ILIKE '%Getting Started%' ORDER BY "createdAt" ASC LIMIT 1) as id
+        FROM user_chats
     `
 
     try {

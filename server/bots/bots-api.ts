@@ -28,7 +28,6 @@ export async function getAllBots(jwt: string): Promise<number> {
     }
 
     const botData = await botsResponse.json()
-    console.log("botData", botData)
 
     return botData.bots?.length ?? 0
 }

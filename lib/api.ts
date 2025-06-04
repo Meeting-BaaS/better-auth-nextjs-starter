@@ -1,10 +1,5 @@
 export async function getWebhookUrl(): Promise<string> {
-    const response = await fetch("/api/baas/accounts/webhook_url", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+    const response = await fetch("/api/baas/accounts/webhook_url")
 
     if (!response.ok) {
         throw new Error(`Failed to get webhook url: ${response.status} ${response.statusText}`)

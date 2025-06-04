@@ -9,14 +9,17 @@ import { homeCardsVariant } from "@/animations/home-cards"
 import { Button } from "../ui/button"
 import Link from "next/link"
 import type { Tab } from "@/components/home/card-definitions"
+import { useWebhook } from "@/hooks/use-webhook"
 
 interface CardsProps {
-    isTokensSameAsFirstSignUp: boolean
+    noBotsSent: boolean
+    chatId: string | null
 }
 
-export const Cards = ({ isTokensSameAsFirstSignUp }: CardsProps) => {
+export const Cards = ({ noBotsSent, chatId }: CardsProps) => {
     const [currentTab, setCurrentTab] = useState<Tab>("home-cards")
     const [isInitialRender, setIsInitialRender] = useState(true)
+    const { webhookUrl, isLoadingWebhookUrl } = useWebhook()
 
     const handleTabChange = (newTab: Tab) => {
         setIsInitialRender(false)
@@ -26,7 +29,7 @@ export const Cards = ({ isTokensSameAsFirstSignUp }: CardsProps) => {
     const renderHeading = () => {
         switch (currentTab) {
             case "home-cards":
-                return <Heading />
+                return <Heading webhookUrl={webhookUrl} isLoadingWebhookUrl={isLoadingWebhookUrl} />
             case "mcp-cards":
                 return (
                     <Heading
@@ -61,6 +64,8 @@ export const Cards = ({ isTokensSameAsFirstSignUp }: CardsProps) => {
                                 Meeting BaaS.
                             </>
                         }
+                        webhookUrl={webhookUrl}
+                        isLoadingWebhookUrl={isLoadingWebhookUrl}
                     />
                 )
             default:
@@ -75,7 +80,8 @@ export const Cards = ({ isTokensSameAsFirstSignUp }: CardsProps) => {
                     <AppCardsSection
                         setCurrentTab={handleTabChange}
                         isInitialRender={isInitialRender}
-                        isTokensSameAsFirstSignUp={isTokensSameAsFirstSignUp}
+                        noBotsSent={noBotsSent}
+                        chatId={chatId}
                     />
                 )
             case "mcp-cards":

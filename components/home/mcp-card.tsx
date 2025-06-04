@@ -17,18 +17,22 @@ interface McpCardProps {
 }
 
 // Recursively inject envVars into localConfig where referenced by key
-function injectEnvVarsToLocalConfig(localConfig: any, envVars: any[] = [], apiKey: string | undefined) {
+function injectEnvVarsToLocalConfig(
+    localConfig: any,
+    envVars: any[] = [],
+    apiKey: string | undefined
+) {
     const config = JSON.parse(JSON.stringify(localConfig))
     function inject(obj: any) {
-        if (typeof obj !== 'object' || obj === null) return
+        if (typeof obj !== "object" || obj === null) return
         for (const key of Object.keys(obj)) {
             // Always inject API key or placeholder for sensitive keys
-            if ((key === 'x-meeting-baas-api-key' || key === 'x-api-key')) {
+            if (key === "x-meeting-baas-api-key" || key === "x-api-key") {
                 obj[key] = apiKey || "YOUR_API_KEY_HERE"
             }
             // Always inject envVar value if present
             const envVar = envVars.find((v) => v.label === key)
-            if (envVar && !(key === 'x-meeting-baas-api-key' || key === 'x-api-key')) {
+            if (envVar && !(key === "x-meeting-baas-api-key" || key === "x-api-key")) {
                 obj[key] = envVar.value
             }
             inject(obj[key])
@@ -39,17 +43,22 @@ function injectEnvVarsToLocalConfig(localConfig: any, envVars: any[] = [], apiKe
 }
 
 // Recursively mask all sensitive values, including API key fields
-function maskSensitiveLocalConfig(localConfig: any, envVars: any[] = [], reveal: boolean = false, apiKey?: string) {
+function maskSensitiveLocalConfig(
+    localConfig: any,
+    envVars: any[] = [],
+    reveal: boolean = false,
+    apiKey?: string
+) {
     const config = JSON.parse(JSON.stringify(localConfig))
     function mask(obj: any) {
-        if (typeof obj !== 'object' || obj === null) return
+        if (typeof obj !== "object" || obj === null) return
         for (const key of Object.keys(obj)) {
             // Always treat API key fields as sensitive
-            if ((key === 'x-meeting-baas-api-key' || key === 'x-api-key')) {
+            if (key === "x-meeting-baas-api-key" || key === "x-api-key") {
                 if (reveal) {
                     obj[key] = apiKey || "YOUR_API_KEY_HERE"
                 } else {
-                    obj[key] = '********'
+                    obj[key] = "********"
                 }
             } else {
                 // Mask envVars if sensitive
@@ -58,7 +67,7 @@ function maskSensitiveLocalConfig(localConfig: any, envVars: any[] = [], reveal:
                     if (reveal) {
                         obj[key] = envVar.value
                     } else {
-                        obj[key] = '********'
+                        obj[key] = "********"
                     }
                 }
             }
@@ -77,8 +86,17 @@ export const McpCard = ({ server, theme, apiKey }: McpCardProps) => {
     // For localConfig, inject envVars and mask sensitive values
     let configJson: string
     if (server.localConfig) {
-        let config = injectEnvVarsToLocalConfig(server.localConfig, server.envVars, revealed ? apiKey : undefined)
-        config = maskSensitiveLocalConfig(config, server.envVars, revealed, revealed ? apiKey : undefined)
+        let config = injectEnvVarsToLocalConfig(
+            server.localConfig,
+            server.envVars,
+            revealed ? apiKey : undefined
+        )
+        config = maskSensitiveLocalConfig(
+            config,
+            server.envVars,
+            revealed,
+            revealed ? apiKey : undefined
+        )
         configJson = JSON.stringify(config, null, 2)
     } else {
         // For envVars, inject API key if revealed, and mask sensitive values
@@ -90,8 +108,17 @@ export const McpCard = ({ server, theme, apiKey }: McpCardProps) => {
             // Copy config as currently shown
             let toCopy: string
             if (server.localConfig) {
-                let config = injectEnvVarsToLocalConfig(server.localConfig, server.envVars, revealed ? apiKey : undefined)
-                config = maskSensitiveLocalConfig(config, server.envVars, revealed, revealed ? apiKey : undefined)
+                let config = injectEnvVarsToLocalConfig(
+                    server.localConfig,
+                    server.envVars,
+                    revealed ? apiKey : undefined
+                )
+                config = maskSensitiveLocalConfig(
+                    config,
+                    server.envVars,
+                    revealed,
+                    revealed ? apiKey : undefined
+                )
                 toCopy = JSON.stringify(config, null, 2)
             } else {
                 toCopy = getConfigJson(server, revealed, revealed ? apiKey : undefined)
@@ -106,7 +133,16 @@ export const McpCard = ({ server, theme, apiKey }: McpCardProps) => {
     }
 
     // Show the merged button if there is a sensitive envVar or API key field
-    const hasSensitive = (server.envVars && server.envVars.some((env) => env.sensitive || env.label === 'x-meeting-baas-api-key' || env.label === 'x-api-key' || env.label === 'API_KEY')) || server.localConfig
+    const hasSensitive =
+        (server.envVars &&
+            server.envVars.some(
+                (env) =>
+                    env.sensitive ||
+                    env.label === "x-meeting-baas-api-key" ||
+                    env.label === "x-api-key" ||
+                    env.label === "API_KEY"
+            )) ||
+        server.localConfig
 
     return (
         <Card className="group relative grow">
@@ -115,11 +151,11 @@ export const McpCard = ({ server, theme, apiKey }: McpCardProps) => {
                     <div className="flex items-center gap-2 font-semibold text-xl">
                         {server.displayName}
                     </div>
-                    <div className="text-base text-neutral-500 leading-relaxed dark:text-neutral-400">
+                    <div className="min-h-12 text-base text-neutral-500 leading-relaxed dark:text-neutral-400">
                         {server.description}
                     </div>
                 </div>
-                <div className="flex flex-col items-start gap-2">
+                <div className="flex min-h-12 flex-col items-start justify-start gap-2">
                     {server.serverUrl && (
                         <Button variant="link" className="h-auto p-0 has-[>svg]:px-0" asChild>
                             <Link href={server.serverUrl} target="_blank" rel="noopener noreferrer">
@@ -149,7 +185,7 @@ export const McpCard = ({ server, theme, apiKey }: McpCardProps) => {
                         </Button>
                     )}
                 </div>
-                <div className="relative">
+                <div className="relative flex grow">
                     <Prism
                         language="json"
                         style={theme === "dark" ? vscDarkPlus : vs}
@@ -157,7 +193,8 @@ export const McpCard = ({ server, theme, apiKey }: McpCardProps) => {
                         wrapLongLines
                         customStyle={{
                             borderRadius: "var(--radius)",
-                            border: "1px solid var(--border)"
+                            border: "1px solid var(--border)",
+                            flexGrow: 1
                         }}
                         codeTagProps={{
                             style: {

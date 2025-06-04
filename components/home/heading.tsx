@@ -1,26 +1,35 @@
 import { opacityVariant } from "@/animations/opacity"
 import { cn } from "@/lib/utils"
 import { motion } from "motion/react"
+import { Badge } from "../ui/badge"
+import Link from "next/link"
+import { CREDENTIALS_URL } from "@/lib/external-urls"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
 interface HeadingProps {
     title?: string
     description?: string | React.ReactNode
     titleContainerClassName?: string
     descriptionContainerClassName?: string
+    webhookUrl?: string
+    isLoadingWebhookUrl: boolean
 }
 
 export const Heading = ({
     title = "Meeting BaaS Developer Hub",
     description,
     titleContainerClassName,
-    descriptionContainerClassName
+    descriptionContainerClassName,
+    webhookUrl,
+    isLoadingWebhookUrl
 }: HeadingProps) => {
     return (
         <>
             <div
                 className={cn(
-                    "my-8 flex justify-center md:my-12 lg:my-20",
-                    titleContainerClassName
+                    "relative my-8 flex justify-center md:my-12 lg:my-20",
+                    titleContainerClassName,
+                    !isLoadingWebhookUrl && !webhookUrl && "mt-14 lg:mt-20"
                 )}
             >
                 <motion.h1
@@ -29,6 +38,31 @@ export const Heading = ({
                 >
                     {title}
                 </motion.h1>
+                {!isLoadingWebhookUrl && !webhookUrl && (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Badge
+                                variant="warning"
+                                className="-translate-x-1/2 -top-10 absolute left-1/2"
+                                asChild
+                            >
+                                <Link
+                                    href={CREDENTIALS_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Webhook not configured
+                                </Link>
+                            </Badge>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>
+                                Click to configure a webhook path. This is required to receive
+                                notifications from your bots.
+                            </p>
+                        </TooltipContent>
+                    </Tooltip>
+                )}
             </div>
             {description && (
                 <div

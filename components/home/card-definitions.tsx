@@ -51,6 +51,7 @@ export type Utility = {
     title: string
     icon: React.ReactNode
     className?: string
+    showWebhookStatusDot?: boolean
 }
 
 const cardIconClasses = "size-5.5"
@@ -187,6 +188,7 @@ export const utilities: Utility[] = [
         icon: <Settings className={utilityIconClasses} />,
         title: "API Keys",
         href: CREDENTIALS_URL,
+        showWebhookStatusDot: true,
         className: "border-r border-b rounded-tl-xl"
     },
     {

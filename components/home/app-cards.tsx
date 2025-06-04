@@ -2,7 +2,7 @@ import type { Tab } from "@/components/home/card-definitions"
 import { appCards, utilities } from "@/components/home/card-definitions"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { cn, getNewChatUrl } from "@/lib/utils"
+import { cn, getChatUrl } from "@/lib/utils"
 import Link from "next/link"
 import type { AppLink } from "@/components/home/card-definitions"
 import { motion, useReducedMotion } from "motion/react"
@@ -11,21 +11,25 @@ import { useState, useEffect, useRef } from "react"
 import { FirstSignupDialog } from "@/components/home/first-signup-dialog"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { MessageSquarePlus } from "lucide-react"
+import { useWebhook } from "@/hooks/use-webhook"
 
 interface AppCardsSectionProps {
     setCurrentTab: (tab: Tab) => void
     isInitialRender: boolean
-    isTokensSameAsFirstSignUp: boolean
+    noBotsSent: boolean
+    chatId: string | null
 }
 
 export const AppCardsSection = ({
     setCurrentTab,
     isInitialRender,
-    isTokensSameAsFirstSignUp
+    noBotsSent,
+    chatId
 }: AppCardsSectionProps) => {
     const shouldReduceMotion = useReducedMotion()
+    const { webhookUrl, isLoadingWebhookUrl } = useWebhook()
     // only show the dialog on initial render if the user has no tokens
-    const [showDialog, setShowDialog] = useState(isInitialRender && isTokensSameAsFirstSignUp)
+    const [showDialog, setShowDialog] = useState(isInitialRender && noBotsSent)
     const [showTooltip, setShowTooltip] = useState(false)
     const tooltipTimerRef = useRef<NodeJS.Timeout>(null)
 
@@ -77,7 +81,7 @@ export const AppCardsSection = ({
                                 aria-label={`${title} card - click to open app`}
                                 onClick={handleCardClick}
                             >
-                                {title === "AI Chat" && isTokensSameAsFirstSignUp && (
+                                {title === "AI Chat" && noBotsSent && (
                                     <TooltipProvider>
                                         <Tooltip open={showTooltip} onOpenChange={setShowTooltip}>
                                             <TooltipTrigger asChild>
@@ -87,7 +91,7 @@ export const AppCardsSection = ({
                                                     aria-label="Get started using AI Chat"
                                                     onClick={(e) => {
                                                         e.stopPropagation()
-                                                        window.open(getNewChatUrl(), "_blank")
+                                                        window.open(getChatUrl(chatId), "_blank")
                                                     }}
                                                 >
                                                     <MessageSquarePlus />
@@ -119,17 +123,24 @@ export const AppCardsSection = ({
                                                 )}
                                                 asChild
                                             >
-                                                <Link
-                                                    href={link.href}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                >
-                                                    <span className="flex items-center gap-2">
+                                                {link.type === "App" && link.href ? (
+                                                    <Link
+                                                        href={link.href}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
+                                                    >
+                                                        <span className="flex items-center gap-2">
+                                                            {link.icon}
+                                                            {link.type}
+                                                        </span>
+                                                    </Link>
+                                                ) : (
+                                                    <button type="button" onClick={handleCardClick}>
                                                         {link.icon}
                                                         {link.type}
-                                                    </span>
-                                                </Link>
+                                                    </button>
+                                                )}
                                             </Button>
                                         ))}
                                     </div>
@@ -144,7 +155,7 @@ export const AppCardsSection = ({
                 )}
                 <Card className="group relative grow p-0">
                     <CardContent className="card-grid grid grow grid-cols-2 grid-rows-2 p-0">
-                        {utilities.map(({ title, icon, href, className }) => (
+                        {utilities.map(({ title, icon, href, className, showWebhookStatusDot }) => (
                             <Button
                                 key={title}
                                 variant="outline"
@@ -156,14 +167,25 @@ export const AppCardsSection = ({
                             >
                                 <Link target="_blank" rel="noopener noreferrer" href={href}>
                                     {icon}
-                                    {title}
+                                    <span className="relative">
+                                        {title}
+                                        {showWebhookStatusDot &&
+                                            !isLoadingWebhookUrl &&
+                                            !webhookUrl && (
+                                                <div className="-top-0.5 -right-2 absolute size-2 rounded-full bg-destructive" />
+                                            )}
+                                    </span>
                                 </Link>
                             </Button>
                         ))}
                     </CardContent>
                 </Card>
             </div>
-            <FirstSignupDialog open={showDialog} onOpenChange={handleDialogOpenChange} />
+            <FirstSignupDialog
+                open={showDialog}
+                onOpenChange={handleDialogOpenChange}
+                chatId={chatId}
+            />
         </motion.div>
     )
 }

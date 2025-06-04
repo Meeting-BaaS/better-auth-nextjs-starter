@@ -4,10 +4,11 @@ import { Contributing } from "@/components/home/contributing"
 import * as motion from "motion/react-client"
 
 interface HomeProps {
-    isTokensSameAsFirstSignUp: boolean
+    noBotsSent: boolean
+    chatId: string | null
 }
 
-export default function Home({ isTokensSameAsFirstSignUp }: HomeProps) {
+export default function Home({ noBotsSent, chatId }: HomeProps) {
     return (
         <main className="container mx-auto flex flex-col gap-20 px-6 lg:px-0">
             <motion.div
@@ -21,7 +22,7 @@ export default function Home({ isTokensSameAsFirstSignUp }: HomeProps) {
                 aria-hidden="true"
             />
             <section>
-                <Cards isTokensSameAsFirstSignUp={isTokensSameAsFirstSignUp} />
+                <Cards noBotsSent={noBotsSent} chatId={chatId} />
             </section>
             <section>
                 <Contributing />

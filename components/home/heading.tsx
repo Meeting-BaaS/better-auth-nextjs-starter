@@ -56,10 +56,7 @@ export const Heading = ({
                             </Badge>
                         </TooltipTrigger>
                         <TooltipContent>
-                            <p>
-                                Click to configure a webhook path. This is required to receive
-                                notifications from your bots.
-                            </p>
+                            <p>Click to configure a webhook path. This is required to send bots.</p>
                         </TooltipContent>
                     </Tooltip>
                 )}

@@ -9,7 +9,13 @@ export default function NotFound() {
         <div className="relative flex h-screen w-screen flex-col items-center justify-center bg-baas-black text-white">
             <div className="z-10 flex flex-col items-center justify-center gap-10 p-4 text-center">
                 <h1 className="font-bold text-3xl">Page not found...</h1>
-                <Image src="/not-found.svg" alt="Error" width={363} height={242} priority />
+                <Image
+                    src="/not-found.svg"
+                    alt="Illustration showing a 404 - page not found"
+                    width={363}
+                    height={242}
+                    priority
+                />
                 <div className="max-w-4xl space-y-1 text-lg">
                     <p>Looks like you found a page that doesn&apos;t yet exist.</p>
                     <p>Let&apos;s get you back to something fishy!</p>

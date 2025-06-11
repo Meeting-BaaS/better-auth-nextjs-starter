@@ -4,7 +4,7 @@ import { spotlightVariant } from "@/animations/background"
 import { Button } from "@/components/ui/button"
 import { motion } from "motion/react"
 import Image from "next/image"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 
 interface ErrorProps {
     error: Error & { digest?: string }
@@ -14,6 +14,11 @@ export default function ErrorBoundary({ error }: ErrorProps) {
     useEffect(() => {
         console.error("Something went wrong", error)
     }, [error])
+
+    const supportEmail = useMemo(
+        () => process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@meetinbaas.com",
+        []
+    )
 
     return (
         <div className="relative flex h-screen w-screen flex-col items-center justify-center bg-baas-black text-white">
@@ -28,7 +33,7 @@ export default function ErrorBoundary({ error }: ErrorProps) {
                     </p>
                     If the error persists, please contact us on{" "}
                     <Button variant="link" asChild className="h-auto p-0 text-lg">
-                        <a href="mailto:support@meetinbaas.com">support@meetinbaas.com</a>
+                        <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
                     </Button>
                 </div>
             </div>

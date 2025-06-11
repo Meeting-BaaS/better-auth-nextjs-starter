@@ -14,13 +14,25 @@ const sofiaSans = Sofia_Sans({
 
 export const metadata: Metadata = {
     title: "Meeting BaaS Authentication | Single Sign On",
-    description: "Access the full Meeting BaaS suite of tools for meeting bots, real-time transcription, and analytics across Google Meet, Teams, and Zoom platforms",
-    keywords: ["Meeting BaaS", "authentication", "single sign-on", "meeting bot", "analytics", "transcription", "Google Meet", "Teams", "Zoom"],
+    description:
+        "Access the full Meeting BaaS suite of tools for meeting bots, real-time transcription, and analytics across Google Meet, Teams, and Zoom platforms",
+    keywords: [
+        "Meeting BaaS",
+        "authentication",
+        "single sign-on",
+        "meeting bot",
+        "analytics",
+        "transcription",
+        "Google Meet",
+        "Teams",
+        "Zoom"
+    ],
     authors: [{ name: "Meeting BaaS Team" }],
     openGraph: {
         type: "website",
         title: "Meeting BaaS Authentication | Single Sign On",
-        description: "Deploy meeting bots in seconds, get analytics, automatic transcription, and monitoring across video conference platforms",
+        description:
+            "Deploy meeting bots in seconds, get analytics, automatic transcription, and monitoring across video conference platforms",
         siteName: "Meeting BaaS",
         images: [
             {
@@ -34,7 +46,8 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Meeting BaaS Authentication | Single Sign On",
-        description: "Deploy meeting bots in seconds, get analytics, automatic transcription, and monitoring across video conference platforms",
+        description:
+            "Deploy meeting bots in seconds, get analytics, automatic transcription, and monitoring across video conference platforms",
         images: ["/og-image.png"]
     },
     category: "Video Conferencing Tools",
@@ -63,7 +76,7 @@ export default function RootLayout({
             <head>
                 <link rel="preconnect" href="https://images.unsplash.com" />
             </head>
-            <body className={`${sofiaSans.className} antialiased`}>
+            <body className={`${sofiaSans.className} flex min-h-screen flex-col antialiased`}>
                 <Providers>{children}</Providers>
             </body>
         </html>

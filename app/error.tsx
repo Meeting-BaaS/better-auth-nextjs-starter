@@ -21,7 +21,7 @@ export default function ErrorBoundary({ error }: ErrorProps) {
     )
 
     return (
-        <div className="relative flex h-screen w-screen flex-col items-center justify-center bg-baas-black text-white">
+        <div className="relative flex max-h-screen max-w-screen grow flex-col items-center justify-center bg-dark-bg text-white">
             <div className="z-10 flex flex-col items-center justify-center gap-10 p-4 text-center">
                 <h1 className="font-bold text-3xl">Oops...something went wrong</h1>
                 <Image

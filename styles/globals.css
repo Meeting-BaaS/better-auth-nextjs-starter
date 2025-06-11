@@ -27,7 +27,6 @@
   --color-baas-warning-500: var(--baas-warning-500);
   --color-baas-primary-700: var(--baas-primary-700);
   --color-baas-black: var(--baas-black);
-  --color-dark-bg: var(--dark-bg);
   --color-microsoft-grey: var(--microsoft-grey);
   --color-github-green: var(--github-green);
   --color-gitlab-orange: var(--gitlab-orange);
@@ -64,7 +63,6 @@
   --baas-neutral-500: oklch(0.35 0.0121 188.07);
   --baas-warning-500: oklch(0.98 0.1298 108.58);
   --baas-primary-700: oklch(0.53 0.0548 187.47);
-  --dark-bg: oklch(0.29 0 0);
   --baas-black: oklch(0.26 0 0);
   /* Brand Logo colors */
   --microsoft-grey: oklch(0.55 0 0);
@@ -74,7 +72,7 @@
 }
 
 .dark {
-  --background: var(--dark-bg);
+  --background: oklch(0.29 0 0);
   --foreground: oklch(1 0 0);
   --popover: var(--baas-black);
   --primary-foreground: oklch(0.38 0.0245 253.58);

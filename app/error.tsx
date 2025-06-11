@@ -16,7 +16,7 @@ export default function ErrorBoundary({ error }: ErrorProps) {
     }, [error])
 
     const supportEmail = useMemo(
-        () => process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@meetinbaas.com",
+        () => process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@meetingbaas.com",
         []
     )
 

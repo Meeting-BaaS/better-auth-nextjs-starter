@@ -23,7 +23,7 @@ export default function ErrorBoundary({ error }: ErrorProps) {
                 <div className="max-w-4xl text-lg">
                     <p className="mb-1">
                         {error.message
-                            ? `${error.message}`
+                            ? error.message
                             : "There was an unknown error. Please refresh the page."}
                     </p>
                     If the error persists, please contact us on{" "}

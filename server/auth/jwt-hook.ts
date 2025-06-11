@@ -1,6 +1,7 @@
 import type { CookieOptions } from "better-auth"
 import { createAuthMiddleware } from "better-auth/api"
 import jwt from "jsonwebtoken"
+import { saveDefaultPreferences } from "@/server/auth/default-preferences"
 
 const getCookieAttributes = (remove?: boolean) => {
     const isProd = process.env.NODE_ENV === "production"
@@ -57,6 +58,7 @@ export const jwtHook = createAuthMiddleware(async (ctx) => {
         } = ctx.context.newSession
         const encodedId = encodeUserId(Number(id))
         ctx.setCookie("jwt", encodedId, getCookieAttributes())
+        await saveDefaultPreferences(Number(id))
     } else if (ctx.path.startsWith("/get-session") && ctx.context.session) {
         const jwt = ctx.getCookie("jwt")
         // if the jwt has been removed/expired, set it again for an active session

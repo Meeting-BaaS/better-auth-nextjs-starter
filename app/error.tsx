@@ -24,7 +24,13 @@ export default function ErrorBoundary({ error }: ErrorProps) {
         <div className="relative flex h-screen w-screen flex-col items-center justify-center bg-baas-black text-white">
             <div className="z-10 flex flex-col items-center justify-center gap-10 p-4 text-center">
                 <h1 className="font-bold text-3xl">Oops...something went wrong</h1>
-                <Image src="/error.svg" alt="Error" width={484} height={127} priority />
+                <Image
+                    src="/error.svg"
+                    alt="Illustration showing an application error state"
+                    width={484}
+                    height={127}
+                    priority
+                />
                 <div className="max-w-4xl text-lg">
                     <p className="mb-1">
                         {error.message

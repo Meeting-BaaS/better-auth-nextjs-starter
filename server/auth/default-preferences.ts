@@ -3,21 +3,21 @@
  * @param accountId - The account ID
  * @returns true if the preferences are saved successfully, false otherwise
  */
-export const saveDefaultPreferences = async (accountId: number): Promise<boolean> => {
+export const saveDefaultPreferences = async (accountId: number) => {
     const emailServiceUrl = process.env.EMAIL_API_SERVER_BASEURL
     const emailServiceApiKey = process.env.EMAIL_SERVICE_API_KEY
 
+    if (!emailServiceApiKey)
+        throw new Error(
+            "EMAIL_SERVICE_API_KEY is not set. Please set it in the environment variables."
+        )
+
+    if (!emailServiceUrl)
+        throw new Error(
+            "EMAIL_API_SERVER_BASEURL is not set. Please set it in the environment variables."
+        )
+
     try {
-        if (!emailServiceApiKey)
-            throw new Error(
-                "EMAIL_SERVICE_API_KEY is not set. Please set it in the environment variables."
-            )
-
-        if (!emailServiceUrl)
-            throw new Error(
-                "EMAIL_API_SERVER_BASEURL is not set. Please set it in the environment variables."
-            )
-
         const response = await fetch(`${emailServiceUrl}/account/default-preferences`, {
             method: "POST",
             headers: {
@@ -32,7 +32,6 @@ export const saveDefaultPreferences = async (accountId: number): Promise<boolean
                 `Failed to save default preferences: ${response.status} ${response.statusText}`
             )
         }
-        return true
     } catch (error) {
         console.error("Error calling save default preferences:", error)
         throw error

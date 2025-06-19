@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description: "Forgot Password to Meeting BaaS"
 }
 
-export default async function ForgotPasswordPage() {
+export default function ForgotPasswordPage() {
     return (
         <FormWrapper
             key="forgot-password"

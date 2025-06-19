@@ -29,10 +29,12 @@ export const emailService = async (endpoint: string, body: object) => {
         })
 
         if (!response.ok) {
+            const errorText = await response.text()
             throw new Error(
-                `Failed to call email service endpoint ${endpoint}: ${response.status} ${response.statusText}`
+                `Failed to call email service endpoint ${endpoint}: ${response.status} ${response.statusText}. ${errorText}`
             )
         }
+        return await response.json()
     } catch (error) {
         console.error(`Error calling email service endpoint ${endpoint}:`, error)
         throw error

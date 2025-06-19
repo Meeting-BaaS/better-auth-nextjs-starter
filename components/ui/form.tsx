@@ -12,7 +12,7 @@ import {
   type FieldPath,
   type FieldValues,
 } from "react-hook-form"
-import { motion, AnimatePresence } from "motion/react"
+import { motion, AnimatePresence, AnimationProps, HTMLMotionProps } from "motion/react"
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
@@ -137,7 +137,7 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
   )
 }
 
-function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
+function FormMessage({ className, ...props }: Omit<HTMLMotionProps<"p">, "ref">) {
   const { error, formMessageId } = useFormField()
   const body = error ? String(error?.message ?? "") : props.children
 
@@ -149,7 +149,7 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
           id={formMessageId}
           className={cn("text-destructive text-sm", className)}
           {...formMessageAnimation}
-          {...(props as any)}
+          {...props}
         >
           {body}
         </motion.p>

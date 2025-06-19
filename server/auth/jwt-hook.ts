@@ -1,7 +1,5 @@
-import type { CookieOptions } from "better-auth"
-import { createAuthMiddleware } from "better-auth/api"
+import type { CookieOptions, MiddlewareContext, MiddlewareOptions } from "better-auth"
 import jwt from "jsonwebtoken"
-import { saveDefaultPreferences } from "@/server/auth/default-preferences"
 
 const getCookieAttributes = (remove?: boolean) => {
     const isProd = process.env.NODE_ENV === "production"
@@ -51,25 +49,17 @@ const encodeUserId = (userId: number): string => {
     return encodeURIComponent(token)
 }
 
-export const jwtHook = createAuthMiddleware(async (ctx) => {
-    if (ctx.path.startsWith("/callback") && ctx.context.newSession) {
-        const {
-            user: { id }
-        } = ctx.context.newSession
-        const encodedId = encodeUserId(Number(id))
-        ctx.setCookie("jwt", encodedId, getCookieAttributes())
-        await saveDefaultPreferences(Number(id))
-    } else if (ctx.path.startsWith("/get-session") && ctx.context.session) {
-        const jwt = ctx.getCookie("jwt")
-        // if the jwt has been removed/expired, set it again for an active session
-        if (!jwt) {
-            const {
-                user: { id }
-            } = ctx.context.session
-            const encodedId = encodeUserId(Number(id))
-            ctx.setCookie("jwt", encodedId, getCookieAttributes())
-        }
-    } else if (ctx.path.startsWith("/sign-out")) {
-        ctx.setCookie("jwt", "", getCookieAttributes(true))
-    }
-})
+const JWT_COOKIE_NAME = "jwt"
+
+export const setJwtCookie = (ctx: MiddlewareContext<MiddlewareOptions>, id: string) => {
+    const encodedId = encodeUserId(Number(id))
+    ctx.setCookie(JWT_COOKIE_NAME, encodedId, getCookieAttributes())
+}
+
+export const removeJwtCookie = (ctx: MiddlewareContext<MiddlewareOptions>) => {
+    ctx.setCookie(JWT_COOKIE_NAME, "", getCookieAttributes(true))
+}
+
+export const getJwtCookie = (ctx: MiddlewareContext<MiddlewareOptions>) => {
+    return ctx.getCookie(JWT_COOKIE_NAME)
+}

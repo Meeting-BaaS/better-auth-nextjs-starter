@@ -26,11 +26,7 @@ export default async function SignUpPage({
             redirectLink={
                 <>
                     Already have an account?{" "}
-                    <Button
-                        variant="link"
-                        asChild
-                        className="h-auto p-0 text-inherit underline hover:text-primary"
-                    >
+                    <Button variant="link" asChild className="h-auto p-0">
                         <Link href={redirectionHref}>Log in</Link>
                     </Button>
                 </>

@@ -1,10 +1,10 @@
 import { opacityVariant } from "@/animations/opacity"
 import { cn } from "@/lib/utils"
 import { motion } from "motion/react"
-import { Badge } from "../ui/badge"
+import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { CREDENTIALS_URL } from "@/lib/external-urls"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 
 interface HeadingProps {
     title?: string

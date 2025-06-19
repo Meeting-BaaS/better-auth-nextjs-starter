@@ -12,9 +12,11 @@ import {
   type FieldPath,
   type FieldValues,
 } from "react-hook-form"
+import { motion, AnimatePresence } from "motion/react"
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
+import { formMessageAnimation } from "@/animations/auth/auth-forms"
 
 const Form = FormProvider
 
@@ -80,7 +82,7 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
     <FormItemContext.Provider value={{ id }}>
       <div
         data-slot="form-item"
-        className={cn("grid gap-2", className)}
+        className={cn("grid gap-1", className)}
         {...props}
       />
     </FormItemContext.Provider>
@@ -139,19 +141,20 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   const { error, formMessageId } = useFormField()
   const body = error ? String(error?.message ?? "") : props.children
 
-  if (!body) {
-    return null
-  }
-
   return (
-    <p
-      data-slot="form-message"
-      id={formMessageId}
-      className={cn("text-destructive text-sm", className)}
-      {...props}
-    >
-      {body}
-    </p>
+    <AnimatePresence mode="wait">
+      {body && (
+        <motion.p
+          data-slot="form-message"
+          id={formMessageId}
+          className={cn("text-destructive text-sm", className)}
+          {...formMessageAnimation}
+          {...(props as any)}
+        >
+          {body}
+        </motion.p>
+      )}
+    </AnimatePresence>
   )
 }
 

@@ -13,11 +13,13 @@ import { FormFields } from "@/components/auth/form-fields"
 import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 import { type ResetPasswordFormData, ResetPasswordSchema } from "@/lib/validators"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 
-export default function ResetPasswordForm() {
-    const searchParams = useSearchParams()
-    const token = searchParams.get("token")
+interface ResetPasswordFormProps {
+    token: string | undefined
+}
+
+export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
     const router = useRouter()
     const form = useForm<ResetPasswordFormData>({
         resolver: yupResolver(ResetPasswordSchema),

@@ -7,14 +7,21 @@ export const metadata: Metadata = {
     description: "Reset Password to Meeting BaaS"
 }
 
-export default async function ResetPasswordPage() {
+export default async function ResetPasswordPage({
+    searchParams
+}: {
+    searchParams: Promise<{ token: string | undefined }>
+}) {
+    const params = await searchParams
+    const { token } = params
+
     return (
         <FormWrapper
             key="reset-password"
             title="Reset Password"
             subtitle="Please enter your new password."
         >
-            <ResetPasswordForm />
+            <ResetPasswordForm token={token} />
         </FormWrapper>
     )
 }

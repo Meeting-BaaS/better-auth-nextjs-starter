@@ -45,6 +45,9 @@
         "API_SERVER_BASEURL",
         "NEXT_PUBLIC_REDIS_URL_MCP",
         "AI_CHAT_DB",
-        "AI_CHAT_APP_URL"
+        "AI_CHAT_APP_URL",
+        "EMAIL_API_SERVER_BASEURL",
+        "EMAIL_SERVICE_API_KEY",
+        "NEXT_PUBLIC_SUPPORT_EMAIL"
     ]
 }

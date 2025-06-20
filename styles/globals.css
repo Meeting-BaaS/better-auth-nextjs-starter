@@ -27,6 +27,7 @@
   --color-baas-warning-500: var(--baas-warning-500);
   --color-baas-primary-700: var(--baas-primary-700);
   --color-baas-black: var(--baas-black);
+  --color-google-blue: var(--google-blue);
   --color-microsoft-grey: var(--microsoft-grey);
   --color-github-green: var(--github-green);
   --color-gitlab-orange: var(--gitlab-orange);
@@ -65,6 +66,7 @@
   --baas-primary-700: oklch(0.53 0.0548 187.47);
   --baas-black: oklch(0.26 0 0);
   /* Brand Logo colors */
+  --google-blue: oklch(0.63 0.1803 259.76);
   --microsoft-grey: oklch(0.55 0 0);
   --github-green: oklch(0.55 0.147 146.41);
   --gitlab-orange: oklch(0.7 0.1901 43.17);

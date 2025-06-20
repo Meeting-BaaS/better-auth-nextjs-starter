@@ -4,9 +4,10 @@ import { v4 as uuidv4 } from "uuid"
 
 import { db } from "@/database/db"
 import * as schema from "@/database/schema"
-import { jwtHook } from "@/server/auth/jwt-hook"
+import { afterHook } from "@/server/auth/after-hook"
 import { splitName, updateUserProfile } from "@/server/auth/update-user-profile"
 import { generateBotsApiKey } from "@/server/auth/bots-api-key"
+import { sendPasswordResetEmail, sendVerificationEmail } from "@/server/auth/emails-api"
 
 let cookieOptions = {}
 if (process.env.NODE_ENV === "production") {
@@ -35,6 +36,23 @@ export const auth = betterAuth({
         usePlural: true,
         schema
     }),
+    emailAndPassword: {
+        enabled: true,
+        autoSignIn: false,
+        requireEmailVerification: true,
+        sendResetPassword: async ({ user, url }) => {
+            const [firstName] = splitName(user.name)
+            await sendPasswordResetEmail(firstName || user.name, user.email, url)
+        }
+    },
+    emailVerification: {
+        sendVerificationEmail: async ({ user, url }) => {
+            const [firstName] = splitName(user.name)
+            await sendVerificationEmail(firstName || user.name, user.email, url)
+        },
+        sendOnSignUp: true,
+        autoSignInAfterVerification: true
+    },
     user: {
         additionalFields: {
             firstname: {
@@ -74,9 +92,16 @@ export const auth = betterAuth({
             },
             password: {
                 type: "string",
-                defaultValue: uuidv4,
+                transform: {
+                    input: (value) => {
+                        if (value) {
+                            return value
+                        }
+                        return uuidv4()
+                    }
+                },
                 returned: false,
-                input: false
+                input: true
             }
         }
     },
@@ -165,7 +190,7 @@ export const auth = betterAuth({
         }
     },
     hooks: {
-        after: jwtHook
+        after: afterHook
     },
     advanced: {
         database: {

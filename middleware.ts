@@ -1,7 +1,7 @@
 import { getSessionCookie } from "better-auth/cookies"
 import { type NextRequest, NextResponse } from "next/server"
 
-const authRoutes = ["/sign-in", "/sign-up"]
+const authRoutes = ["/sign-in", "/sign-up", "/verify-email", "/forgot-password", "/reset-password"]
 const allowedOrigins =
     process.env.TRUSTED_ORIGINS?.split(",")
         .map((o) => o.trim())

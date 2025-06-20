@@ -1,3 +1,5 @@
+import type { AnimationProps } from "motion/react"
+
 export const containerVariant = {
     hidden: { opacity: 0, y: "5%" },
     visible: {
@@ -23,5 +25,15 @@ export const itemVariant = {
         transition: {
             duration: 0.25
         }
+    }
+}
+
+export const formMessageAnimation: AnimationProps = {
+    initial: { opacity: 0, y: -10, height: 0 },
+    animate: { opacity: 1, y: 0, height: "auto" },
+    exit: { opacity: 0, y: -10, height: 0 },
+    transition: {
+        duration: 0.2,
+        ease: "easeOut"
     }
 }

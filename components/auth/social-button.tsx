@@ -10,7 +10,6 @@ interface SocialButtonProps {
     loading: boolean
     socialLoading: string | undefined
     primary?: boolean
-    continueWithText?: string
 }
 
 export const SocialButton = ({
@@ -21,7 +20,6 @@ export const SocialButton = ({
     socialLoading,
     primary,
     className,
-    continueWithText,
     ...props
 }: Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof SocialButtonProps> &
     SocialButtonProps) => {
@@ -42,11 +40,7 @@ export const SocialButton = ({
                 logo
             )}
 
-            {primary && (
-                <span className="font-medium">
-                    {continueWithText || "Continue with"} {title}
-                </span>
-            )}
+            {primary && <span className="font-medium">{title}</span>}
         </Button>
     )
 }

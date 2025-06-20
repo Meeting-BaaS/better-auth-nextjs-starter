@@ -14,14 +14,6 @@ interface Provider {
     className?: string
 }
 
-export const primaryProvider: Provider = {
-    name: "google",
-    title: "Google",
-    logo: <GoogleLogo />,
-    // Indicates this is the main/default authentication option
-    primary: true
-}
-
 // Temporarily commenting provider buttons until they are configured in higher environments
 export const providers: Provider[] = [
     // {
@@ -30,6 +22,12 @@ export const providers: Provider[] = [
     //     logo: <MicrosoftLogo />,
     //     className: "hover:bg-microsoft-grey"
     // },
+    {
+        name: "google",
+        title: "Google",
+        logo: <GoogleLogo />,
+        className: "hover:bg-google-blue"
+    },
     {
         name: "github",
         title: "GitHub",

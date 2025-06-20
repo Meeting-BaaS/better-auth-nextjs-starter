@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         type: "website",
         title: "Meeting BaaS Authentication | Single Sign On",
         description:
-            "Deploy meeting bots in seconds, get analytics, automatic transcription, and monitoring across video conference platforms",
+            "Access the full Meeting BaaS suite of tools for meeting bots, real-time transcription, and analytics",
         siteName: "Meeting BaaS",
         url: "https://auth.meetingbaas.com",
         locale: "en_US",

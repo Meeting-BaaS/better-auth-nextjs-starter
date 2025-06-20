@@ -34,12 +34,15 @@ export const metadata: Metadata = {
         description:
             "Deploy meeting bots in seconds, get analytics, automatic transcription, and monitoring across video conference platforms",
         siteName: "Meeting BaaS",
+        url: "https://auth.meetingbaas.com",
+        locale: "en_US",
         images: [
             {
                 url: "/og-image.png",
                 width: 1200,
                 height: 630,
-                alt: "Meeting BaaS Authentication"
+                alt: "Meeting BaaS Authentication",
+                type: "image/png"
             }
         ]
     },
@@ -48,7 +51,9 @@ export const metadata: Metadata = {
         title: "Meeting BaaS Authentication | Single Sign On",
         description:
             "Deploy meeting bots in seconds, get analytics, automatic transcription, and monitoring across video conference platforms",
-        images: ["/og-image.png"]
+        images: ["/og-image.png"],
+        creator: "@MeetingBaas",
+        site: "@MeetingBaas"
     },
     category: "Video Conferencing Tools",
     applicationName: "Meeting BaaS",
@@ -57,7 +62,14 @@ export const metadata: Metadata = {
     referrer: "origin-when-cross-origin",
     robots: {
         index: true,
-        follow: true
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1
+        }
     }
 }
 
@@ -75,6 +87,7 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning>
             <head>
                 <link rel="preconnect" href="https://images.unsplash.com" />
+                <link rel="apple-touch-icon" href="/logo.png" />
             </head>
             <body className={`${sofiaSans.className} flex min-h-screen flex-col antialiased`}>
                 <Providers>{children}</Providers>
